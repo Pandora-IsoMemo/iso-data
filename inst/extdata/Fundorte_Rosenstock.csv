@@ -1,0 +1,677 @@
+﻿ID;Fundorte;Land;Lage;Typ;Breite;Länge
+18;Plinkaigalis;Litauen;Inland, Fluss;Grab;55,414;23,661
+24;Turlojiškė;Litauen;Inland, Fluss;Grab;54,357;23,322
+26;Altdorf-Aich;Deutschland;Inland, Fluss;Grab;48,562104;12,09967
+28;Bergrheinfeld;Deutschland;Inland, Fluss;Grab;50;10,166667
+29;Buchbrunn;Deutschland;Inland, Fluss;Grab;49,759167;10,135
+30;Burgweinting;Deutschland;Inland, Fluss;Grab;48,988889;12,152778
+31;Dillingen;Deutschland;Inland, Fluss;Grab;48,566667;10,466667
+32;Eichendorf;Deutschland;Inland, Fluss;Grab;48,633333;12,85
+33;Essenbach;Deutschland;Inland, Fluss;Grab;48,616667;12,216667
+35;Kelheim;Deutschland;Inland, Fluss;Grab;48,916667;11,866667
+36;Köfering;Deutschland;Inland, Fluss;Grab;48,938056;12,195
+37;Kösching;Deutschland;Inland, Fluss;Grab;48,810833;11,500833
+40;Landshut;Deutschland;Inland, Fluss;Grab;48,539722;12,150833
+41;Mintraching;Deutschland;Inland, Fluss;Grab;48,951944;12,245833
+43;Mötzing;Deutschland;Inland, Fluss;Grab;48,894167;12,373889
+44;Niederpöring;Deutschland;Inland, Fluss;Grab;48,712214;12,840406
+45;Olching-Esting;Deutschland;Inland, Fluss;Grab;48,208611;11,335556
+46;Osterhofen;Deutschland;Inland, Fluss;Grab;48,7;13,016667
+47;Pilsting;Deutschland;Inland, Fluss;Grab;48,7;12,65
+49;Riekofen;Deutschland;Inland, Fluss;Grab;48,917778;12,350278
+50;Sengkofen;Deutschland;Inland, Fluss;Grab;48,92457;12,28741
+52;Straubing;Deutschland;Inland, Fluss;Grab;48,883333;12,566667
+53;Teugn;Deutschland;Inland, Fluss;Grab;48,9;12,016667
+54;Weichering;Deutschland;Inland, Fluss;Grab;48,716667;11,316667
+55;Wildenberg;Deutschland;Inland, Fluss;Grab;48,733333;11,916667
+56;Wischlburg;Deutschland;Inland, Fluss;Grab;48,827778;12,778056
+58;Aiterhofen;Deutschland;Inland, Fluss;Grab;48,85;12,616667
+118;Abri des Autours (Anseremme);Belgien;Inland, Fluss;Grab;50,223708;4,89398
+121;Caverne de Jausse (Faux-les-Tombes);Belgien;Inland, Fluss;Grab;50,428;4,999
+122;Diaclase;Belgien;Inland, Fluss;Grab;50,367;4,467
+138;Hastière;Belgien;Inland, Fluss;Grab;50,217;4,817
+142;La Cimetière (Hastière);Belgien;Inland, Fluss;Grab;50,216667;4,833333
+143;Petit Ri (Malonne);Belgien;Inland, Fluss;Grab;50,433;4,783
+145;Petite Caverne (Hastière);Belgien;Inland, Fluss;Grab;50,216667;4,833333
+156;Waulsort;Belgien;Inland, Fluss;Grab;50,2;4,683333
+241;Pepkino;Mari-El;Inland, Fluss;Grab;56,221882;46,532054
+245;Trebur;Deutschland;Inland, Fluss;Grab;49,925;8,405556
+295;Prag-Miškovice;Tschechien;Inland, Fluss;Grab;50,083333;14,416667
+445;Magyarhomorog;Ungarn;Inland, Fluss;Grab;47,02245;21,54396
+454;Tiszapolgár-Basatanya;Ungarn;Inland, Fluss;Grab;47,816667;21,1
+477;Unseburg;Deutschland;Inland, Fluss;Grab;51,930556;11,517778
+533;Labbacallee;Irland;Inland, Fluss;Grab;52,169838;-8,336886
+579;Devèzes de Maymac, Bertholène;S-Frankreich;Inland, Fluss;Grab;44,395556;2,779444
+617;Aygurskiy;Kaukasus (Russland);Inland, Fluss;Grab;46,057985;43,494873
+684;Bois Laiterie (Profondeville);Belgien;Inland, Fluss;Grab;50,383333;4,866667
+778;Dereivka;Ukraine;Inland, Fluss;Grab;48,916667;33,666667
+780;Molukhov Bugor;Ukraine;Inland, Fluss;Grab;49,133333;32,466667
+781;Nikolskoye;Ukraine;Inland, Fluss;Grab;48,183333;35,166667
+782;Yasinovatka;Ukraine;Inland, Fluss;Grab;48,85;35,15
+783;Vasilyevka;Ukraine;Inland, Fluss;Grab;48,25;33,766667
+785;Marievka;Ukraine;Inland, Fluss;Grab;48,180281;35,290833
+786;Osipovka;Ukraine;Inland, Fluss;Grab;49,15;35,15
+974;Domasław;Polen;Inland, Fluss;Grab;51,01114;16,956287
+975;Kąty Wrocławskie;Polen;Inland, Fluss;Grab;51,033333;16,766667
+976;Magnice;Polen;Inland, Fluss;Grab;50,988343;16,958972
+977;Milejowice;Polen;Inland, Fluss;Grab;50,964344;17,090103
+981;Nowa Wieś Wrocławska;Polen;Inland, Fluss;Grab;51,046224;16,916126
+982;Ozorzyce;Polen;Inland, Fluss;Grab;50,977222;16,866389
+984;Przesławice;Polen;Inland, Fluss;Grab;50,917631;16,958638
+987;Skrzypnik;Polen;Inland, Fluss;Grab;50,889261;17,178341
+990;Tomice;Polen;Inland, Fluss;Grab;50,848056;16,8175
+992;Widawa;Polen;Inland, Fluss;Grab;51,177222;17,015833
+993;Wojkowice;Polen;Inland, Fluss;Grab;50,980711;17,070463
+1070;Nossamaden;Schweden;Inland, Fluss;Grab;58,082488;12,827686
+1323;Zolotarevka;Nord Kaukasus;Inland, Fluss;Grab;45,833333;42,116667
+1338;Hardinxveld Polderweg;Niederlande;Inland, Fluss;Grab;51,839198;4,824715
+1339;Hardinxveld-De Bruin;Niederlande;Inland, Fluss;Grab;51,83;4,87
+1375;Olmo di Nogara;Italien;Inland, Fluss;Grab;45,183333;11,066667
+1441;Endrőd Varnyai-tanya;Ungarn;Inland, Fluss;Grab;46,936281;20,82345
+1444;Maroslele-Pana;Ungarn;Inland, Fluss;Grab;46,267;20,35
+1456;Fussel´s Lodge Long Barrow;GB;Inland, Fluss;Grab;51,091224;-1,72751
+1468;Papillon, Alba;Italien;Inland, Fluss;Grab;44,689809;8,0157
+1;Shanidar;Irak;Inland, Fluss;Höhle;36,8006;44,2433
+27;Alteglofsheim;Deutschland;Inland, Fluss;Einzelfund;48,92;12,203611
+34;Großmehring;Deutschland;Inland, Fluss;Einzelfund;48,766667;11,533333
+38;Künzing;Deutschland;Inland, Fluss;Einzelfund;48,669722;13,080278
+39;Landau;Deutschland;Inland, Fluss;Einzelfund;49,199444;8,123056
+42;Moosham;Deutschland;Inland, Fluss;Einzelfund;48,925502;12,270935
+48;Polling;Deutschland;Inland, Fluss;Einzelfund;47,811111;11,130833
+51;Stephansposching;Deutschland;Inland, Fluss;Einzelfund;48,816667;12,8
+113;Les Awirs Cave;Belgien;Inland, Fluss;Höhle;50,592222;5,408889
+128;Grotte de Claminforge;Belgien;Inland, Fluss;Höhle;50,409283;4,618077
+129;Grotte Faille du Burin (Thon);Belgien;Inland, Fluss;Höhle;50,466246;4,995689
+130;Grotte Lombeau (Mont-sur-Marchienne);Belgien;Inland, Fluss;Höhle;50,383333;4,4
+133;Grotte Margaux (Anseremme);Belgien;Inland, Fluss;Höhle;50,238333;4,905556
+147;Spienne;Belgien;Inland, Fluss;Mine;50,416667;3,983333
+149;Trou Fanfan (Hastière);Belgien;Inland, Fluss;Höhle;50,216667;4,833333
+150;Trou Félix (Falmignoul);Belgien;Inland, Fluss;Höhle;50,2;4,9
+153;Trou Garçon (Hastière);Belgien;Inland, Fluss;Höhle;50,216667;4,833333
+159;Ajdovska Jama;O-Slowenien;Inland, Fluss;Höhle;45,966667;15,483333
+162;Climente cave;Rumänien;Inland, Fluss;Höhle;44,590733;22,2585
+172;Gomolava;Serbien;Inland, Fluss;Grab, Siedlung;44,9;19,766667
+173;Vinča-Belo Brdo;Serbien;Inland, Fluss;Grab, Siedlung;44,77;19,46
+176;Padina;Serbien;Inland, Fluss;Grab, Siedlung;44,59;21,94
+178;Pestenacker;Deutschland;Inland, Fluss;Grab, Siedlung;48,154944;10,944136
+206;Reuviau Cave;Belgien;Inland, Fluss;Höhle;50,21666667;4,95
+212;Emsdetten;N-Deutschland;Inland, Fluss;Einzelfund;52,183333;7,55
+214;Moèa, Komárnu District;Slowakei;Inland, Fluss;Einzelfund;47,75;18,416667
+230;Algar do Bom Santo;Portugal;Inland, Fluss;Höhle;39,197222;-9,042222
+236;Grotta del Romito;Italien;Inland, Fluss;Höhle;39,910833;15,928333
+237;Arapouco;Portugal;Inland, Fluss;Grab, Siedlung;38,32;-8,49
+239;Cabeço do Pez;Portugal;Inland, Fluss;Grab, Siedlung;38,25;-8,33
+242;Saint-Germain-la-Rivière;W-Frankreich;Inland, Fluss;Höhle;44,9486;-0,3314
+243;Herxheim;Deutschland;Inland, Fluss;Grab, Siedlung;49,146944;8,22
+303;Tell Leilan;Syrien;Inland, Fluss;Grab, Siedlung;36,957222;41,505278
+403;Vaihingen an der Enz;Deutschland;Inland, Fluss;Grab, Siedlung;48,932778;8,956389
+413;Balma Guilanya;Spanien;Inland, Fluss;Höhle;42,088674;1,617795
+441;Hódmezővásárhely-Gorzsa;Ungarn;Inland, Fluss;Siedlung;46,43039;20,31881
+442;Kisköre-Gát;Ungarn;Inland, Fluss;Siedlung;47,5;20,5
+450;Polgár-Csőszhalom;Ungarn;Inland, Fluss;Siedlung;47,846833;21,148913
+455;Vésztő-Bikeri;Ungarn;Inland, Fluss;Siedlung;46,922248;21,203084
+456;Vésztő-Mágor;Ungarn;Inland, Fluss;Siedlung;46,939451;21,214879
+476;Schellnecker Wänd;Deutschland;Inland, Fluss;Höhle;48,92515;11,81425
+501;Abri Pataud;W-Frankreich;Inland, Fluss;Höhle;44,936;1,018
+502;Cap Blanc;W-Frankreich;Inland, Fluss;Höhle;44,9456;1,09694
+503;Duruthy;W-Frankreich;Inland, Fluss;Höhle;43,529;-1,052
+504;La Madelaine;W-Frankreich;Inland, Fluss;Höhle;44,966944;1,036389
+505;Cro-Magnon;W-Frankreich;Inland, Fluss;Höhle;44,9406;1,0096
+508;Durrington;GB;Inland, Fluss;;51,1925;-1,786667
+509;Badger Hole;GB;Inland, Fluss;Höhle;51,228812;-2,671051
+510;Lama dei Peligni;Italien;Inland, Fluss;;42,041667;14,185833
+512;Birsmatten-Basisgrotte;Schweiz;Inland, Fluss;Höhle;47,444967;7,550007
+514;Flagstones;GB;Inland, Fluss;;50,708326;-2,420421
+519;Fuente-Olmedo;Spanien;Inland, Fluss;;41,233333;-0,95
+520;Grotte du Coleoptere;Belgien;Inland, Fluss;Höhle;50,366667;5,533333
+521;Strépy B, Mons;Belgien;Inland, Fluss;Mine;50,467;4,117
+523;Eden Walk;GB;Inland, Fluss;;51,410433;-0,303272
+526;Blackhill;Irland;Inland, Fluss;;53,349683;-6,530643
+527;Culleens td,Co.Sligo;Irland;Inland, Fluss;;54,212205;-8,990532
+532;Jerpoint West;Irland;Inland, Fluss;;53,5;-7,166667
+534;Lisduggan North;Irland;Inland, Fluss;;52,183333;-8,9
+535;Lisnamulligan;Irland;Inland, Fluss;;54,784637;-7,61938
+538;Phoenix Park;Irland;Inland, Fluss;;53,366667;-6,333333
+545;Sliguff;Irland;Inland, Fluss;;52,5;-6,966667
+550;Trou de Frontal;Belgien;Inland, Fluss;Höhle;50,216667;4,95
+554;Hill Close, Feltwell;GB;Inland, Fluss;;52,486413;0,519365
+555;Methwold Severals;GB;Inland, Fluss;;52,532279;0,450811
+556;Shippea Hill;GB;Inland, Fluss;;52,43;0,413
+563;El Oficio, Cuevas, Almeria;Spanien;Inland, Fluss;;37,316667;-1,866667
+564;El Picacho, Oria, Almeria;Spanien;Inland, Fluss;;37,5;-2,283333
+570;Obłazowa Cave;Polen;Inland, Fluss;Höhle;49,428599;20,126258
+571;Abu Hureyra;Syrien;Inland, Fluss;Grab, Siedlung;35,866667;38,4
+581;Houleau;W-Frankreich;Inland, Fluss;Höhle;44,825;-0,083889
+609;Lashchova;Ukraine;Inland, Fluss;;48,946181;30,630569
+613;Klin-Yar;Kaukasus (Russland);Inland, Fluss;Grab, Siedlung;43,916667;42,716667
+614;Vovnigi;Ukraine;Inland, Fluss;;48,132835;35,081514
+688;Coswig, Buroer Feld;Deutschland;Inland, Fluss;;51,891809;12,408205
+705;Le Crès à Béziers;S-Frankreich;Inland, Fluss;Grab, Siedlung;43,3476;3,219
+710;Les Plots (Berriac, Aude);S-Frankreich;Inland, Fluss;Grab, Siedlung;43,2175;2,414167
+770;Belišće St Valpovo;O-Kroatien;Inland, Fluss;;45,683333;18,4
+773;Vuĉedol;O-Kroatien;Inland, Fluss;Grab, Siedlung;45,35;19
+776;Vukovar-Gimnazija;O-Kroatien;Inland, Fluss;;45,346147;19,008434
+798;Nevalı Ҫori;Türkei;Inland, Fluss;Grab, Siedlung;37,583333;38,65
+812;Moita do Sebastião;Portugal;Inland, Fluss;Grab, Siedlung;39,1;-8,683333333
+814;Cabeço da Arruda;Portugal;Inland, Fluss;Grab, Siedlung;39,110833;-8,663583
+820;Stolpe;N-Deutschland;Inland, Fluss;Einzelfund;53,8724695;13,56056213
+825;Niederröblingen;Deutschland;Inland, Fluss;Grab, Siedlung;51,42449342;11,33930508
+859;Hermitage (Castleconnell), Limerick;Irland;Inland, Fluss;Grab, Siedlung;52,716667;-8,52
+862;Killuragh Cave, Limerick;Irland;Inland, Fluss;Höhle;52,597417;-8,321199
+869;The Cutts (Site 1), Derry;Irland;Inland, Fluss;Einzelfund;55,11;-6,65
+870;Cabeço da Amoreira;Portugal;Inland, Fluss;Grab, Siedlung;39,1;-8,666666667
+873;Cova da Onça;Portugal;Inland, Fluss;Grab, Siedlung;38,99;-8,68
+876;Bower Farm, Staffordshire;GB;Inland, Fluss;Höhle;52,76;-1,94
+880;Pontnewydd;GB;Inland, Fluss;Höhle;51,66284;-3,020681
+881;Staythorpe, Nottinghamshire;GB;Inland, Fluss;Einzelfund;53,07;-0,86
+882;Whaley, Derbyshire;GB;Inland, Fluss;Höhle;53,4;-1,4
+914;Noyen-sur-Seine;N-Frankreich;Inland, Fluss;Grab, Siedlung;48,4517;3,3511
+948;Theopetra;Griechenland;Inland, Fluss;Höhle;39,680833;21,679444
+959;Aşıklı Höyük;Türkei;Inland, Fluss;Grab, Siedlung;38,349;34,23
+964;Acquaviva di Besenello;Italien;Inland, Fluss;;45,94416;11,107387
+999;Buran-Kaya;Ukraine;Inland, Fluss;Höhle;45,002917;34,404528
+1090;Olomouc-Savonín, Horní lán;Tschechien;Inland, Fluss;Grab, Siedlung;49,57671646;17,23105001
+1098;Kamen;Deutschland;Inland, Fluss;Einzelfund;51,588275;7,659046
+1110;Marillac;W-Frankreich;Inland, Fluss;Höhle;45,7361;0,4306
+1111;Kostenki;Russland;Inland, Fluss;Grab, Siedlung;51,389352;39,05983
+1114;Dolní Věstonice;Tschechien;Inland, Fluss;Grab, Siedlung;48,887778;16,649167
+1117;Les Pradelles (Marillac);W-Frankreich;Inland, Fluss;Höhle;45,7361;0,4306
+1210;Les Rochers-de-Villeneuve (Vienne);W-Frankreich;Inland, Fluss;Höhle;46,415;-0,740833
+1212;Scladina;Belgien;Inland, Fluss;Höhle;50,483794;5,025773
+1214;St. Césaire;W-Frankreich;Inland, Fluss;Höhle;45,7531;-0,5061
+1215;Jonzac;W-Frankreich;Inland, Fluss;Höhle;45,4467;-0,4336
+1216;Kleine Feldhofer Grotte;Deutschland;Inland, Fluss;Höhle;51,2275;6,945556
+1232;Coves de Santa Maira;Spanien;Inland, Fluss;Höhle;38,724722;-0,194444
+1362;Eton Rowing Lake;GB;Inland, Fluss;Streufund, Grab;51,492;-0,608
+1463;Borgo Moretta;Italien;Inland, Fluss;;44,695286;8,037479
+1464;Fossano, Alba;Italien;Inland, Fluss;;44,551633;7,722899
+1465;Ginestre, Alba;Italien;Inland, Fluss;;44,693228;8,017626
+1466;L'Oasi, Alba;Italien;Inland, Fluss;;44,686394;8,006768
+1467;Mokafé, Alba;Italien;Inland, Fluss;;44,686217;8,012396
+1469;San Cassiano, Alba;Italien;Inland, Fluss;;44,680872;7,986753
+1471;Mal'ta;Russland;Inland, Fluss;;51,754067;84,05
+7;Tell al-Husn;Jordanien;Inland;Grab, Siedlung;32,45;35,616667
+112;Ofnet Höhle;Deutschland;Inland;Höhle;48,818502;10,450318
+148;Trou de la PJ (Ferrières);Belgien;Inland;Höhle;50,4;5,6
+185;Monte Covolo;Italien;Inland;Höhle;45,61184;10,49147
+202;Chaleux Cave;Belgien;Inland;Höhle;50,219175;4,948706
+203;Freyr Cave;Belgien;Inland;Höhle;50,226;4,889
+204;Furfooz, Trou Rosette;Belgien;Inland;Höhle;50,223927;4,958525
+205;Magritte Cave;Belgien;Inland;Höhle;50,2222798;4,9139
+207;Trou-des-Blaireaux;Belgien;Inland;Höhle;50,116258;4,732876
+208;Binshof, Speyer;Deutschland;Inland;Einzelfund;49,466667;8,466667
+209;Irlich, Neuwied;Deutschland;Inland;Höhle;50,446944;7,445833
+210;Urdhöhle (Döbritz), Thüringen;Deutschland;Inland;Höhle;50,688;11,640611
+222;Baile Herculane;Rumänien;Inland;;44,878611;22,414167
+315;Boelkilde;Dänemark;Inland;Einzelfund;55,0150305;9,837928245
+318;Ferle Enge;Dänemark;Inland;Einzelfund;56,08815859;12,37549782
+319;Føllenslev;Dänemark;Inland;Einzelfund;55,725278;11,351944
+321;Hedegård;Dänemark;Inland;Grab, Siedlung;56,8908856;9,576657443
+329;Koelbjerg;Dänemark;Inland;Einzelfund;55,403611;10,133056
+339;Mullerup;Dänemark;Inland;Grab, Siedlung;55,492082;11,21026
+414;Riparo Tagliente;Italien;Inland;Höhle;45,516667;11,016667
+480;Neuessing;Deutschland;Inland;Höhle;48,216667;11,333333
+507;Charterhouse Warren;GB;Inland;Höhle;51,28809;-2,72755
+513;Creswell Crags;GB;Inland;Höhle;53,2612;-1,19793
+530;Halverstown;Irland;Inland;;53,1;-6,75
+547;Topped Mountain;Irland;Inland;;54,366667;-7,5
+552;Hemplands Farm;GB;Inland;;55,101147;-3,535237
+560;Loccum, Hannover;N-Deutschland;Inland;;52,45;9,15
+562;El Argar, Antas, Almeria;Spanien;Inland;;37,25;-1,916667
+565;Fuente Alamo, Cuevas, Almeria;Spanien;Inland;;38,69318;-1,4317
+580;Cairn de Ty-Floc´h, Finistère;W-Frankreich;Inland;Höhle;48,157;-3,898
+584;King Arthur's Cave Herefordshire;GB;Inland;Höhle;51,83694;-2,66056
+595;Montou;S-Frankreich;Inland;Grab, Siedlung;42,653531;2,679931
+596;Cugnaux;W-Frankreich;Inland;Grab, Siedlung;43,5386;1,3444
+600;Villeneuve-Tolosane;W-Frankreich;Inland;Grab, Siedlung;43,5247;1,3425
+602;Ilsenhöhle, Ranis;Deutschland;Inland;Höhle;50,662583;11,564861
+610;Pogorilivka;Ukraine;Inland;;48,366667;25,65
+689;Fuchskirche I, Allendorf;Deutschland;Inland;Höhle;50,653156;11,155339
+711;Balsignano;Italien;Inland;Grab, Siedlung;41,083333;16,783333
+714;Masseria Maselli;Italien;Inland;Grab, Siedlung;41,117642;16,77269
+715;Palata;Italien;Inland;Grab, Siedlung;41,883333;14,783333
+716;Ripa Tetta;Italien;Inland;Grab, Siedlung;41,5;15,333333
+731;Ageröd I (Munkarp);Schweden;Inland;Siedlung;55,936111;13,428611
+739;Hanaskede;Schweden;Inland;Einzelfund;58,383331;13,566667
+771;Osijek-Filipovica;O-Kroatien;Inland;;45,557531;18,679589
+772;Radovanci;O-Kroatien;Inland;;45,443;17,648
+805;Gruta da Feteira;Portugal;Inland;Höhle;39,275833;-9,279444
+806;Gruta das Fontainhas;Portugal;Inland;Höhle;41,415;-8,65
+807;Gruta do Caldeirão;Portugal;Inland;Höhle;39,648333;-8,415
+810;Roche Forte;Portugal;Inland;Höhle;41,415;-8,65
+836;Hauslabjoch;Italien/Österreich;Inland;Einzelfund;46,779389;10,840306
+846;Avenc dels Dos Forats;Spanien;Inland;Höhle;39,122222;-0,448889
+847;Cova de la Pastora;Spanien;Inland;Höhle;38,698333;-0,473611
+868;Sramore (Srahmore), Leitrim;Irland;Inland;Höhle;54,26;-8,28
+915;Nieder-Mörlen;Deutschland;Inland;Grab, Siedlung;50,380833;8,726111
+923;Derenburg Meerenstieg;Deutschland;Inland;Grab, Siedlung;51,866667;10,9
+927;Halberstadt Sonntagsfeld;Deutschland;Inland;Grab, Siedlung;51,895833;11,046667
+929;Karsdorf;Deutschland;Inland;Grab, Siedlung;51,283056;11,65
+946;Kouveleiki;Griechenland;Inland;Grab, Siedlung;36,970333;22,764942
+947;Tharrounia;Griechenland;Inland;Höhle;38,5166667;23,9833333
+950;Xirolimni;Griechenland;Inland;Grab, Siedlung;40,296;21,658
+972;Mezmaiskaya Cave;Kaukasus;Inland;Höhle;44,166667;40
+1023;Ulvemose;Dänemark;Inland;Grab, Hort;54,953534;9,216638
+1049;Hallonflickan;Schweden;Inland;Grab, Hort;58,113261;13,520492
+1105;Gough’s Cave;GB;Inland;Höhle;51,281389;-2,764167
+1107;Sun Hole Cave;GB;Inland;Höhle;51,283532;-2,765622
+1108;Vindija;O-Kroatien;Inland;Höhle;46,299331;16,070681
+1122;Ҫatalhöyük East;Türkei;Inland;Grab, Siedlung;37,6675;32,828333
+1136;Dorchester;GB;Inland;Grab, Siedlung;50,7;-2,433333
+1139;Hambledon Hill;GB;Inland;Grab, Siedlung;50,9125;-2,221944
+1146;Markland Grips;GB;Inland;Höhle;53,270445;-1,236747
+1150;Ossom´s Cave;GB;Inland;Höhle;53,099316;-1,85808
+1151;Preston Docks;GB;Inland;;53,76667;-2,71667
+1155;Robin Hood Cave;GB;Inland;Höhle;53,2612;-1,19793
+1157;Windmill Hill;GB;Inland;Grab, Siedlung;51,44153;-1,87622
+1209;Okladnikov;Sibirien;Inland;Höhle;51,732558;84,032022
+1213;Spy (Betche-al-Roche Cave);Belgien;Inland;Höhle;50,4824;4,6691
+1217;Peştera Cioclovina;Rumänien;Inland;Höhle;45,583333;23,116667
+1229;Cingle del Mas Nou;Spanien;Inland;Grab, Siedlung;40,45;-0,133333
+1235;Penya del Comptador;Spanien;Inland;Höhle;38,698333;-0,473611
+1261;Broken Cavern;GB;Inland;Höhle;50,489444;-3,665
+1332;Velika Pećina;O-Kroatien;Inland;Höhle;45,945689;16,062356
+1367;Pod Pradědem;Tschechien;Inland;Höhle;50,167222;17,190833
+1368;St. Prokop´s Cave;Tschechien;Inland;Höhle;50,033333;14,366667
+1370;Zlatý kůn at Koněprusy;Tschechien;Inland;Höhle;49,781389;13,949722
+1376;Sedegliano;Italien;Inland;Grab, Siedlung;46,016667;12,983333
+1431;Villabruna 1;Italien;Inland;Höhle;46,059634;11,930501
+126;Grotte d´Ambre (Doische);Belgien;Inland;Grab;50,133333;4,75
+141;La Cave (Maurenne);Belgien;Inland;Grab;50,225244;4,797808
+179;Esztergályhorváti;Ungarn;Inland;Grab;46,70159;17,1087
+199;Monkton-up-Wimborne;GB;Inland;Grab;50,9186;-1,9223
+211;Mondeval de Sora;Italien;Inland;Grab;46,466507;12,101827
+215;Calle de Los Tintes, Lorca;Spanien;Inland;Grab;37,666429;-1,724854
+216;Cerro Virtud de las Herrerias;Spanien;Inland;Grab;37,3;-1,866667
+219;Mudres Mercedarias, Lorca;Spanien;Inland;Grab;37,666667;-1,683333
+292;Selgas;Lettland;Inland;Grab;56,438204;24,801636
+293;Dragby;Schweden;Inland;Grab;59,98333;17,55
+294;Svemb;Schweden;Inland;Grab;58,216667;14,65
+394;Skepparslöv;Schweden;Inland;Grab;56,014722;14,066667
+438;Hajdúböszörmény-Ficsori-tó;Ungarn;Inland;Grab;47,666667;21,516667
+460;Jelšovce;Slowakei;Inland;Grab;48,4;18,066667
+474;Bad Dürrenberg;Deutschland;Inland;Grab;51,283333;12,066667
+475;Bottendorf;Deutschland;Inland;Grab;51,3;11,416667
+522;Altar Megalith Tomb;GB;Inland;Grab;51,914806;-4,934132
+542;Poulawack;Irland;Inland;Grab;53,033333;-9,15
+561;Snail Down;GB;Inland;Grab;51,26854;-1,688909
+572;Castle Hill ring-ditch;GB;Inland;Grab;56,697819;-3,043744
+574;Willington;GB;Inland;Grab;52,8486824;-1,563414931
+575;Redlands Farm;GB;Inland;Grab;52,328617;-0,585366
+585;Bonn-Oberkassel;Deutschland;Inland;Grab;50,713092;7,16785
+597;Narbons;W-Frankreich;Inland;Grab;43,417222;1,629444
+607;Heffingen-Loschbour;Luxemburg;Inland;Grab;49,766667;6,266667
+620;Baksanyonok;Kaukasus (Russland);Inland;Grab;43,689722;43,654722
+621;Goryadchevodskiy;Kaukasus (Russland);Inland;Grab;44,021389;43,097222
+627;Kudahurt;Kaukasus (Russland);Inland;Grab;43,133061;44,755554
+629;Nezhinskaya;Kaukasus (Russland);Inland;Grab;43,524655;42,121582
+630;Sharahalsun;Kaukasus (Russland);Inland;Grab;43,7;45,416
+634;Uashittu;Kaukasus (Russland);Inland;Grab;44,925918;39,957275
+642;Zamankul;Kaukasus (Russland);Inland;Grab;43,346389;44,407222
+643;Zanozina Balka;Kaukasus (Russland);Inland;Grab;44,245199;42,374268
+644;Zaragizh;Kaukasus (Russland);Inland;Grab;43,33792;43,71801
+687;Singen-Hohentwiel;Deutschland;Inland;Grab;47,762778;8,84
+708;Najac (Siran, Hérault);S-Frankreich;Inland;Grab;43,314;2,66
+709;Coste Rouge (Beaufort, Hérault);S-Frankreich;Inland;Grab;43,298;2,757
+723;Rössberga (Valtorp);Schweden;Inland;Grab;58,22955;13,60635
+740;Kastanjegården (Skåne);Schweden;Inland;Grab;55,558568;13,019657
+779;Fat᾿ma Koba;Ukraine;Inland;Grab;44,621754;33,74176
+817;Neuenfeld;N-Deutschland;Inland;Grab;53,35;14,35
+895;Benzingerode;Deutschland;Inland;Grab;51,83458;10,8671
+921;Westerhausen;Deutschland;Inland;Grab;51,8;11,066667
+967;Aghia Triada;Griechenland;Inland;Grab;35,560556;24,135
+969;Kalapodi;Griechenland;Inland;Grab;38,634167;22,885
+970;Zeli;Griechenland;Inland;Grab;38,65;22,866667
+988;Szczepankowice;Polen;Inland;Grab;50,9326;16,939474
+1004;Bjergby;Dänemark;Inland;Grab;56,867881;8,734461
+1006;Fur;Dänemark;Inland;Grab;56,827254;9,016429
+1024;Bruchenbrücken;Deutschland;Inland;Grab;50,29857173;8,790221214
+1025;Flomborn;Deutschland;Inland;Grab;49,691454;8,152456
+1027;Rastorf;N-Deutschland;Inland;Grab;54,28147489;10,29178619
+1029;Wijchen, Het Vormer;Niederlande;Inland;Grab;51,799546;5,705711
+1039;Falk stad;Schweden;Inland;Grab;58,167058;13,552906
+1040;Falk västra;Schweden;Inland;Grab;58,167336;13,532072
+1042;Falköping stad;Schweden;Inland;Grab;58,169819;13,578061
+1046;Gökhem;Schweden;Inland;Grab;58,1833333;13,4
+1057;Karleby;Schweden;Inland;Grab;58,15292;13,63774
+1060;Luttra;Schweden;Inland;Grab;58,1333333;13,55
+1078;Slutarp;Schweden;Inland;Grab;58,0833333;13,5166667
+1083;Valtorp;Schweden;Inland;Grab;58,22955;13,60635
+1113;Sunghir;Russland;Inland;Grab;56,175833;40,509167
+1116;Brno-Francouzká;Tschechien;Inland;Grab;49,201757;16,618752
+1133;Barrow Hill;GB;Inland;Grab;53,274;-1,377
+1143;Lambourn;GB;Inland;Grab;51,509;-1,531
+1148;Millbarrow;GB;Inland;Grab;51,446008;-1,861815
+1156;Whitwell Long Cairn;GB;Inland;Grab;53,285;-1,209
+1158;Ascott-Under-Wychwood;GB;Inland;Grab;51,872;-1,565
+1163;West Kennet long barrow;GB;Inland;Grab;51,408611;-1,850833
+1170;Hazleton North;GB;Inland;Grab;51,86863;-1,895383
+1199;Aldersro;Dänemark;Inland;Grab;55,659142;11,212542
+1345;Hoštice;Tschechien;Inland;Grab;49,195;13,909722
+1374;Lavello bei Potenza;Italien;Inland;Grab;41,05;15,8
+1377;Toppo Daguzzo;Italien;Inland;Grab;40,633333;15,8
+1384;Rymnio;Griechenland;Inland;Grab;40,13335;21,871056
+1385;Spathes;Griechenland;Inland;Grab;39,410136;21,604528
+1449;Wayland´s  Smithy long barrow;GB;Inland;Grab;51,567228;-1,595264
+2;Ma’avarot;Israel;Küste;Höhle;32,363889;34,904167
+5;Tågerup;Schweden;Küste;;55,856479;12,93829
+184;Mill Road, Linlithgow;GB;Küste;Grab;55,97905;-3,61054
+196;Carding Mill Bay;GB;Küste;Grab, Siedlung;56,40742;-5,490975
+198;Crarae;GB;Küste;Grab;56,1386;-5,2616
+201;St. Nicholas Farm;GB;Küste;Grab;56,3404;-2,7955
+218;Gatas, Turre;Spanien;Küste;Grab, Siedlung;37,116667;-1,883333
+220;An Corran, Skye;GB;Küste;Grab, Siedlung;57,49452;-6,319199
+221;Stanlow;GB;Küste;Grab;53,272778;-2,84
+312;Bjørnsholm;Dänemark;Küste;Grab;56,868694;9,213139
+313;Blak;Dänemark;Küste;Grab, Siedlung;56,24233;10,78716
+316;Dyrholmen;Dänemark;Küste;Grab, Siedlung;56,43333333;10,26666667
+317;Ertebølle;Dänemark;Küste;Grab;56,810047;9,176935
+324;Hulbjerg;Dänemark;Küste;Grab;55,969523;11,352616
+326;Kassemose;Dänemark;Küste;Grab;55,5333333;10,0833333
+328;Klokkehøj;Dänemark;Küste;Grab;55,108495;10,10954
+330;Køge Sønakke;Dänemark;Küste;Siedlung;55,39689;12,36416
+332;Korsør;Dänemark;Küste;Einzelfund;55,333611;11,139722
+334;Lohals;Dänemark;Küste;;55,134722;10,909722
+335;Maglemosegårds Vænge;Dänemark;Küste;;55,8488416;12,5483556
+336;Møllegabet;Dänemark;Küste;Grab, Siedlung;54,901364;10,419073
+340;Nissehøj;Dänemark;Küste;Grab;55,7455211;11,872015
+341;Nivå;Dänemark;Küste;;55,933333;12,516667
+342;Nivågård;Dänemark;Küste;;55,927392;12,511325
+343;Norsminde;Dänemark;Küste;Grab, Siedlung;56,0225;10,2625
+345;Pandebjerg;Dänemark;Küste;Grab, Siedlung;54,801944;11,810833
+348;Rønbjerg;Dänemark;Küste;;56,536944;8,941389
+355;Tybrind Vig;Dänemark;Küste;Grab, Siedlung;55,384167;9,834444
+359;Vængesø;Dänemark;Küste;Grab;56,14792822;10,5426693
+364;Argus Bank;Dänemark;Küste;Grab, Siedlung;54,908791;11,726875
+365;Melby;Dänemark;Küste;Grab;55,9998;11,9832
+366;Dragsholm;Dänemark;Küste;;55,771667;11,390833
+384;Dösemarken, Hyllie Parish;Schweden;Küste;Grab, Siedlung;55,568167;12,947581
+387;Lilla Bedinge;Schweden;Küste;Grab;55,381963;13,421903
+395;Svågertorp, Bunkeflo Parish;Schweden;Küste;Grab, Siedlung;55,55;12,991389
+399;Grotta dell’Uzzo (Sicily);Italien;Küste;Höhle;38,110095;12,786513
+412;El Collado;Spanien;Küste;Grab, Siedlung;38,919444;-0,121111
+515;Alanya;Türkei;Küste;;36,533333;32,033333
+525;Annaghkeen;Irland;Küste;;53,446968;-9,190737
+566;Gatas;Spanien;Küste;;37,116667;-1,883333
+567;Ifre, Mazarron, Murcia;Spanien;Küste;;37,6;-1,316667
+568;Qurenima, Antas, Almeria;Spanien;Küste;;37,233333;-1,916667
+577;Ferriter’s Cove Co. Kerry;Irland;Küste;Grab, Siedlung;52,178194;-10,439256
+582;La Torche, Finistère;W-Frankreich;Küste;Grab;47,8368;-4,35453
+583;Rockmarshall Co. Louth;Irland;Küste;Grab, Siedlung;54;-6,27
+586;Creag nan Uamh Caves;GB;Küste;Höhle;58,107989;-4,941192
+588;Shelter Cave, Yealmpton;GB;Küste;Höhle;50,342;-3,997
+604;Goldcliff;GB;Küste;Einzelfund;51,5431;-2,9146
+606;Oxteddle Bottom, Lewes;GB;Küste;Grab;50,875066;0,05102
+608;Emine Bair cave;Ukraine;Küste;Höhle;44,800278;34,295556
+641;Velikent;Kaukasus (Russland);Küste;Grab, Siedlung;42,187222;48,063889
+678;Asine;Griechenland;Küste;Grab, Siedlung;37,5275;22,874
+698;Le Rastel;S-Frankreich;Küste;Höhle;43,783333;7,4
+699;Pendimoun;S-Frankreich;Küste;Höhle;43,813118;7,506243
+712;Fosso Fontanaccia;Italien;Küste;Grab;43,569447;13,567429
+713;Grotta delle Mura;Italien;Küste;Höhle;40,809652;17,484741
+717;Samari;Italien;Küste;;39,990799;18,032684
+718;Torre Castelluccia;Italien;Küste;;40,384167;17,354722
+720;Carlshögen;Schweden;Küste;Grab;55,4138;14,1429
+721;Ingelstorp;Schweden;Küste;Grab;55,433333;14,033333
+722;Ramshög;Schweden;Küste;Grab;55,407778;14,167778
+725;Tågarp;Schweden;Küste;Grab;55,924722;12,955
+734;Huseby klev tent (Morlanda);Schweden;Küste;Grab, Siedlung;58,165686;11,485164
+737;Uleberg (Tossene);Schweden;Küste;Grab;58,44562901;11,37530182
+755;Crno Vrlo;Kroatien;Küste;;42,638333;19,039722
+756;Grapĉeva;Kroatien;Küste;Höhle;43,134167;16,753889
+757;Kargadur;Kroatien;Küste;Grab, Siedlung;44,824983;13,983364
+760;Metaljka;Kroatien;Küste;;43,2425;17,38417
+761;Pupićina;Kroatien;Küste;Höhle;45,224163;14,198154
+767;Vela Spilja Lošinj;Kroatien;Küste;;42,97;16,715
+811;Samouqueira;Portugal;Küste;Grab, Siedlung;37,87;-8,79
+815;Kägsdorf;N-Deutschland;Küste;Streufund;54,1333333;11,6833333
+819;Prohn;N-Deutschland;Küste;Grab;54,36900859;13,02369118
+821;Stralsund 225 - Mischwasserspeicher;N-Deutschland;Küste;Einzelfund;54,31870104;13,0918622
+852;El Truchiro, La Garma;Spanien;Küste;Höhle;43,408;-3,661
+853;Jaizkibel, Guipúzkoa;Spanien;Küste;Grab, Siedlung;43,366944;-1,820556
+856;Colomba;Spanien;Küste;Höhle;42,45;-6,25
+857;Poza lʼEgua, Asturia;Spanien;Küste;Grab, Siedlung;43,416614;-4,862823
+878;Kent´s Cavern;GB;Küste;Höhle;50,4682;-3,503
+879;Mewslade Bay;GB;Küste;Einzelfund;51,5915;-4,216294
+935;La Rochette;W-Frankreich;Küste;Höhle;45,004392;1,071544
+942;Alepotrypa Cave;Griechenland;Küste;Höhle;36,638207;22,381295
+944;Franchthi Cave;Griechenland;Küste;Höhle;37,423333;23,132222
+955;Proskynas;Griechenland;Küste;Grab, Siedlung;38,616667;23,166667
+966;Voudeni;Griechenland;Küste;Grab;38,2667;21,7833
+968;Almyri;Griechenland;Küste;Grab;37,836092;23,001372
+971;Arene Candide;Italien;Küste;Höhle;44,17209;8,35866
+1003;Andemosen;Dänemark;Küste;Grab, Hort;55,108;10,938
+1008;Horsens golfbane;Dänemark;Küste;Grab;55,86065824;9,850337505
+1012;Koed;Dänemark;Küste;;56,37471;10,56868
+1013;Krogsbølle;Dänemark;Küste;Grab, Siedlung;55,572412;10,367975
+1014;Kysing Fjord;Dänemark;Küste;Grab, Siedlung;56,007612;10,24433
+1016;Ølsted;Dänemark;Küste;Grab;55,923182;12,07071
+1018;Rude;Dänemark;Küste;Grab;55,992749;10,223982
+1019;Samsø Kommune;Dänemark;Küste;Grab;55,8333333;10,5833333
+1021;Sarup Mølle;Dänemark;Küste;Grab;55,20983;10,083046
+1022;Sejerø;Dänemark;Küste;;55,889866;11,145979
+1026;Ralswiek-Augustenhof;N-Deutschland;Küste;Grab, Siedlung;54,478229;13,468477
+1030;Ypenburg;Niederlande;Küste;Grab, Siedlung;52,04098281;4,369812012
+1032;Bleivik;Norwegen;Küste;;59,4833333;5,25
+1033;Storbåthallaren;Norwegen;Küste;Grab;68,09222222;13,42
+1034;Vistehulen;Norwegen;Küste;Grab;58,987224;5,597011
+1038;Fågelbacken;Schweden;Küste;Grab, Siedlung;55,598056;12,966111
+1044;Fjälkinge;Schweden;Küste;Grab;56,05;14,2833333
+1052;Hunnebostrand;Schweden;Küste;Grab;58,44127033;11,3032043
+1054;Hylliekroken;Schweden;Küste;Grab;55,592631;12,923355
+1062;Malmö kv Bronsyxan;Schweden;Küste;Grab;55,56667;13,05
+1071;Österöd;Schweden;Küste;Grab;58,39508;11,4259
+1073;Rörby;Schweden;Küste;Grab;58,453616;11,350948
+1074;Rörvik;Schweden;Küste;Siedlung;58,54478;11,27606
+1075;Sillvik;Schweden;Küste;Grab;57,739444;11,729722
+1077;Skateholm;Schweden;Küste;Grab, Siedlung;55,379167;13,470833
+1097;Drigge;N-Deutschland;Küste;Einzelfund;54,290807;13,160076
+1104;Šandalja II;Kroatien;Küste;Höhle;44,880833;13,890417
+1115;Paviland;GB;Küste;Höhle;51,550086;-4,255186
+1118;Vedbæk;Dänemark;Küste;Grab;55,853;12,565
+1121;Bøgebakken (Vedbæk);Dänemark;Küste;Grab;55,853;12,565
+1134;Bob´s Cave;GB;Küste;Höhle;51,566625;-3,971156
+1141;Kemptown;GB;Küste;Höhle;50,81778;-0,11639
+1142;Kendrick´s Cave;GB;Küste;Höhle;53,32801;-3,83331
+1182;Parc le Breos;GB;Küste;Grab;51,588475;-4,112711
+1183;Haywood Cave;GB;Küste;Höhle;51,32;-2,94694
+1184;Little Hoyle Cave;GB;Küste;Höhle;51,665558;-4,731811
+1204;Breakwater Quarry;GB;Küste;Höhle;53,31613;-4,66317
+1224;Kalamaki;Griechenland;Küste;Grab;37,743;20,897
+1226;Spaliaréïka;Griechenland;Küste;Grab;38,116667;21,583333
+1236;Beg an Dorchenn;W-Frankreich;Küste;Grab;47,8368;-4,35453
+1237;Conguel;W-Frankreich;Küste;;47,46944;-3,07972
+1238;Er Yoh;W-Frankreich;Küste;;47,38917;-2,937778
+1241;Port Blanc;W-Frankreich;Küste;Grab;48,833333;-3,316667
+1242;Vierville;W-Frankreich;Küste;Grab;49,3611;-1,2453
+1260;Téviec;W-Frankreich;Küste;Grab, Siedlung;47,556024;-3,165208
+1262;Daylight Rock;GB;Küste;Höhle;51,636637;-4,681982
+1264;Foxhole Cave;GB;Küste;Höhle;53,192796;-1,853282
+1266;Nanna's Cave;GB;Küste;Höhle;51,640884;-4,68108
+1267;Ogof-yr-Benlog;GB;Küste;Höhle;51,64111;-4,68083
+1270;Potter´s Cave;GB;Küste;Höhle;51,64171;-4,684309
+1272;Priory Farm Cave;GB;Küste;Höhle;51,678792;-4,924742
+1273;Red Fescue Hole;GB;Küste;Höhle;51,557898;-4,27107
+1274;Spurge Hole;GB;Küste;Höhle;51,565802;-4,097735
+1276;Ogof-yr-Ychen;GB;Küste;Höhle;51,6365;-4,6726
+1280;Worm´s Head;GB;Küste;Höhle;51,56;-4,33
+1333;Schipluiden;Niederlande;Küste;Grab, Siedlung;51,983333;4,316667
+1379;Korinos;Griechenland;Küste;Grab;40,316667;22,583333
+1383;Makrigialos;Griechenland;Küste;Grab, Siedlung;40,415984;22,60375
+1391;Lerna;Griechenland;Küste;Grab, Siedlung;37,55;22,716667
+1399;Barma Grande;Italien;Küste;Höhle;43,783333;7,535556
+1470;Oreston;GB;Küste;;50,36;-4,11
+3;Bäckaskog;Schweden;Inland, See;;56,05;14,333333
+4;Bredgården;Schweden;Inland, See;;59,466667;13,75
+25;Los Canes;Spanien;Inland, Nähe Küste;Höhle;40,331389;-2,988889
+157;Schela Cladovei;Rumänien;Inland Fluss,;Grab, Siedlung;44,6284;22,6134
+175;Hajdučka Vodenica;Serbien;Inland Fluss;Grab, Siedlung;44,647589;22,307397
+186;Burmeghez;Malta;Insel, Küste;Höhle;35,915;14,444722
+189;Kirsna;Litauen;"Inland, Fluss; Moor";Einzelfund;54,303078;23,505464
+190;Kretuonas;Litauen;Inland, See;Grab, Siedlung;55,284722;26,079167
+213;Hahnöfersand;N-Deutschland;Küste, Fluss;Einzelfund;53,547894;9,719336
+217;Cova d 'Es Càrritx, Menorca;Spanien;Insel, Küste;Höhle;39,959228;3,964691
+224;Aktopraklık;Türkei;Inland, See;Grab, Siedlung;40,174351;28,771164
+265;Zvejnieki;Lettland;Inland, See;Grab, Siedlung;57,776;25,226
+309;Casa Corona;Spanien;Inland (80 km), Fluss;Grab, Siedlung;38,635;-0,865833
+314;Bodal;Dänemark;Inland (Moor -Åmose);Grab, Siedlung;55,569882;11,531706
+320;Hallebygård;Dänemark;Inland, Moor/Gewässer;Einzelfund;55,595878;11,315422
+322;Hesselbjerggårds Mose;Dänemark;Inland, Moor/Gewässer;Grab, Siedlung;55,56705395;11,41982488
+323;Holmegård;Dänemark;Inland, Gewässer;Grab, Siedlung;55,27485165;11,83616886
+325;Jorløse Mose;Dänemark;Inland, Moor/Gewässer;Einzelfund;55,616667;11,3
+331;Kongemose;Dänemark;Inland, Moor/Gewässer;Einzelfund;55,58237148;11,54774666
+344;Øgårde boat;Dänemark;Inland, Moor;Einzelfund;55,59367345;11,54298306
+346;Porsmose;Dänemark;Inland, Moor/Gewässer;Einzelfund;55,276414;11,874955
+347;Rødhals;Dänemark;Küste, Insel;Grab, Siedlung;55,915592;11,083488
+350;Tagmosegård;Dänemark;Insel, Inland;Einzelfund;56,104024;12,290096
+351;Tingbjerggård Vest;Dänemark;Inland, Moor/Gewässer;Grab, Siedlung;55,600051;11,638513
+352;Tømmerupgårds Mose;Dänemark;Inland, Moor/Gewässer;Einzelfund;55,5833333;11,5
+353;Trudstrupgård;Dänemark;Inland, Moor/Gewässer;Einzelfund;55,62537919;11,33359909
+358;Ulkestrup Lyng U;Dänemark;Inland, Moor/Gewässer;Grab, Siedlung;55,58981757;11,52890682
+361;Veksø Mose;Dänemark;Inland, Moor;Einzelfund;55,749;12,261
+473;Bergmansdal;Dänemark;Insel, Küste;Grab, Siedlung;56,036389;12,630278
+481;Lepenski Vir;Serbien;Inland Fluss;Grab, Siedlung;44,561111;22,024167
+500;Vlasac;Serbien;Inland Fluss;Grab, Siedlung;44,53;22,03
+516;Kebara Cave;Israel;Inland, Nähe Küste;Höhle;32,558278;34,937306
+517;Kavos, Keros;Griechenland;Insel, Küste;;36,9;25,666667
+518;Pritzerber See;N-Deutschland;Inland, See;;52,493847;12,460903
+524;Midea;Griechenland;Inland, Nähe Küste;;37,666667;22,833333
+528;Dillonsdown;Irland;Inland, See;;53,18572;-6,539391
+529;Grange;Irland;Inland, See/Moor;;53,8;-8,2
+531;Haylands;Irland;Inland, See;;53,166667;-6,466667
+536;Lough Gur Wedge;Irland;Inland, See;;52,516667;-8,55
+544;Rathlin Island;Irland;Insel, Küste;;55,3;-6,25
+546;Stoneyisland;Irland;Inland, See/Moor;;53,1;-8,25
+551;Hardendale Nab;GB;Inland, See;;54,519915;-2,644867
+559;Gross Fredenwalde;N-Deutschland;Inland, See;;53,16667;13,76667
+569;Zapata, Lorca, Murcia;Spanien;Inland, Nähe Küste;;37,666667;-1,683333
+576;Ballynamintra Co. Waterford;Irland;Inland, Nähe Küste;Höhle;52,1;-7,716667
+578;New Church, Lough Gur;Irland;Inland, See;;52,533333;-9,5
+589;El Aramo;Spanien;Küste?;Mine;43,3625;-5,850278
+603;Alexandra Dock, Newport;GB;Inland, Moor;Einzelfund;51,559167;-2,980278
+615;Roc de Combe-Capelle;W-Frankreich;Inland, Nähe Küste;Höhle;44,7542;0,849423
+637;Unakozovskaya;Kaukasus (Russland);"Inland; südliche Wald-Steppen-Region";Höhle;44,292401;40,067139
+648;Durankulak;Bulgarien;Küste (Schwarzes Meer) See;Grab, Siedlung;43,7;28,516667
+681;Flakstad, Nordland;Norwegen;Insel, Küste;Grab, Siedlung;68,079167;13,274444
+682;Maszycka;Polen;"Inland; Fluss";Höhle;50,3;19,55
+742;Köpingsvik;Schweden;Insel, Küste;Grab, Siedlung;56,883333;16,716667
+752;Yarnton;GB;Inland Fluss;Grab, Siedlung;51,811;-1,31
+763;Vela Luka-Vela Spilja;Kroatien;Küste, Insel;Höhle;42,97;16,715
+789;Kams;Schweden;Insel, Küste;Höhle;57,76167;18,433333
+790;Stora Bjärs;Schweden;Insel, Küste;Höhle;57,816666;18,533333
+793;Stora Förvar Cave;Schweden;Insel, Küste;Höhle;57,283889;17,973611
+801;Casa da Moura;Portugal;Inland, Nähe Küste;Höhle;39,36667;-9,15
+803;Cêrca do Zambujal (Melides);Portugal;Inland, Nähe Küste;Höhle;39,074531;-9,285603
+809;Gruta do Lagar 1 (Melides);Portugal;Inland, Nähe Küste;Höhle;38,184768;-8,723831
+837;Grotta Addaura;Italien (Sizilien);Insel, Küste;Höhle;38,186408;13,353064
+839;Grotta della Molara;Italien (Sizilien);Insel, Küste;Höhle;38,144417;13,304789
+842;Grotta Di Teodoro;Italien;Insel, Küste;Höhle;38,05;14,591319
+843;Grotta d’Oriente;Italien;Insel, Küste;Höhle;37,933333;12,333333
+858;Cloonfinlough (Cloon Finlough), Roscommon;Irland;Inland, See;Einzelfund;53,758049;-8,149109
+861;Kilgreany B, Waterford;Irland;Inland, Nähe Küste;Höhle;52,1;-7,74
+889;Totty Pot, Somerset;GB;Inland, Nähe Küste;Höhle;51,28;-2,74
+932;Ķivutkalns;Lettland;Inland, Fluss, Nähe Küste;Grab, Siedlung;56,850113;24,248411
+936;Blätterhöhle (Hagen, Westf.);Deutschland;"Inland; Fluss";Höhle;51,358333;7,551111
+949;Kephala;Griechenland;Insel, Küste;Grab, Siedlung;37,680899;24,328623
+962;Çayönü Tepesi;Türkei;Inland Nähe Fluss;Grab, Siedlung;38,218722;39,728825
+965;Perachora;Griechenland;Küste, See;Höhle, Siedlung;38,016667;22,966667
+1007;Hesselbjerg;Dänemark;Küste, Moor;Grab, Hort;56,094736;12,1664
+1017;Pårup;Dänemark;Inland, Moor;Grab, Hort;56,098698;12,292727
+1069;Näbbe mosse;Schweden;Inland, Moor/See;Grab, Hort;55,601942;14,213905
+1103;Balatonszárszó-Kis -erdei-dűlő;Ungarn;Inland, See;Grab, Siedlung;46,82596;17,83459
+1145;Maiden Castle;GB;Inland, Nähe Küste;Grab, Siedlung;50,694444;-2,47
+1186;Gerani;Griechenland;Insel, Küste;Höhle;35,517;23,876
+1196;Vængegård;Dänemark;Inland, Moor/Gewässer;;55,193469;11,421403
+1197;Undløse (Åmose);Dänemark;Inland, Moor/Gewässer;Siedlung;55,604513;11,588258
+1201;Østrup Mose;Dänemark;Inland, Moor;Einzelfund;55,58673744;11,60645485
+1202;Caisteal nan Gillean (Oronsay);GB;Insel, Küste;Grab, Siedlung;56,011625;-6,240016
+1203;Cnoc Coig (Oronsay);GB;Insel, Küste;Grab, Siedlung;56,011625;-6,240016
+1205;Thatcham;GB;Inland, See;Grab, Siedlung;51,405;-1,2645
+1206;Aveline´s Hole;GB;Inland, Nähe Küste;Höhle;51,33;-2,75
+1218;Peştera Muerii;Rumänien;Inland, Fluss?;Höhle;45,191944;23,753611
+1228;Agernæs;Dänemark;Insel, Küste;Grab, Siedlung;55,596775;10,338819
+1243;Eel Point;GB;Küste, Insel;Höhle;51,643056;-4,703611
+1256;Hoëdic;W-Frankreich;Küste, aber Entfernung wechselnd;Grab, Siedlung;47,3403;-2,8778
+1265;Kitley Bob´s Cave;GB;Inland, Nähe Küste;Höhle;50,35;-3,98333
+1269;Picken´s Hole;GB;Inland, Nähe Küste;Höhle;51,29092;-2,86628
+1275;Tornewton Cave;GB;Inland, Nähe Küste;Höhle;50,494404;-3,670617
+1349;Cova d'En Pardo (Planes);Spanien;"Inland; Fluss";Höhle;38,784972;-0,343482
+1398;Peştera cu Oase;Rumänien;Inland, Nähe zu Frischwasserquellen;Höhle;45,016667;21,833333
+1408;Cala Morell (Ciutadella, Menorca);Spanien;"Insel; Küste";Höhle;40,049565;3,882313
+1410;Cova Gregoria B (Valldemossa, Mallorca);Spanien;"Insel; Küste";Höhle;39,711678;2,622581
+1419;Ses Aritges (Ciutadella, Menorca);Spanien;"Insel; Küste";Höhle;39,959228;3,964691
+1426;Son Bauló (Santa Margalida, Mallorca);Spanien;"Insel; Küste";;39,703333;3,103611
+1428;Son Moleta (Sóller, Mallorca);Spanien;Insel, Küste;;39,796775;2,680964
+1432;Theben;Griechenland;Inland, Fluss, See;Grab, Siedlung;38,323889;23,317222
+1433;Blagotin-Poljna;Serbien;"Inland; Fluss";Grab, Siedlung;43,709444;21,105833
+1434;Golokut-Vizić;Serbien;"Inland; Fluss";Einzelfund;45,17139;19,45444
+1437;Topole-Bač;Serbien;"Inland; Fluss";Grab?;45,815797;19,639133
+1451;Mladeč;Tschechien;"Inland; Fluss";Höhle;49,706944;17,018611
+12;Duonkalnis;Litauen;Inland, See;Grab;55,773611;22,419444
+19;Spiginas;Litauen;Inland, See;Grab;55,764136;22,434465
+187;Hal-Saflieni Hypogeum;Malta;Insel, Küste;Grab;35,870833;14,506944
+223;Greylake, Somerset;GB;Inland, Moor/Fluss;Grab;51,098381;-2,878311
+247;Västerbjers;Schweden;Insel, Küste;Grab;57,5833333;18,7
+269;Algutsrum;Schweden (Öland);Insel, Küste;Grab;56,680833;16,530278
+271;Kalleguta;Schweden (Öland);Insel, Inland;Grab;56,8833333;16,7833333
+274;Resmo;Schweden (Öland);Insel, Küste;Grab;56,550116;16,433487
+287;Torsborg;Schweden (Öland);Insel, Küste;Grab;59,683056;17,649722
+289;Vickleby;Schweden (Öland);Insel, Küste;Grab;56,580556;16,458889
+291;Ire;Schweden (Gotland);Insel, Küste;Grab;57,839703;18,589511
+349;Sigersdal;Dänemark;Insel, Inland;Grab;55,763151;12,261343
+376;Alvastra;Schweden;Inland, See;Grab;58,3;14,65
+383;Åraslöv, Nosaby parish;Schweden;Inland, Nähe Küste;Grab;56,104722;13,980833
+386;Håslöv, Gustav Adolf parish;Schweden;Inland, Nähe Küste;Grab;56,0167;14,2333
+411;Ca na Costa;Spanien (Formentera);Insel, Küste;Grab;38,726528;1,445833
+478;Kolberg;N-Deutschland;Inland, See;Grab;52,2429;13,802585
+479;Steinhagen;N-Deutschland;Inland, See;Grab;53,85;11,933333
+511;Olenij ostrov;Russland- Nord;Inland, See;Grab;62,040952;35,366448
+557;Manerba;Italien;Inland, See;Grab;45,55;10,55
+623;Ipatovo;Kaukasus (Russland);Inland, Gewässer;Grab;45,716667;42,9
+633;Tonelniy;Kaukasus (Russland);"Inland; südliche Wald-Steppen-Region";Grab;44,918056;41,686389
+649;Varna;Bulgarien;Küste (Schwarzes Meer), See;Grab;43,216667;27,916667
+659;Ajvide;Schweden;Insel, Küste;Grab;57,28167;18,15747
+732;Evensås (Skaftö);Schweden;Insel, Küste;Grab;58,24703;11,482086
+735;Rolfsåker (Fjärås);Schweden;Insel, Küste;Grab;57,4833333;12,1333333
+738;Alby;Schweden (Öland);Insel, Küste;Grab;56,482778;16,575278
+748;Västerbys;Schweden (Gotland);Insel, Küste;Grab;60,311944;15,931667
+751;Visby;Schweden (Gotland);Insel, Küste;Grab;57,641581;18,295471
+816;Laschendorf;N-Deutschland;Inland, See;Grab;53,482778;12,4475
+818;Plau am See;N-Deutschland;Inland, See;Grab;53,458056;12,2625
+822;Ostorf-Tannenwerder;N-Deutschland;Inland, See;Grab;53,60839591;11,3961482
+973;Chociwel;Polen;Inland, See;Grab;50,796667;17,094722
+983;Polwica;Polen;Inland, See;Grab;50,913333;17,1775
+1005;Bulbrogård;Dänemark;Inland, See;Grab;55,58484558;11,26158714
+1050;Hånger;Schweden;Inland, See;Grab;58,36143;14,80305
+1051;Holmen;Schweden;Inland, See;Grab;58,32739;14,72545
+1063;Medelplana;Schweden;Inland, See;Grab;58,5833333;13,3666667
+1068;Mysinge;Schweden;Insel, Küste;Grab;56,51797622;16,44096934
+1072;Övra Vannborga;Schweden;Insel, Küste;Grab;56,91666667;16,75
+1076;Skånes Viby;Schweden;Inland, See;Grab;56;14,2333333
+1079;Tofta 14;Schweden;Insel, Küste;Grab;57,512873;18,156452
+1094;Pavlov;Tschechien;Inland, See;Grab;48,87415667;16,67225438
+1099;Neusiedl am See;Österreich;Inland, See;Grab;47,946891;16,843082
+1109;Brochtorff Circle;Malta (Gozo);Insel, Küste;Grab;36,05;14,26
+1185;Armenoi;Griechenland;Insel, Küste;Grab;35,45;24,166667
+1188;Mycenae;Griechenland;Inland, Nähe Küste;Grab;37,730833;22,756111
+1227;Sykia;Griechenland;Inland, Nähe Küste;Grab;36,765361;22,943401
+1245;La Vergne;W-Frankreich;Inland (60-80 km);Grab;46,016667;1,9
+1247;Quanterness;GB;"Insel; Küste";Grab;58,991973;-3,020296
+1251;Le Déhus (Guernsey);Channel Islands;Insel, Küste;Grab;49,498;-2,5074
+1283;Holm (Papa Westray North);GB;Insel;Grab;59,353191;-2,874022
+1336;Swifterbant;Niederlande;Inland, Nähe Küste;Grab;52,5675;5,641667
+1400;Alcaïdus (Alaior, Menorca);Spanien;"Insel; Küste";Grab;39,9306395;4,1399868
+1403;Biniai Nou (Maó, Menorca);Spanien;"Insel; Küste";Grab;39,906736;4,213417
+1407;Binipati Nou (Ciutadella, Menorca);Spanien;"Insel; Küste";Grab;39,991679;3,890238
+1409;Can Martorellet (Pollença, Mallorca);Spanien;"Insel; Küste";Grab;39,913823;3,034013
+1411;Es Tudons (Ciutadella, Menorca);Spanien;"Insel; Küste";Grab;40,003128;3,891558
+1412;Rafal Rubí (Alaior, Menorca);Spanien;Insel, Küste;Grab;39,9074;4,189772
+1414;S᾿Aigua Dolça (Colonia de Sant Pere, Mallorca);Spanien;Insel, Küste;Grab;39,751383;3,304931
+1417;Ses Arenes (Ciutadella, Menorca);Spanien;"Insel; Küste";Grab;40,014528;3,898
+1420;Ses Roques Llises (Alaior, Menorca);Spanien;"Insel; Küste";Grab;39,898528;4,113583
+1427;Son Gallard (Deià, Mallorca);Spanien;Insel, Küste;Grab;39,740272;3,456394
+1435;Perlez-Batka C;Serbien;"Inland; Fluss";Grab;45,204722;20,375556
+1436;Starčevo-Grad;Serbien;"Inland; Fluss";Grab;44,8;20,7
+1439;Deszk;Ungarn;"Inland; Fluss";Grab;46,216667;20,25
+1443;H.-Kotacpart;Ungarn;"Inland; Fluss";Grab;46,43039;20,31881
+1447;Szarvas 23;Ungarn;"Inland; Fluss";Grab;46,866667;20,55

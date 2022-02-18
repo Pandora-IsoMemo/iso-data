@@ -1,0 +1,29 @@
+Package: MpiIsoData
+Type: Package
+Title: Data for MPI Iso App 
+Version: 0.1.18
+Author: INWT Statistics GmbH
+Maintainer: INWT Statistics GmbH <info@inwt-statistics.de>
+Description: This package provides access to databases to use in the
+  MPI Iso App. It also ships with fallback datasets.
+License: GPL (>=3)
+Encoding: UTF-8
+LazyData: true
+Imports:
+  dbtools,
+  dplyr,
+  httr,
+  futile.logger,
+	magrittr,
+  openxlsx,
+  purrr,
+  RMySQL,
+  rvest,
+  stringi,
+  tidyr,
+  xml2
+Suggests:
+  lintr,
+  testthat
+RoxygenNote: 7.1.1
+Remotes: INWT/dbtools

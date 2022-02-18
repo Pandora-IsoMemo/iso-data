@@ -1,0 +1,26 @@
+shiny;fieldType;category;14CSea;IsoMemo;LiVES;IntChron;IsoArcH;CIMA
+id;character;Sample description;Lab..no.;Sample ID;ID;labcode;idIndividual;Entry.ID
+description;character;Sample description;;Sample description;;;;description
+d13C;numeric;Isotopic proxies;13C;delta 13C/12C coll;13C;d13C;d13C;IRMS.\u03b413C.Collagen
+d15N;numeric;Isotopic proxies;15N;delta 15N/14N coll;15N;d15N;d15N;\u03b415N.Collagen
+latitude;numeric;Location;Latitude;Latitute;Breite;latitude;lat;Latitude
+longitude;numeric;Location;Longitude;Longitude;nge;longitude;lon;Longitude
+site;character;Location;Site;Site name;Fundorte;site;name
+dateMean;numeric;Dating info;Date.BP;14C;Radiocarbon;r_date;absDatingConvAgeMean
+dateLower;numeric;Dating info;;;lower_dat;;;Min..Year.(95%)
+dateUpper;numeric;Dating info;;;upper_dat;;;Max..Year.(95%)
+dateUncertainty;numeric;Dating info;\u00b1;14C unc;Radiocarbon unc;r_date_sigma;absDatingConvAgeUncertainity
+datingType;character;Dating info;;;;;
+calibratedDate;numeric;Dating info;;;;;
+calibratedDateLower;numeric;Dating info;;;;;
+calibratedDateUpper;numeric;Dating info;;;;;
+measure;character;Sample description;;;;;measure
+databaseReference;character;References;databaseReference;;;;
+databaseDOI;character;References;databaseDOI;;;;
+databaseDOIAuto;numeric;References;databaseDOIAuto;;;;
+compilationReference;character;References;compilationReference;;;;;Reference
+compilationDOI;character;References;compilationDOI;;;;
+compilationDOIAuto;numeric;References;compilationDOIAuto;;;;
+originalDataReference;character;References;originalDataReference;;;;
+originalDataDOI;character;References;originalDataDOI;;;;
+originalDataDOIAuto;numeric;References;originalDataDOIAuto;;;;
