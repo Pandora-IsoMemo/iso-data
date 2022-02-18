@@ -10,3 +10,4 @@
 ^.dockerignore$
 ^Dockerfile$
 ^JenkinsfileMPI$
+^LICENSE\.md$

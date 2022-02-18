@@ -1,12 +1,12 @@
 Package: MpiIsoData
 Type: Package
 Title: Data for MPI Iso App 
-Version: 0.1.18
+Version: 22.02.1
 Author: INWT Statistics GmbH
 Maintainer: INWT Statistics GmbH <info@inwt-statistics.de>
 Description: This package provides access to databases to use in the
   MPI Iso App. It also ships with fallback datasets.
-License: GPL (>=3)
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 Imports:

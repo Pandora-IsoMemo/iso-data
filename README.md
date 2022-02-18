@@ -1,4 +1,4 @@
-# IsoMemo Data Package
+# IsoMemo Data Package (iso-data)
 
 ## Modify Data Sources
 
@@ -89,4 +89,4 @@ Helper endpoints
 - Databases: https://isomemodb.com/testapi/v1/dbsources
 - Mapping: https://isomemodb.com/testapi/v1/mapping
 
-For the production api use /api instead of /testapi# iso-data
+For the production api use /api instead of /testapi
