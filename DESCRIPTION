@@ -1,6 +1,6 @@
 Package: MpiIsoData
 Type: Package
-Title: Data for MPI Iso App 
+Title: Data for MPI Iso App
 Version: 22.02.1
 Author: INWT Statistics GmbH
 Maintainer: INWT Statistics GmbH <info@inwt-statistics.de>
@@ -26,4 +26,3 @@ Suggests:
   lintr,
   testthat
 RoxygenNote: 7.1.1
-Remotes: INWT/dbtools
