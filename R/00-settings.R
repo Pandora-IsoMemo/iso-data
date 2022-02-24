@@ -5,6 +5,6 @@ dbCreds <- function(){
     password = Sys.getenv("DB_PASSWORD"),
     dbname = Sys.getenv("DB_NAME"),
     host = Sys.getenv("DB_HOST"),
-    port = Sys.getenv("DB_PORT"),
+    port = as.numeric(Sys.getenv("DB_PORT"))
   )
 }
