@@ -1,7 +1,7 @@
 # Please, rename "dbname" with the respective name of the database to be added.
 # Add "dbname" also to R/00-databases.R!
 
-extract.dbname <- function(x){
+extract.DBname <- function(x){
   #load data
   isoData <- getDBname()
 

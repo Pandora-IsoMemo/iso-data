@@ -6,7 +6,7 @@
 addDataLoadForDB <- function(dbName){
   c(
     "# load data",
-    paste0("isoData <- get", dbName, "()"),
+    paste0("  isoData <- get", dbName, "()"),
     ""
   )
 }
@@ -22,22 +22,22 @@ addDBSettings <- function(script, dbName, tableName){
     "",
     "# Template for the credentials of the database",
     paste0("creds", dbName," <- function(){"),
-    "Credentials(",
-    "drv = RMySQL::MySQL,",
-    paste0("user = Sys.getenv(\"", toupper(dbName), "_USER\"),"),
-    paste0("password = Sys.getenv(\"", toupper(dbName), "_PASSWORD\"),"),
-    paste0("dbname = Sys.getenv(\"", toupper(dbName), "_NAME\"),"),
-    paste0("host = Sys.getenv(\"", toupper(dbName), "_HOST\"),"),
-    paste0("port = as.numeric(Sys.getenv(\"", toupper(dbName), "_PORT\")),"),
-    ")",
+    "    Credentials(",
+    "        drv = RMySQL::MySQL,",
+    paste0("        user = Sys.getenv(\"", toupper(dbName), "_USER\"),"),
+    paste0("        password = Sys.getenv(\"", toupper(dbName), "_PASSWORD\"),"),
+    paste0("        dbname = Sys.getenv(\"", toupper(dbName), "_NAME\"),"),
+    paste0("        host = Sys.getenv(\"", toupper(dbName), "_HOST\"),"),
+    paste0("        port = as.numeric(Sys.getenv(\"", toupper(dbName), "_PORT\")),"),
+    "    )",
     "}",
     "",
     paste0("get", dbName, " <- function(){"),
-    "query <- paste(",
-    paste0("\"select * from ", tableName, ";\""),
-    ")",
+    "  query <- paste(",
+    paste0("      \"select * from ", tableName, ";\""),
+    "  )",
     "",
-    paste0("dbtools::sendQuery(creds", dbName, "(), query)"),
+    paste0("  dbtools::sendQuery(creds", dbName, "(), query)"),
     "}"
   )
 }
