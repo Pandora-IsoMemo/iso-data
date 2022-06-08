@@ -9,5 +9,5 @@ cleanUpScript <- function(script) {
 #' Get Folder For Tested Templates
 #'
 getFolderForTestedTemplates <- function() {
-  testthat::test_path("testObjects")
+  testthat::test_path()
 }
