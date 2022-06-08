@@ -11,6 +11,8 @@
 #' @param tableName name of the table containing the data
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
+#' @param templateFolder (character) place to store the scripts, usually in the R folder (except
+#' for tests).
 #' @inheritParams addDataLoadForFiles
 generateTemplateDataSource <- function(dbName,
                                        dbType,
@@ -23,7 +25,8 @@ generateTemplateDataSource <- function(dbName,
                                        dbPassword = NULL,
                                        dbHost = NULL,
                                        dbPort = NULL,
-                                       descriptionCreator = NULL) {
+                                       descriptionCreator = NULL,
+                                       templateFolder = "R") {
   dbScript <- c(
     "# Template to set up a new data source",
     "# add dbname also to R/00-databases.R!",
@@ -68,7 +71,7 @@ generateTemplateDataSource <- function(dbName,
                     tableName = tableName)
   }
 
-  dbScript
+  writeLines(dbScript, con = file.path(templateFolder, paste0("02-", dbName, ".R")))
 }
 
 # writeLines(addFileImport("data.csv"), "tmpFile.txt")

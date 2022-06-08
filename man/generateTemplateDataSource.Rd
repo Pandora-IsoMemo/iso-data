@@ -16,7 +16,8 @@ generateTemplateDataSource(
   dbPassword = NULL,
   dbHost = NULL,
   dbPort = NULL,
-  descriptionCreator = NULL
+  descriptionCreator = NULL,
+  templateFolder = "R"
 )
 }
 \arguments{
@@ -47,6 +48,9 @@ e.g. "http://www.14sea.org/img/"}
 
 \item{descriptionCreator}{(character) command that creates the description, e.g. pasting data
 columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
+
+\item{templateFolder}{(character) place to store the scripts, usually in the R folder (except
+for tests).}
 }
 \description{
 Generates a template for a new DB connection and sets .Renviron variables

@@ -1,20 +1,22 @@
 test_that("Function generateTemplateDataSource() expect errors", {
   expect_error(
     generateTemplateDataSource(dbName = "DBname",
-                               dbType = "abc"),
+                               dbType = "abc",
+                               templateFolder = getFolderForTestedTemplates()),
     "dbType not found. Only use 'file' or 'database'."
   )
 
   expect_error(
     generateTemplateDataSource(dbName = "DBname",
-                               dbType = "database"),
+                               dbType = "database",
+                               templateFolder = getFolderForTestedTemplates()),
     "tableName not found. Please provide 'tableName' for dbType = 'database'."
   )
 })
 
 
 test_that("Function generateTemplateDataSource() for 02-CIMA.R file", {
-  testScript <- generateTemplateDataSource(
+  generateTemplateDataSource(
     dbName = "CIMA",
     dbType = "file",
     locationType = "remote",
@@ -26,8 +28,12 @@ test_that("Function generateTemplateDataSource() for 02-CIMA.R file", {
     dbPassword = NULL,
     dbHost = NULL,
     dbPort = NULL,
-    tableName = NULL
-  ) %>%
+    tableName = NULL,
+    templateFolder = getFolderForTestedTemplates()
+  )
+
+  testScript <-
+    readLines(testthat::test_path("testObjects", "02-CIMA.R")) %>%
     cleanUpScript()
 
   expectedScript <-
@@ -39,14 +45,18 @@ test_that("Function generateTemplateDataSource() for 02-CIMA.R file", {
 
 
 test_that("Function generateTemplateDataSource() from remote xlsx file", {
-  testScript <- generateTemplateDataSource(
+  generateTemplateDataSource(
     dbName = "dbname",
     dbType = "file",
     locationType = "remote",
     fileName = "14SEA_Full_Dataset_2017-01-29.xlsx",
     remotePath = "http://www.14sea.org/img/",
-    sheetName = "14C Dates"
-  ) %>%
+    sheetName = "14C Dates",
+    templateFolder = getFolderForTestedTemplates()
+  )
+
+  testScript <-
+    readLines(testthat::test_path("testObjects", "02-dbname.R")) %>%
     cleanUpScript()
 
   expectedScript <-
@@ -64,14 +74,18 @@ test_that("Function generateTemplateDataSource() from remote xlsx file", {
 
 
 test_that("Function generateTemplateDataSource() from local csv file", {
-  testScript <- generateTemplateDataSource(
+  generateTemplateDataSource(
     dbName = "dbname",
     dbType = "file",
     locationType = "local",
     fileName = "IntChron.csv",
     sheetName = "14C Dates",
     descriptionCreator = "paste(\"Description\", isoData$var1, isoData$var2)",
-  ) %>%
+    templateFolder = getFolderForTestedTemplates()
+  )
+
+  testScript <-
+    readLines(testthat::test_path("testObjects", "02-dbname.R")) %>%
     cleanUpScript()
 
   expectedScript <-
@@ -92,7 +106,7 @@ test_that("Function generateTemplateDataSource() from local csv file", {
 
 
 test_that("Function generateTemplateDataSource() from db", {
-  testScript <- generateTemplateDataSource(
+  generateTemplateDataSource(
     dbName = "DBname",
     dbType = "database",
     descriptionCreator = "paste(\"Description\", isoData$var1, isoData$var2)",
@@ -104,8 +118,12 @@ test_that("Function generateTemplateDataSource() from db", {
     dbPassword = NULL,
     dbHost = NULL,
     dbPort = NULL,
-    tableName = "table"
-  ) %>%
+    tableName = "table",
+    templateFolder = getFolderForTestedTemplates()
+  )
+
+  testScript <-
+    readLines(testthat::test_path("testObjects", "02-DBname.R")) %>%
     cleanUpScript()
 
   expectedScript <-
