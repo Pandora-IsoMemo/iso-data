@@ -1,8 +1,3 @@
-# nolint start
-#source(file.path("tests", "testthat", "helper-functions.R")) # for local testing
-# nolint end
-
-
 test_that("Function generateTemplateDataSource() expect errors", {
   expect_error(
     generateTemplateDataSource(dbName = "DBname",
