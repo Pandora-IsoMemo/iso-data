@@ -19,6 +19,12 @@ createNewDBSource <- function(dbName,
                               descriptionCreator = NULL,
                               scriptFolder = "R",
                               rootFolder = "") {
+  # check for duplicated db names
+  if (toupper(dbName) %in% toupper(dbnames()))
+    stop(paste0("dbName = ", dbName, " already exists in (",
+                paste0(dbnames(), collapse = ", "),
+                "). Please provide case-insensitive unique names."))
+
   dbScript <- pasteScriptBegin(dbName = dbName)
 
   dbScript <- c(dbScript,
