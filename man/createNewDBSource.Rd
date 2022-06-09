@@ -7,8 +7,11 @@
 createNewDBSource(
   dbName,
   tableName,
+  datingType,
+  coordType,
   descriptionCreator = NULL,
-  scriptFolder = "R"
+  scriptFolder = "R",
+  rootFolder = ""
 )
 }
 \arguments{
@@ -16,10 +19,17 @@ createNewDBSource(
 
 \item{tableName}{name of the table containing the data}
 
+\item{datingType}{(character) dating type for the database}
+
+\item{coordType}{(character) coord type for the database}
+
 \item{descriptionCreator}{(character) command that creates the description, e.g. pasting data
 columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
 
 \item{scriptFolder}{(character) place to store the scripts.}
+
+\item{rootFolder}{(character) root folder of the package, usually containing .Renviron,
+DESCRIPTION, ...}
 }
 \description{
 Creates a script for a new data source from a database connection and sets .Renviron variables.

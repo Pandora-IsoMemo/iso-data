@@ -7,11 +7,18 @@
 #' @param tableName name of the table containing the data
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
+#' @param datingType (character) dating type for the database
+#' @param coordType (character) coord type for the database
 #' @param scriptFolder (character) place to store the scripts.
+#' @param rootFolder (character) root folder of the package, usually containing .Renviron,
+#' DESCRIPTION, ...
 createNewDBSource <- function(dbName,
                               tableName,
+                              datingType,
+                              coordType,
                               descriptionCreator = NULL,
-                              scriptFolder = "R") {
+                              scriptFolder = "R",
+                              rootFolder = "") {
   dbScript <- pasteScriptBegin(dbName = dbName)
 
   dbScript <- c(dbScript,
@@ -29,7 +36,12 @@ createNewDBSource <- function(dbName,
 
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
 
-  setupRenviron(dbName = dbName, scriptFolder = file.path(scriptFolder))
+  setupRenviron(dbName = dbName, scriptFolder = file.path(rootFolder))
+
+  updateDatabaseList(dbName = dbName,
+                     datingType = datingType,
+                     coordType = coordType,
+                     scriptFolder = file.path(scriptFolder))
 }
 
 
@@ -86,10 +98,11 @@ addDBSettings <- function(script, dbName, tableName) {
 #'
 #' @inheritParams createNewDBSource
 setupRenviron <- function(dbName, scriptFolder = "") {
-
   renvironBegin <- c(
-    "# Never upload any credentials to GitHub. The variable definitions are only placeholders for Jenkins.",
-    "# Uploading this script helps to maintain an overview for setting up all db connections.")
+    "# Never upload any credentials to GitHub. The variable definitions are only placeholders",
+    "# for Jenkins. Do not fill in credentials!",
+    "# Uploading this script helps to maintain an overview for setting up all db connections."
+  )
 
   renvironDef <- c(
     "",
@@ -100,9 +113,50 @@ setupRenviron <- function(dbName, scriptFolder = "") {
     paste0(toupper(dbName), "_PORT=\"\"")
   )
 
-  if(!file.exists(file.path(scriptFolder, ".Renviron"))) {
-    writeLines(c(renvironBegin, renvironDef), con = file.path(scriptFolder, ".Renviron"))
+  if (!file.exists(file.path(scriptFolder, ".Renviron"))) {
+    writeLines(c(renvironBegin, renvironDef),
+               con = file.path(scriptFolder, ".Renviron"))
   } else {
-    write(renvironDef, file = file.path(scriptFolder, ".Renviron"), append = TRUE)
-    }
+    write(renvironDef,
+          file = file.path(scriptFolder, ".Renviron"),
+          append = TRUE)
+  }
 }
+
+
+#' Update Database List
+#'
+#' Updates the list of all data sources.
+#'
+#' @inheritParams createNewDBSource
+updateDatabaseList <-
+  function(dbName,
+           datingType,
+           coordType,
+           scriptFolder = "R") {
+    newSource <- c(
+      "        ),",
+      "        singleSource (",
+      paste0("          name = \"", dbName, "\","),
+      paste0("          datingType = \"", datingType, "\","),
+      paste0("          coordType = \"", coordType, "\"")
+    )
+
+    databaseFile <-
+      readLines(con = file.path(scriptFolder, "00-databases.R")) %>%
+      cleanUpScript()
+
+    dbBegin <- grep("databases <- ", databaseFile)
+    dbnamesBegin <- grep("dbnames <- ", databaseFile)
+
+    dbDef <- databaseFile[dbBegin:(dbnamesBegin - 1)]
+    otherDefs <- databaseFile[dbnamesBegin:length(databaseFile)]
+
+    lastRow <- length(dbDef)
+
+    dbDef <-
+      c(dbDef[1:(lastRow - 3)], newSource, dbDef[(lastRow - 2):lastRow])
+
+    writeLines(c(dbDef, "", otherDefs),
+               con = file.path(scriptFolder, "00-databases.R"))
+  }

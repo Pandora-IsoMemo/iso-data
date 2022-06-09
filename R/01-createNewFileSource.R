@@ -4,6 +4,8 @@
 #' are supported.
 #'
 #' @param dbName (character) name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
+#' @param datingType (character) dating type for the database
+#' @param coordType (character) coord type for the database
 #' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param locationType type of location, any of "local" or "remote".
 #' OPTION 1: "local" (add the file to inst/extdata/).
@@ -16,8 +18,10 @@
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 createNewFileSource <- function(dbName,
-                                locationType = NULL,
-                                fileName = NULL,
+                                fileName,
+                                datingType,
+                                coordType,
+                                locationType,
                                 remotePath = NULL,
                                 sheetName = NULL,
                                 descriptionCreator = NULL,
@@ -41,6 +45,11 @@ createNewFileSource <- function(dbName,
   )
 
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
+
+  updateDatabaseList(dbName = dbName,
+                     datingType = datingType,
+                     coordType = coordType,
+                     scriptFolder = file.path(scriptFolder))
 }
 
 

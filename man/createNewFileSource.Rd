@@ -6,8 +6,10 @@
 \usage{
 createNewFileSource(
   dbName,
-  locationType = NULL,
-  fileName = NULL,
+  fileName,
+  datingType,
+  coordType,
+  locationType,
   remotePath = NULL,
   sheetName = NULL,
   descriptionCreator = NULL,
@@ -17,11 +19,15 @@ createNewFileSource(
 \arguments{
 \item{dbName}{(character) name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"}
 
+\item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
+
+\item{datingType}{(character) dating type for the database}
+
+\item{coordType}{(character) coord type for the database}
+
 \item{locationType}{type of location, any of "local" or "remote".
 OPTION 1: "local" (add the file to inst/extdata/).
 OPTION 2: "remote" (load data from remote path).}
-
-\item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
 
 \item{remotePath}{path to remote file, if locationType == "remote",
 e.g. "http://www.14sea.org/img/"}
