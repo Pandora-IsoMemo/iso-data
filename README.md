@@ -23,22 +23,22 @@ extract.testdb <- function(x) {
 
 ## Add New Data Source
 
-1. Specify `<name>`, `<datingType>` and `<coordType>` for the new data source.
-2. Execute the following function to create a new file `R/02-<name>.R` with a) data retrieved from
-a mySql database. Here, the `<tableName>` must be specified.
+1. Specify the name `<datasource>`, `<datingType>` and `<coordType>` for the new data source.
+2. Execute the following function to create a new file `R/02-<datasource>.R` with 
+   a) data retrieved from a mySql database. Here, the `<tableName>` must be specified.
 ```r
-createNewDBSource(dbName = <name>,
+createNewDBSource(dbName = <datasource>,
                   datingType = <datingType>,
                   coordType = <coordType>,
                   tableName = <tableName>,
                   descriptionCreator = NULL)
 ```
- or b) data retrieved from a static `"local"` file in `inst/'` folder or from a `"remote"`
+    b) data retrieved from a static `"local"` file in `inst/'` folder or from a `"remote"`
  `<location>`. If second the `<remotePath>` must be given.
  Provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
  a `<sheetName>` can be specified.
 ```r
-createNewFileSource(dbName = <name>,
+createNewFileSource(dbName = <datasource>,
                     datingType = <datingType>,
                     coordType = <coordType>,
                     locationType = <location>,
@@ -47,15 +47,21 @@ createNewFileSource(dbName = <name>,
                     sheetName = <sheetName>,
                     descriptionCreator = NULL)
 ```
-A column containing a description can be added to the new data source with the
-`<descriptionCreator>`. E.g. select a particular column `var`: `<descriptionCreator> = isoData$var`
-or paste two columns `var1` and `var2`: `<descriptionCreator> = paste(isoData$var1, isoData$var2)`.
 
-Executing `createNewDBSource` or `createNewFileSource` 
+
+A column containing a description can be added to the new data source with the
+`<descriptionCreator>`. E.g. 
+
+- select a particular column `var`: `<descriptionCreator> = isoData$var` or
+- paste two columns `var1` and `var2`: `<descriptionCreator> = paste(isoData$var1, isoData$var2)`.
+
+Executing either `createNewDBSource` or `createNewFileSource` 
+
+- creates a new file `R/02-<datasource>.R`,
 - sets the function name to `extract.<datasource>` in the new file `R/02-<datasource>.R`,
 - an entry in `R/00-databases.R` will be added automatically,
 - for mySql databases an `.Renviron` file will be created/updated that containes placeholders for
-credentials.
+database credentials.
 
 
 ## Test Data Sources
