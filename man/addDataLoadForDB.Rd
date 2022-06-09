@@ -2,13 +2,13 @@
 % Please edit documentation in R/01-createNewDBSource.R
 \name{addDataLoadForDB}
 \alias{addDataLoadForDB}
-\title{add lines for data load from database}
+\title{Add Data Load For database source}
 \usage{
 addDataLoadForDB(dbName)
 }
 \arguments{
-\item{dbName}{name of the database}
+\item{dbName}{(character) name of the database, e.g. "xyDBname"}
 }
 \description{
-add lines for data load from database
+add lines to the script for data load from database
 }

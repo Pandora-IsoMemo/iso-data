@@ -15,7 +15,7 @@ createNewFileSource(
 )
 }
 \arguments{
-\item{dbName}{name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"}
+\item{dbName}{(character) name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"}
 
 \item{locationType}{type of location, any of "local" or "remote".
 OPTION 1: "local" (add the file to inst/extdata/).
@@ -35,5 +35,6 @@ columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
 for tests).}
 }
 \description{
-Creates a template for a new data source from a file and sets .Renviron variables.
+Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files
+are supported.
 }

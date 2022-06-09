@@ -1,8 +1,8 @@
 #' Create New DB Source
 #'
-#' Creates a template for a new data source from a DB connection and sets .Renviron variables.
+#' Creates a script for a new data source from a DB connection and sets .Renviron variables.
 #'
-#' @param dbName name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
+#' @param dbName (character) name of the database, e.g. "xyDBname"
 #' @param dbUser user name (only if dBType == "mySql database")
 #' @param dbPassword password (only if dBType == "mySql database")
 #' @param dbHost host (only if dBType == "mySql database")
@@ -42,9 +42,11 @@ createNewDBSource <- function(dbName,
 }
 
 
-#' add lines for data load from database
+#' Add Data Load For database source
 #'
-#' @param dbName name of the database
+#' add lines to the script for data load from database
+#'
+#' @inheritParams createNewDBSource
 addDataLoadForDB <- function(dbName) {
   c("# load data",
     paste0("  isoData <- get", dbName, "()"),
@@ -55,8 +57,7 @@ addDataLoadForDB <- function(dbName) {
 #' Paste DB settings
 #'
 #' @param script (character) vector of lines of the script
-#' @param dbName name of the database
-#' @param tableName name of the table containing the data
+#' @inheritParams createNewDBSource
 addDBSettings <- function(script, dbName, tableName) {
   c(
     script,

@@ -16,7 +16,7 @@ createNewDBSource(
 )
 }
 \arguments{
-\item{dbName}{name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"}
+\item{dbName}{(character) name of the database, e.g. "xyDBname"}
 
 \item{tableName}{name of the table containing the data}
 
@@ -35,5 +35,5 @@ columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
 for tests).}
 }
 \description{
-Creates a template for a new data source from a DB connection and sets .Renviron variables.
+Creates a script for a new data source from a DB connection and sets .Renviron variables.
 }

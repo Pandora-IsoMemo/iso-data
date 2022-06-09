@@ -9,7 +9,7 @@ addDBSettings(script, dbName, tableName)
 \arguments{
 \item{script}{(character) vector of lines of the script}
 
-\item{dbName}{name of the database}
+\item{dbName}{(character) name of the database, e.g. "xyDBname"}
 
 \item{tableName}{name of the table containing the data}
 }

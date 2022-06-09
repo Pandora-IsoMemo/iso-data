@@ -2,7 +2,7 @@
 % Please edit documentation in R/01-createNewFileSource.R
 \name{addDataLoadForFiles}
 \alias{addDataLoadForFiles}
-\title{add lines for data load from file}
+\title{Add Data Load For Files}
 \usage{
 addDataLoadForFiles(
   fileName,
@@ -24,5 +24,5 @@ e.g. "http://www.14sea.org/img/"}
 \item{sheetName}{name of the table sheet for xlsx files, e.g. "14C Dates"}
 }
 \description{
-add lines for data load from file
+add lines to the script for data load from file
 }

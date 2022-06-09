@@ -1,16 +1,20 @@
-# helper functions for file templates
-
-
 #' Create New File Source
 #'
-#' Creates a template for a new data source from a file and sets .Renviron variables.
+#' Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files
+#' are supported.
 #'
-#' @param dbName name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
+#' @param dbName (character) name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
+#' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
+#' @param locationType type of location, any of "local" or "remote".
+#' OPTION 1: "local" (add the file to inst/extdata/).
+#' OPTION 2: "remote" (load data from remote path).
+#' @param remotePath path to remote file, if locationType == "remote",
+#' e.g. "http://www.14sea.org/img/"
+#' @param sheetName name of the table sheet for xlsx files, e.g. "14C Dates"
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
 #' @param templateFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
-#' @inheritParams addDataLoadForFiles
 createNewFileSource <- function(dbName,
                                 locationType = NULL,
                                 fileName = NULL,
@@ -40,6 +44,10 @@ createNewFileSource <- function(dbName,
 }
 
 
+#' Paste Script Begin
+#'
+#' Opening lines of the script.
+#' @inheritParams createNewFileSource
 pasteScriptBegin <- function(dbName) {
   c(
     "# Template to set up a new data source",
@@ -49,6 +57,9 @@ pasteScriptBegin <- function(dbName) {
 }
 
 
+#' Paste Script End
+#'
+#' Closing lines of the script.
 pasteScriptEnd <- function() {
   c(
     "",
@@ -62,15 +73,11 @@ pasteScriptEnd <- function() {
 }
 
 
-#' add lines for data load from file
+#' Add Data Load For Files
 #'
-#' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
-#' @param locationType type of location, any of "local" or "remote".
-#' OPTION 1: "local" (add the file to inst/extdata/).
-#' OPTION 2: "remote" (load data from remote path).
-#' @param remotePath path to remote file, if locationType == "remote",
-#' e.g. "http://www.14sea.org/img/"
-#' @param sheetName name of the table sheet for xlsx files, e.g. "14C Dates"
+#' add lines to the script for data load from file
+#'
+#' @inheritParams createNewFileSource
 addDataLoadForFiles <-
   function(fileName,
            locationType,
@@ -91,7 +98,7 @@ addDataLoadForFiles <-
 
 #' Add File Path
 #'
-#' @inheritParams addDataLoadForFiles
+#' @inheritParams createNewFileSource
 addFilePath <- function(fileName, locationType, remotePath = NULL) {
   if (!(locationType %in% c("local", "remote")))
     stop("locationType not found. Only use \"local\" or \"remote\".")
@@ -117,7 +124,7 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
 
 #' Paste file import
 #'
-#' @inheritParams addDataLoadForFiles
+#' @inheritParams createNewFileSource
 addFileImport <- function(fileName, sheetName = NULL) {
   fileType <- tools::file_ext(fileName)
 
