@@ -60,7 +60,6 @@ createNewFileSource <- function(dbName,
 pasteScriptBegin <- function(dbName) {
   c(
     "# Template to set up a new data source",
-    "# add dbname also to R/00-databases.R!",
     paste0("extract.", dbName, " <- function(x){")
   )
 }
