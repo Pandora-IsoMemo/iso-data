@@ -152,10 +152,9 @@ addFileImport <- function(fileName, sheetName = NULL) {
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
 addDescription <- function(descriptionCreator = NULL) {
-  if (is.null(descriptionCreator)) return(NULL)
+  if (is.null(descriptionCreator))
+    return(NULL)
 
-  c(
-    "  # create Description",
-    paste0("  isoData$description <- ", descriptionCreator)
-  )
+  c("  # create Description",
+    paste0("  isoData$description <- ", descriptionCreator))
 }

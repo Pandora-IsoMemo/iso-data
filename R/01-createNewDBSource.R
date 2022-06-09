@@ -20,7 +20,6 @@ createNewDBSource <- function(dbName,
                               dbPort = NULL,
                               descriptionCreator = NULL,
                               templateFolder = "R") {
-
   dbScript <- pasteScriptBegin(dbName = dbName)
 
   dbScript <- c(dbScript,

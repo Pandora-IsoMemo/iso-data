@@ -23,7 +23,7 @@ test_that("Function createNewFileSource() for 02-CIMA.R file", {
 })
 
 
-test_that("Function createNewFileSource() from remote xlsx file", {
+test_that("Function createNewFileSource() for remote xlsx file", {
   createNewFileSource(
     dbName = "dbname",
     locationType = "remote",
@@ -54,7 +54,7 @@ test_that("Function createNewFileSource() from remote xlsx file", {
 })
 
 
-test_that("Function createNewFileSource() from local csv file", {
+test_that("Function createNewFileSource() for local csv file", {
   createNewFileSource(
     dbName = "dbname",
     locationType = "local",
@@ -85,31 +85,4 @@ test_that("Function createNewFileSource() from local csv file", {
 
   # clean up
   unlink(testthat::test_path("02-dbname.R"))
-})
-
-
-test_that("Function createNewDBSource()", {
-  createNewDBSource(
-    dbName = "DBname",
-    tableName = "table",
-    dbUser = NULL,
-    dbPassword = NULL,
-    dbHost = NULL,
-    dbPort = NULL,
-    descriptionCreator = "paste(\"Description\", isoData$var1, isoData$var2)",
-    templateFolder = getFolderForTestedTemplates()
-  )
-
-  testScript <-
-    readLines(testthat::test_path("02-DBname.R")) %>%
-    cleanUpScript()
-
-  expectedScript <-
-    readLines(testthat::test_path("examples", "02-template-db.R")) %>%
-    cleanUpScript()
-
-  expect_equal(testScript, expectedScript)
-
-  # clean up
-  unlink(testthat::test_path("02-DBname.R"))
 })
