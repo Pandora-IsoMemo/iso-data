@@ -13,7 +13,7 @@
 #' @param sheetName name of the table sheet for xlsx files, e.g. "14C Dates"
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
-#' @param templateFolder (character) place to store the scripts, usually in the R folder (except
+#' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 createNewFileSource <- function(dbName,
                                 locationType = NULL,
@@ -21,7 +21,7 @@ createNewFileSource <- function(dbName,
                                 remotePath = NULL,
                                 sheetName = NULL,
                                 descriptionCreator = NULL,
-                                templateFolder = "R") {
+                                scriptFolder = "R") {
   dbScript <- pasteScriptBegin(dbName = dbName)
 
   dbScript <- c(
@@ -40,7 +40,7 @@ createNewFileSource <- function(dbName,
     pasteScriptEnd()
   )
 
-  writeLines(dbScript, con = file.path(templateFolder, paste0("02-", dbName, ".R")))
+  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
 }
 
 

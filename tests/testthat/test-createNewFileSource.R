@@ -5,7 +5,7 @@ test_that("Function createNewFileSource() for 02-CIMA.R file", {
     fileName = "cima-humans.xlsx",
     remotePath = "https://pandoradata.earth/dataset/cbbc35e0-af60-4224-beea-181be10f7f71/resource/f7581eb1-b2b8-4926-ba77-8bc92ddb4fdb/download/",
     descriptionCreator = "paste(isoData$Submitter.ID, isoData$Individual.ID)",
-    templateFolder = getFolderForTestedTemplates()
+    scriptFolder = getFolderForTestedTemplates()
   )
 
   testScript <-
@@ -30,7 +30,7 @@ test_that("Function createNewFileSource() for remote xlsx file", {
     fileName = "14SEA_Full_Dataset_2017-01-29.xlsx",
     remotePath = "http://www.14sea.org/img/",
     sheetName = "14C Dates",
-    templateFolder = getFolderForTestedTemplates()
+    scriptFolder = getFolderForTestedTemplates()
   )
 
   testScript <-
@@ -61,7 +61,7 @@ test_that("Function createNewFileSource() for local csv file", {
     fileName = "IntChron.csv",
     sheetName = "14C Dates",
     descriptionCreator = "paste(\"Description\", isoData$var1, isoData$var2)",
-    templateFolder = getFolderForTestedTemplates()
+    scriptFolder = getFolderForTestedTemplates()
   )
 
   testScript <-

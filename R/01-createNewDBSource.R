@@ -1,25 +1,17 @@
 #' Create New DB Source
 #'
-#' Creates a script for a new data source from a DB connection and sets .Renviron variables.
+#' Creates a script for a new data source from a database connection and sets .Renviron variables.
+#' Only "mySql" databases are supported.
 #'
 #' @param dbName (character) name of the database, e.g. "xyDBname"
-#' @param dbUser user name (only if dBType == "mySql database")
-#' @param dbPassword password (only if dBType == "mySql database")
-#' @param dbHost host (only if dBType == "mySql database")
-#' @param dbPort port (only if dBType == "mySql database")
 #' @param tableName name of the table containing the data
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
-#' @param templateFolder (character) place to store the scripts, usually in the R folder (except
-#' for tests).
+#' @param scriptFolder (character) place to store the scripts.
 createNewDBSource <- function(dbName,
                               tableName,
-                              dbUser = NULL,
-                              dbPassword = NULL,
-                              dbHost = NULL,
-                              dbPort = NULL,
                               descriptionCreator = NULL,
-                              templateFolder = "R") {
+                              scriptFolder = "R") {
   dbScript <- pasteScriptBegin(dbName = dbName)
 
   dbScript <- c(dbScript,
@@ -31,14 +23,13 @@ createNewDBSource <- function(dbName,
     pasteScriptEnd()
   )
 
-  if (is.null(tableName))
-    stop("tableName not found. Please provide 'tableName'.")
-
   dbScript <- dbScript %>%
     addDBSettings(dbName = dbName,
                   tableName = tableName)
 
-  writeLines(dbScript, con = file.path(templateFolder, paste0("02-", dbName, ".R")))
+  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
+
+  setupRenviron(dbName = dbName, scriptFolder = file.path(scriptFolder))
 }
 
 
@@ -86,4 +77,32 @@ addDBSettings <- function(script, dbName, tableName) {
     paste0("  dbtools::sendQuery(creds", dbName, "(), query)"),
     "}"
   )
+}
+
+
+#' Setup Renviron
+#'
+#' Creates or updates the .Renviron file with placeholders for a new database connection.
+#'
+#' @inheritParams createNewDBSource
+setupRenviron <- function(dbName, scriptFolder = "") {
+
+  renvironBegin <- c(
+    "# Never upload any credentials to GitHub. The variable definitions are only placeholders for Jenkins.",
+    "# Uploading this script helps to maintain an overview for setting up all db connections.")
+
+  renvironDef <- c(
+    "",
+    paste0(toupper(dbName), "_USER=\"\""),
+    paste0(toupper(dbName), "_PASSWORD=\"\""),
+    paste0(toupper(dbName), "_NAME=\"\""),
+    paste0(toupper(dbName), "_HOST=\"\""),
+    paste0(toupper(dbName), "_PORT=\"\"")
+  )
+
+  if(!file.exists(file.path(scriptFolder, ".Renviron"))) {
+    writeLines(c(renvironBegin, renvironDef), con = file.path(scriptFolder, ".Renviron"))
+  } else {
+    write(renvironDef, file = file.path(scriptFolder, ".Renviron"), append = TRUE)
+    }
 }

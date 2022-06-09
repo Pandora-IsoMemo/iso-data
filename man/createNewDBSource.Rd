@@ -7,12 +7,8 @@
 createNewDBSource(
   dbName,
   tableName,
-  dbUser = NULL,
-  dbPassword = NULL,
-  dbHost = NULL,
-  dbPort = NULL,
   descriptionCreator = NULL,
-  templateFolder = "R"
+  scriptFolder = "R"
 )
 }
 \arguments{
@@ -20,20 +16,12 @@ createNewDBSource(
 
 \item{tableName}{name of the table containing the data}
 
-\item{dbUser}{user name (only if dBType == "mySql database")}
-
-\item{dbPassword}{password (only if dBType == "mySql database")}
-
-\item{dbHost}{host (only if dBType == "mySql database")}
-
-\item{dbPort}{port (only if dBType == "mySql database")}
-
 \item{descriptionCreator}{(character) command that creates the description, e.g. pasting data
 columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
 
-\item{templateFolder}{(character) place to store the scripts, usually in the R folder (except
-for tests).}
+\item{scriptFolder}{(character) place to store the scripts.}
 }
 \description{
-Creates a script for a new data source from a DB connection and sets .Renviron variables.
+Creates a script for a new data source from a database connection and sets .Renviron variables.
+Only "mySql" databases are supported.
 }
