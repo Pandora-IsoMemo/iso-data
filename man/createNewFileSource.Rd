@@ -17,7 +17,8 @@ createNewFileSource(
 )
 }
 \arguments{
-\item{dbName}{(character) name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"}
+\item{dbName}{(character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
+"LiVES"}
 
 \item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
 

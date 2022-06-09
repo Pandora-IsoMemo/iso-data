@@ -7,7 +7,7 @@
 addDBSettings(dbName, tableName)
 }
 \arguments{
-\item{dbName}{(character) name of the database, e.g. "xyDBname"}
+\item{dbName}{(character) name of the new database source, e.g. "xyDBname"}
 
 \item{tableName}{name of the table containing the data}
 }

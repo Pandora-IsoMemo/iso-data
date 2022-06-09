@@ -3,7 +3,8 @@
 #' Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files
 #' are supported.
 #'
-#' @param dbName (character) name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
+#' @param dbName (character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
+#' "LiVES"
 #' @param datingType (character) dating type for the database
 #' @param coordType (character) coord type for the database
 #' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"

@@ -7,7 +7,7 @@
 setupRenviron(dbName, scriptFolder = "")
 }
 \arguments{
-\item{dbName}{(character) name of the database, e.g. "xyDBname"}
+\item{dbName}{(character) name of the new database source, e.g. "xyDBname"}
 
 \item{scriptFolder}{(character) place to store the scripts.}
 }

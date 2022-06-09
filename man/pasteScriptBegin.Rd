@@ -7,7 +7,8 @@
 pasteScriptBegin(dbName)
 }
 \arguments{
-\item{dbName}{(character) name of the database, e.g. "14CSea", "CIMA", "IntChron", "LiVES"}
+\item{dbName}{(character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
+"LiVES"}
 }
 \description{
 Opening lines of the script.

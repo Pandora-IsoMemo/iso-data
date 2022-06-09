@@ -7,7 +7,7 @@
 addDataLoadForDB(dbName)
 }
 \arguments{
-\item{dbName}{(character) name of the database, e.g. "xyDBname"}
+\item{dbName}{(character) name of the new database source, e.g. "xyDBname"}
 }
 \description{
 add lines to the script for data load from database

@@ -3,7 +3,7 @@
 #' Creates a script for a new data source from a database connection and sets .Renviron variables.
 #' Only "mySql" databases are supported.
 #'
-#' @param dbName (character) name of the database, e.g. "xyDBname"
+#' @param dbName (character) name of the new database source, e.g. "xyDBname"
 #' @param tableName name of the table containing the data
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"

@@ -23,9 +23,39 @@ extract.testdb <- function(x) {
 
 ## Add New Data Source
 
-1. Create a new file `R/02-<datasource>.R`, i.e. from the template in `02-template-db.R` (data retrieved from database) or `02-template-file.R` (data retrieved from static file in `inst/'` folder)
-2. Set the function name to `extract.<datasource>`
-3. Add an entry in `R/00-databases.R`. Specify `name`, `datingType` and `coordType` for this database in this file
+1. Specify `<name>`, `<datingType>` and `<coordType>` for the new data source.
+2. Execute the following function to create a new file `R/02-<name>.R` with a) data retrieved from
+a mySql database. Here, the `<tableName>` must be specified.
+```r
+createNewDBSource(dbName = <name>,
+                  datingType = <datingType>,
+                  coordType = <coordType>,
+                  tableName = <tableName>,
+                  descriptionCreator = NULL)
+```
+ or b) data retrieved from a static `"local"` file in `inst/'` folder or from a `"remote"`
+ `<location>`. If second the `<remotePath>` must be given.
+ Provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
+ a `<sheetName>` can be specified.
+```r
+createNewFileSource(dbName = <name>,
+                    datingType = <datingType>,
+                    coordType = <coordType>,
+                    locationType = <location>,
+                    remotePath = <remotePath>,
+                    fileName = <filename>,
+                    sheetName = <sheetName>,
+                    descriptionCreator = NULL)
+```
+A column containing a description can be added to the new data source with the
+`<descriptionCreator>`. E.g. select a particular column `var`: `<descriptionCreator> = isoData$var`
+or paste two columns `var1` and `var2`: `<descriptionCreator> = paste(isoData$var1, isoData$var2)`.
+
+Executing `createNewDBSource` or `createNewFileSource` 
+- sets the function name to `extract.<datasource>` in the new file `R/02-<datasource>.R`,
+- an entry in `R/00-databases.R` will be added automatically,
+- for mySql databases an `.Renviron` file will be created/updated that containes placeholders for
+credentials.
 
 
 ## Test Data Sources
@@ -36,7 +66,7 @@ Run the following commands in R to install the package locally and run the extra
 devtools::install() # install package locally
 devtools::load_all() # load all functions from package
 
-res <- test()
+res <- etlTest()
 ```
 
 Inspect the results in test. Data from the nth datasource will be in the element `res[[n]]$dat`
@@ -44,12 +74,12 @@ Inspect the results in test. Data from the nth datasource will be in the element
 IMPORTANT: Only 5 rows will be processed during the test! If you want to process all data specify `full = TRUE`:
 
 ```r
-res <- test(full = TRUE)
+res <- etlTest(full = TRUE)
 ```
 
 To test only the n-th datasource execute the function like this
 ```r
-res <- test(databases()[n])
+res <- etlTest(databases()[n])
 ```
 
 Results will be in the object res[[1]]$dat
