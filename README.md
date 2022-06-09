@@ -63,6 +63,8 @@ Executing either `createNewDBSource` or `createNewFileSource`
 - for mySql databases an `.Renviron` file will be created/updated that containes placeholders for
 database credentials.
 
+The files `R/02-<datasource>.R` can contain individual and extensive data preparations that can be
+added manually, e.g. compare `R/02-LiVES.R`.
 
 ## Test Data Sources
 
