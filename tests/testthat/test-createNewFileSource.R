@@ -32,8 +32,15 @@ test_that("Function createNewFileSource() for 02-CIMA.R file", {
 
 
 test_that("Function createNewFileSource() for remote xlsx file", {
+  file.copy(
+    from = file.path(testthat::test_path("examples"), "00-databases.R"),
+    to = file.path(testthat::test_path(), "00-databases.R")
+  )
+
   createNewFileSource(
     dbName = "dbname",
+    datingType = "radiocarbon",
+    coordType = "decimal degrees",
     locationType = "remote",
     fileName = "14SEA_Full_Dataset_2017-01-29.xlsx",
     remotePath = "http://www.14sea.org/img/",
@@ -59,12 +66,20 @@ test_that("Function createNewFileSource() for remote xlsx file", {
 
   # clean up
   unlink(testthat::test_path("02-dbname.R"))
+  unlink(testthat::test_path("00-databases.R"))
 })
 
 
 test_that("Function createNewFileSource() for local csv file", {
+  file.copy(
+    from = file.path(testthat::test_path("examples"), "00-databases.R"),
+    to = file.path(testthat::test_path(), "00-databases.R")
+  )
+
   createNewFileSource(
     dbName = "dbname",
+    datingType = "radiocarbon",
+    coordType = "decimal degrees",
     locationType = "local",
     fileName = "IntChron.csv",
     sheetName = "14C Dates",
@@ -93,4 +108,5 @@ test_that("Function createNewFileSource() for local csv file", {
 
   # clean up
   unlink(testthat::test_path("02-dbname.R"))
+  unlink(testthat::test_path("00-databases.R"))
 })

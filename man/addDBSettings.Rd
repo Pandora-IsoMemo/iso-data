@@ -4,11 +4,9 @@
 \alias{addDBSettings}
 \title{Paste DB settings}
 \usage{
-addDBSettings(script, dbName, tableName)
+addDBSettings(dbName, tableName)
 }
 \arguments{
-\item{script}{(character) vector of lines of the script}
-
 \item{dbName}{(character) name of the database, e.g. "xyDBname"}
 
 \item{tableName}{name of the table containing the data}

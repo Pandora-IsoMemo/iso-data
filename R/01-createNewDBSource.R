@@ -30,18 +30,20 @@ createNewDBSource <- function(dbName,
     pasteScriptEnd()
   )
 
-  dbScript <- dbScript %>%
-    addDBSettings(dbName = dbName,
-                  tableName = tableName)
+  dbScript <- c(dbScript,
+                addDBSettings(dbName = dbName,
+                              tableName = tableName))
 
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
 
   setupRenviron(dbName = dbName, scriptFolder = file.path(rootFolder))
 
-  updateDatabaseList(dbName = dbName,
-                     datingType = datingType,
-                     coordType = coordType,
-                     scriptFolder = file.path(scriptFolder))
+  updateDatabaseList(
+    dbName = dbName,
+    datingType = datingType,
+    coordType = coordType,
+    scriptFolder = file.path(scriptFolder)
+  )
 }
 
 
@@ -59,11 +61,9 @@ addDataLoadForDB <- function(dbName) {
 
 #' Paste DB settings
 #'
-#' @param script (character) vector of lines of the script
 #' @inheritParams createNewDBSource
-addDBSettings <- function(script, dbName, tableName) {
+addDBSettings <- function(dbName, tableName) {
   c(
-    script,
     "",
     "# Template for the credentials of the database",
     paste0("creds", dbName, " <- function(){"),
