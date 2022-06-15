@@ -22,9 +22,15 @@ createNewDBSource <- function(dbName,
                               rootFolder = ".") {
   # check for duplicated db names
   if (formatDBName(dbName) %in% formatDBName(dbnames()))
-    stop(paste0("dbName = ", dbName, " already exists in (",
-                paste0(dbnames(), collapse = ", "),
-                "). Please provide case-insensitive unique names without special characters."))
+    stop(
+      paste0(
+        "dbName = ",
+        dbName,
+        " already exists in (",
+        paste0(dbnames(), collapse = ", "),
+        "). Please provide case-insensitive unique names without special characters."
+      )
+    )
 
   dbName <- formatDBName(dbName)
 
@@ -43,6 +49,7 @@ createNewDBSource <- function(dbName,
                 addDBSettings(dbName = dbName,
                               tableName = tableName))
 
+  logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dbName, ".R")))
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
 
   setupRenviron(dbName = dbName, scriptFolder = file.path(rootFolder))
@@ -82,11 +89,9 @@ addDBSettings <- function(dbName, tableName) {
     paste0("        password = Sys.getenv(\"", dbName, "_PASSWORD\"),"),
     paste0("        dbname = Sys.getenv(\"", dbName, "_NAME\"),"),
     paste0("        host = Sys.getenv(\"", dbName, "_HOST\"),"),
-    paste0(
-      "        port = as.numeric(Sys.getenv(\"",
-      dbName,
-      "_PORT\")),"
-    ),
+    paste0("        port = as.numeric(Sys.getenv(\"",
+           dbName,
+           "_PORT\")),"),
     "    )",
     "}",
     "",
@@ -104,7 +109,7 @@ addDBSettings <- function(dbName, tableName) {
 #'
 #' @param dbName (character) user-provided name of the new data source
 #' @return (character) name formated to upper letters and underscore for special characters
-formatDBName <- function(dbName){
+formatDBName <- function(dbName) {
   # upper letters
   res <- toupper(dbName)
   # replace special characters with underscore
@@ -134,12 +139,16 @@ setupRenviron <- function(dbName, scriptFolder = "") {
     paste0(dbName, "_PORT=\"\"")
   )
 
-  if (!file.exists(file.path(scriptFolder, ".Renviron"))) {
+  filePath <- file.path(scriptFolder, ".Renviron")
+
+  if (!file.exists(filePath)) {
+    logging("Creating new file: %s", filePath)
     writeLines(c(renvironBegin, renvironDef),
-               con = file.path(scriptFolder, ".Renviron"))
+               con = filePath)
   } else {
+    logging("Updating existing file: %s", filePath)
     write(renvironDef,
-          file = file.path(scriptFolder, ".Renviron"),
+          file = filePath,
           append = TRUE)
   }
 }
@@ -178,6 +187,8 @@ updateDatabaseList <-
     dbDef <-
       c(dbDef[1:(lastRow - 3)], newSource, dbDef[(lastRow - 2):lastRow])
 
+    logging("Updating existing file: %s",
+            file.path(scriptFolder, "00-databases.R"))
     writeLines(c(dbDef, "", otherDefs),
                con = file.path(scriptFolder, "00-databases.R"))
   }
