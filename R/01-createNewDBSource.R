@@ -12,13 +12,14 @@
 #' @param scriptFolder (character) place to store the scripts.
 #' @param rootFolder (character) root folder of the package, usually containing .Renviron,
 #' DESCRIPTION, ...
+#' @export
 createNewDBSource <- function(dbName,
                               tableName,
                               datingType,
                               coordType,
                               descriptionCreator = NULL,
                               scriptFolder = "R",
-                              rootFolder = "") {
+                              rootFolder = ".") {
   # check for duplicated db names
   if (toupper(dbName) %in% toupper(dbnames()))
     stop(paste0("dbName = ", dbName, " already exists in (",

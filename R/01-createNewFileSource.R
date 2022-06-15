@@ -18,6 +18,7 @@
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
+#' @export
 createNewFileSource <- function(dbName,
                                 fileName,
                                 datingType,

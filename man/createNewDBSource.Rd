@@ -11,7 +11,7 @@ createNewDBSource(
   coordType,
   descriptionCreator = NULL,
   scriptFolder = "R",
-  rootFolder = ""
+  rootFolder = "."
 )
 }
 \arguments{
