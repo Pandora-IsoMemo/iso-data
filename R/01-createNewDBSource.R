@@ -7,8 +7,8 @@
 #' @param tableName name of the table containing the data
 #' @param descriptionCreator (character) command that creates the description, e.g. pasting data
 #'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
-#' @param datingType (character) dating type for the database
-#' @param coordType (character) coord type for the database
+#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
+#' @param coordType (character) coord type for the database, e.g. "decimal degrees"
 #' @param scriptFolder (character) place to store the scripts.
 #' @param rootFolder (character) root folder of the package, usually containing .Renviron,
 #' DESCRIPTION, ...

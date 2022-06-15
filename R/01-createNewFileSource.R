@@ -5,8 +5,8 @@
 #'
 #' @param dbName (character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
 #' "LiVES"
-#' @param datingType (character) dating type for the database
-#' @param coordType (character) coord type for the database
+#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
+#' @param coordType (character) coord type for the database, e.g. "decimal degrees"
 #' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param locationType type of location, any of "local" or "remote".
 #' OPTION 1: "local" (add the file to inst/extdata/).

@@ -9,9 +9,9 @@ updateDatabaseList(dbName, datingType, coordType, scriptFolder = "R")
 \arguments{
 \item{dbName}{(character) name of the new database source, e.g. "xyDBname"}
 
-\item{datingType}{(character) dating type for the database}
+\item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
 
-\item{coordType}{(character) coord type for the database}
+\item{coordType}{(character) coord type for the database, e.g. "decimal degrees"}
 
 \item{scriptFolder}{(character) place to store the scripts.}
 }
