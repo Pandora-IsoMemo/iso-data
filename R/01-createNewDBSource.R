@@ -21,10 +21,12 @@ createNewDBSource <- function(dbName,
                               scriptFolder = "R",
                               rootFolder = ".") {
   # check for duplicated db names
-  if (toupper(dbName) %in% toupper(dbnames()))
+  if (formatDBName(dbName) %in% formatDBName(dbnames()))
     stop(paste0("dbName = ", dbName, " already exists in (",
                 paste0(dbnames(), collapse = ", "),
-                "). Please provide case-insensitive unique names."))
+                "). Please provide case-insensitive unique names without special characters."))
+
+  dbName <- formatDBName(dbName)
 
   dbScript <- pasteScriptBegin(dbName = dbName)
 
@@ -76,13 +78,13 @@ addDBSettings <- function(dbName, tableName) {
     paste0("creds", dbName, " <- function(){"),
     "    Credentials(",
     "        drv = RMySQL::MySQL,",
-    paste0("        user = Sys.getenv(\"", toupper(dbName), "_USER\"),"),
-    paste0("        password = Sys.getenv(\"", toupper(dbName), "_PASSWORD\"),"),
-    paste0("        dbname = Sys.getenv(\"", toupper(dbName), "_NAME\"),"),
-    paste0("        host = Sys.getenv(\"", toupper(dbName), "_HOST\"),"),
+    paste0("        user = Sys.getenv(\"", dbName, "_USER\"),"),
+    paste0("        password = Sys.getenv(\"", dbName, "_PASSWORD\"),"),
+    paste0("        dbname = Sys.getenv(\"", dbName, "_NAME\"),"),
+    paste0("        host = Sys.getenv(\"", dbName, "_HOST\"),"),
     paste0(
       "        port = as.numeric(Sys.getenv(\"",
-      toupper(dbName),
+      dbName,
       "_PORT\")),"
     ),
     "    )",
@@ -98,6 +100,18 @@ addDBSettings <- function(dbName, tableName) {
   )
 }
 
+#' Format DB Name
+#'
+#' @param dbName (character) user-provided name of the new data source
+#' @return (character) name formated to upper letters and underscore for special characters
+formatDBName <- function(dbName){
+  # upper letters
+  res <- toupper(dbName)
+  # replace special characters with underscore
+  res <- gsub("[^[:alnum:]]", "_", res)
+  # replace "__" with "_"
+  gsub("_+", "_", res)
+}
 
 #' Setup Renviron
 #'
@@ -113,11 +127,11 @@ setupRenviron <- function(dbName, scriptFolder = "") {
 
   renvironDef <- c(
     "",
-    paste0(toupper(dbName), "_USER=\"\""),
-    paste0(toupper(dbName), "_PASSWORD=\"\""),
-    paste0(toupper(dbName), "_NAME=\"\""),
-    paste0(toupper(dbName), "_HOST=\"\""),
-    paste0(toupper(dbName), "_PORT=\"\"")
+    paste0(dbName, "_USER=\"\""),
+    paste0(dbName, "_PASSWORD=\"\""),
+    paste0(dbName, "_NAME=\"\""),
+    paste0(dbName, "_HOST=\"\""),
+    paste0(dbName, "_PORT=\"\"")
   )
 
   if (!file.exists(file.path(scriptFolder, ".Renviron"))) {

@@ -30,10 +30,12 @@ createNewFileSource <- function(dbName,
                                 scriptFolder = "R") {
 
   # check for duplicated db names
-  if (toupper(dbName) %in% toupper(dbnames()))
+  if (formatDBName(dbName) %in% formatDBName(dbnames()))
     stop(paste0("dbName = ", dbName, " already exists in (",
                paste0(dbnames(), collapse = ", "),
                "). Please provide case-insensitive unique names."))
+
+  dbName <- formatDBName(dbName)
 
   dbScript <- pasteScriptBegin(dbName = dbName)
 
