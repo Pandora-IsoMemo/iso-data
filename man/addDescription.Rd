@@ -4,11 +4,7 @@
 \alias{addDescription}
 \title{Add description And Pass Data}
 \usage{
-addDescription(descriptionCreator = NULL)
-}
-\arguments{
-\item{descriptionCreator}{(character) command that creates the description, e.g. pasting data
-columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
+addDescription()
 }
 \description{
 Add description And Pass Data

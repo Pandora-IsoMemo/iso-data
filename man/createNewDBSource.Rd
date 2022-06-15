@@ -9,7 +9,6 @@ createNewDBSource(
   tableName,
   datingType,
   coordType,
-  descriptionCreator = NULL,
   scriptFolder = "R",
   rootFolder = "."
 )
@@ -22,9 +21,6 @@ createNewDBSource(
 \item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
 
 \item{coordType}{(character) coord type for the database, e.g. "decimal degrees"}
-
-\item{descriptionCreator}{(character) command that creates the description, e.g. pasting data
-columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
 
 \item{scriptFolder}{(character) place to store the scripts.}
 

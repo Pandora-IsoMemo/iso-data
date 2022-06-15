@@ -5,8 +5,6 @@
 #'
 #' @param dbName (character) name of the new database source, e.g. "xyDBname"
 #' @param tableName name of the table containing the data
-#' @param descriptionCreator (character) command that creates the description, e.g. pasting data
-#'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coord type for the database, e.g. "decimal degrees"
 #' @param scriptFolder (character) place to store the scripts.
@@ -17,7 +15,6 @@ createNewDBSource <- function(dbName,
                               tableName,
                               datingType,
                               coordType,
-                              descriptionCreator = NULL,
                               scriptFolder = "R",
                               rootFolder = ".") {
   # check for duplicated db names
@@ -39,11 +36,9 @@ createNewDBSource <- function(dbName,
   dbScript <- c(dbScript,
                 addDataLoadForDB(dbName = dbName))
 
-  dbScript <- c(
-    dbScript,
-    addDescription(descriptionCreator = descriptionCreator),
-    pasteScriptEnd()
-  )
+  dbScript <- c(dbScript,
+                addDescription(),
+                pasteScriptEnd())
 
   dbScript <- c(dbScript,
                 addDBSettings(dbName = dbName,

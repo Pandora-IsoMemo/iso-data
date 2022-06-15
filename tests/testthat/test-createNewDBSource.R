@@ -9,21 +9,43 @@ test_that("Function createNewDBSource()", {
     tableName = "table",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
-    descriptionCreator = "paste(\"Description\", isoData$var1, isoData$var2)",
     scriptFolder = testthat::test_path(),
     rootFolder = testthat::test_path()
   )
 
   testScript <-
-    readLines(testthat::test_path("02-DBname.R")) %>%
+    readLines(testthat::test_path("02-DBNAME.R")) %>%
     cleanUpScript()
 
   testRenviron <-
     readLines(testthat::test_path(".Renviron"))
 
   expectedScript <-
-    readLines(testthat::test_path("examples", "02-template-db.R")) %>%
-    cleanUpScript()
+    c(
+      "extract.DBNAME <- function(x){",
+      "  isoData <- getDBNAME()",
+      "  x$dat <- isoData",
+      "  x",
+      "}",
+      "credsDBNAME <- function(){",
+      "    Credentials(",
+      "        drv = RMySQL::MySQL,",
+      "        user = Sys.getenv(\"DBNAME_USER\"),",
+      "        password = Sys.getenv(\"DBNAME_PASSWORD\"),",
+      "        dbname = Sys.getenv(\"DBNAME_NAME\"),",
+      "        host = Sys.getenv(\"DBNAME_HOST\"),",
+      "        port = as.numeric(Sys.getenv(\"DBNAME_PORT\")),",
+      "    )",
+      "}",
+      "getDBNAME <- function(){",
+      "  query <- paste(",
+      "      \"select * from table;\"",
+      "  )",
+      "  dbtools::sendQuery(credsDBNAME(), query)",
+      "}"
+    )
+  # readLines(testthat::test_path("examples", "02-template-db.R")) %>%
+  # cleanUpScript()
 
   expectedRenviron <-
     c(
@@ -38,18 +60,19 @@ test_that("Function createNewDBSource()", {
       "DBNAME_PORT=\"\""
     )
 
-  expect_equal(testScript, expectedScript)
-  expect_equal(testRenviron, expectedRenviron)
+  testthat::expect_equal(testScript, expectedScript)
+  testthat::expect_equal(testRenviron, expectedRenviron)
 
   # clean up
-  unlink(testthat::test_path("02-DBname.R"))
+  unlink(testthat::test_path("02-DBNAME.R"))
   unlink(testthat::test_path(".Renviron"))
   unlink(testthat::test_path("00-databases.R"))
 })
 
 
 test_that("Function setupRenviron()", {
-  setupRenviron(dbName = "dbName1", scriptFolder = testthat::test_path())
+  setupRenviron(dbName = formatDBName("dbName1"),
+                scriptFolder = testthat::test_path())
 
   testScript <-
     readLines(testthat::test_path(".Renviron"))
@@ -69,7 +92,8 @@ test_that("Function setupRenviron()", {
 
   expect_equal(testScript, expectedScript)
 
-  setupRenviron(dbName = "dbXYZ", scriptFolder = testthat::test_path())
+  setupRenviron(dbName = formatDBName("dbXYZ"),
+                scriptFolder = testthat::test_path())
 
   testScript <-
     readLines(testthat::test_path(".Renviron"))
@@ -106,10 +130,12 @@ test_that("Function updateDatabaseList()", {
     to = file.path(testthat::test_path(), "00-databases.R")
   )
 
-  updateDatabaseList(dbName = "dbName1",
-                     datingType = "radiocarbonXYZ",
-                     coordType = "ABC degrees",
-                     scriptFolder = testthat::test_path())
+  updateDatabaseList(
+    dbName = formatDBName("dbName1"),
+    datingType = "radiocarbonXYZ",
+    coordType = "ABC degrees",
+    scriptFolder = testthat::test_path()
+  )
 
   testScript <-
     readLines(testthat::test_path("00-databases.R"))
@@ -139,7 +165,7 @@ test_that("Function updateDatabaseList()", {
       "           coordType = \"decimal degrees\"",
       "        ),",
       "        singleSource (",
-      "          name = \"dbName1\",",
+      "          name = \"DBNAME1\",",
       "          datingType = \"radiocarbonXYZ\",",
       "          coordType = \"ABC degrees\"",
       "        )",

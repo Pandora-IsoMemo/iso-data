@@ -14,8 +14,6 @@
 #' @param remotePath path to remote file, if locationType == "remote",
 #' e.g. "http://www.14sea.org/img/"
 #' @param sheetName name of the table sheet for xlsx files, e.g. "14C Dates"
-#' @param descriptionCreator (character) command that creates the description, e.g. pasting data
-#'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 #' @export
@@ -26,14 +24,18 @@ createNewFileSource <- function(dbName,
                                 locationType,
                                 remotePath = NULL,
                                 sheetName = NULL,
-                                descriptionCreator = NULL,
                                 scriptFolder = "R") {
-
   # check for duplicated db names
   if (formatDBName(dbName) %in% formatDBName(dbnames()))
-    stop(paste0("dbName = ", dbName, " already exists in (",
-               paste0(dbnames(), collapse = ", "),
-               "). Please provide case-insensitive unique names."))
+    stop(
+      paste0(
+        "dbName = ",
+        dbName,
+        " already exists in (",
+        paste0(dbnames(), collapse = ", "),
+        "). Please provide case-insensitive unique names without special characters."
+      )
+    )
 
   dbName <- formatDBName(dbName)
 
@@ -49,18 +51,18 @@ createNewFileSource <- function(dbName,
     )
   )
 
-  dbScript <- c(
-    dbScript,
-    addDescription(descriptionCreator = descriptionCreator),
-    pasteScriptEnd()
-  )
+  dbScript <- c(dbScript,
+                addDescription(),
+                pasteScriptEnd())
 
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
 
-  updateDatabaseList(dbName = dbName,
-                     datingType = datingType,
-                     coordType = coordType,
-                     scriptFolder = file.path(scriptFolder))
+  updateDatabaseList(
+    dbName = dbName,
+    datingType = datingType,
+    coordType = coordType,
+    scriptFolder = file.path(scriptFolder)
+  )
 }
 
 
@@ -69,10 +71,8 @@ createNewFileSource <- function(dbName,
 #' Opening lines of the script.
 #' @inheritParams createNewFileSource
 pasteScriptBegin <- function(dbName) {
-  c(
-    "# Template to set up a new data source",
-    paste0("extract.", dbName, " <- function(x){")
-  )
+  c("# Template to set up a new data source",
+    paste0("extract.", dbName, " <- function(x){"))
 }
 
 
@@ -175,12 +175,11 @@ addFileImport <- function(fileName, sheetName = NULL) {
 
 #' Add description And Pass Data
 #'
-#' @param descriptionCreator (character) command that creates the description, e.g. pasting data
-#'  columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"
-addDescription <- function(descriptionCreator = NULL) {
-  if (is.null(descriptionCreator))
-    return(NULL)
-
-  c("  # create Description",
-    paste0("  isoData$description <- ", descriptionCreator))
+addDescription <- function() {
+  c(
+    "  # create Description",
+    "  # e.g. paste two columns to define a new description column",
+    "  # for this, uncomment the next line and update column names:",
+    "  #  isoData$description <- paste(isoData$var1, isoData$var2)"
+  )
 }

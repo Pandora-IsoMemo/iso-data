@@ -12,7 +12,6 @@ createNewFileSource(
   locationType,
   remotePath = NULL,
   sheetName = NULL,
-  descriptionCreator = NULL,
   scriptFolder = "R"
 )
 }
@@ -34,9 +33,6 @@ OPTION 2: "remote" (load data from remote path).}
 e.g. "http://www.14sea.org/img/"}
 
 \item{sheetName}{name of the table sheet for xlsx files, e.g. "14C Dates"}
-
-\item{descriptionCreator}{(character) command that creates the description, e.g. pasting data
-columns "var1" and "var2": "paste(isoData$var1, isoData$var2)"}
 
 \item{scriptFolder}{(character) place to store the scripts, usually in the R folder (except
 for tests).}
