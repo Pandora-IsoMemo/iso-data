@@ -4,10 +4,10 @@
 \alias{addFileImport}
 \title{Paste file import}
 \usage{
-addFileImport(fileName, sheetName = NULL)
+addFileImport(fileType, sheetName = 1)
 }
 \arguments{
-\item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
+\item{fileType}{(character) type of file, "csv" or "xlsx" only}
 
 \item{sheetName}{name of the table sheet for xlsx files, e.g. "14C Dates"}
 }

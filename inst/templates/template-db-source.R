@@ -1,4 +1,4 @@
-# Set up for a data source
+# Set up for a data source from a database
 
 extract.{{ dbName }} <- function(x) {
   # load data

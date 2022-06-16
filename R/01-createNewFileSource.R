@@ -23,7 +23,7 @@ createNewFileSource <- function(dbName,
                                 coordType,
                                 locationType,
                                 remotePath = NULL,
-                                sheetName = NULL,
+                                sheetName = 1,
                                 scriptFolder = "R") {
   # check for duplicated db names
   if (formatDBName(dbName) %in% formatDBName(dbnames()))
@@ -39,21 +39,26 @@ createNewFileSource <- function(dbName,
 
   dbName <- formatDBName(dbName)
 
-  dbScript <- pasteScriptBegin(dbName = dbName)
+  filePath <- addFilePath(fileName = fileName,
+                          locationType = locationType,
+                          remotePath = remotePath)
 
-  dbScript <- c(
-    dbScript,
-    addDataLoadForFiles(
-      locationType = locationType,
-      fileName = fileName,
-      remotePath = remotePath,
-      sheetName = sheetName
-    )
-  )
+  fileImport <- addFileImport(fileType = tools::file_ext(fileName),
+                              sheetName = sheetName)
 
-  dbScript <- c(dbScript,
-                addDescription(),
-                pasteScriptEnd())
+  scriptTemplate <-
+    file.path(system.file(package = "MpiIsoData"),
+              "templates",
+              "template-file-source.R") %>%
+    readLines()
+
+  dbScript <- tmpl(
+    paste0(scriptTemplate, collapse = "\n"),
+    dbName = dbName,
+    filePath = filePath,
+    fileImport = fileImport
+  ) %>%
+    as.character()
 
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
 
@@ -66,55 +71,6 @@ createNewFileSource <- function(dbName,
 }
 
 
-#' Paste Script Begin
-#'
-#' Opening lines of the script.
-#' @inheritParams createNewFileSource
-pasteScriptBegin <- function(dbName) {
-  c("# Template to set up a new data source",
-    paste0("extract.", dbName, " <- function(x){"))
-}
-
-
-#' Paste Script End
-#'
-#' Closing lines of the script.
-pasteScriptEnd <- function() {
-  c(
-    "",
-    "# pass isoData to next steps (no need to change anything here)",
-    "  x$dat <- isoData",
-    "",
-    "  x",
-    "}",
-    ""
-  )
-}
-
-
-#' Add Data Load For Files
-#'
-#' add lines to the script for data load from file
-#'
-#' @inheritParams createNewFileSource
-addDataLoadForFiles <-
-  function(fileName,
-           locationType,
-           remotePath = NULL,
-           sheetName = NULL) {
-    c(
-      "# set path to file",
-      addFilePath(
-        locationType = locationType,
-        fileName = fileName,
-        remotePath = remotePath
-      ),
-      "# specify import options",
-      addFileImport(fileName = fileName, sheetName = sheetName),
-      ""
-    )
-  }
-
 #' Add File Path
 #'
 #' @inheritParams createNewFileSource
@@ -122,64 +78,46 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
   if (!(locationType %in% c("local", "remote")))
     stop("locationType not found. Only use \"local\" or \"remote\".")
 
-  filePath <- "  dataFile <- "
-  if (locationType == "local") {
-    filePath <- paste0(
-      filePath,
-      "system.file(\"extdata\", \"",
-      fileName,
-      "\" , package = \"MpiIsoData\")"
-    )
-  }
-
   if (locationType == "remote") {
     if (is.null(remotePath))
       stop("Provide a \"remotePath\" for \"remote\" locations.")
-    filePath <- paste0(filePath, "\"", remotePath, fileName, "\"")
+
+    path <- remotePath
+  } else {
+    # locationType == "local"
+    path <- "system.file(\"extdata\", package = \"MpiIsoData\")"
   }
 
-  filePath
+  tmpl(
+    "file.path(\"{{ path }}\", \"{{ fileName }}\")",
+    path = path,
+    fileName = fileName
+  ) %>%
+    as.character()
 }
+
 
 #' Paste file import
 #'
 #' @inheritParams createNewFileSource
-addFileImport <- function(fileName, sheetName = NULL) {
-  fileType <- tools::file_ext(fileName)
-
+#' @param fileType (character) type of file, "csv" or "xlsx" only
+addFileImport <- function(fileType, sheetName = 1) {
   if (!(fileType %in% c("csv", "xlsx")))
     stop("File type not supported. Only use \".csv\" or \".xlsx\" files.")
 
   if (fileType == "csv") {
-    fileImport <- c(
-      "  isoData <- read.csv(file = dataFile, stringsAsFactors = FALSE, ",
-      "                      check.names = FALSE, na.strings = c(\"\", \"NA\"), ",
-      "                      strip.white = TRUE)"
-    )
-  }
-
-  if (fileType == "xlsx") {
-    if (!is.null(sheetName)) {
-      fileImport <-
-        paste0("  isoData <- read.xlsx(xlsxFile = dataFile, sheet = \"",
-               sheetName,
-               "\")")
-    } else {
-      fileImport <- "  isoData <- read.xlsx(xlsxFile = dataFile)"
-    }
+    fileImport <-
+      paste0(
+        "read.csv(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
+        "na.strings = c(\"\", \"NA\"), strip.white = TRUE)"
+      )
+  } else {
+    # fileType == "xlsx"
+    fileImport <-
+      tmpl("read.xlsx(xlsxFile = dataFile, sheet = \"{{ sheetName }}\")",
+           sheetName = sheetName) %>%
+      as.character()
   }
 
   fileImport
-}
-
-
-#' Add description And Pass Data
-#'
-addDescription <- function() {
-  c(
-    "  # create Description",
-    "  # e.g. paste two columns to define a new description column",
-    "  # for this, uncomment the next line and update column names:",
-    "  #  isoData$description <- paste(isoData$var1, isoData$var2)"
-  )
 }

@@ -32,17 +32,16 @@ createNewDBSource <- function(dbName,
   dbName <- formatDBName(dbName)
 
   scriptTemplate <-
-    file.path(system.file(package = "MpiIsoData"), "templates",  "template-db-source.R") %>%
+    file.path(system.file(package = "MpiIsoData"),
+              "templates",
+              "template-db-source.R") %>%
     readLines()
 
-  dbScript <- tmpl(scriptTemplate, dbName = dbName, tableName = tableName) %>%
+  dbScript <-
+    tmpl(paste0(scriptTemplate, collapse = "\n"),
+         dbName = dbName,
+         tableName = tableName) %>%
     as.character()
-
-  # dbScript <- pasteScriptBegin(dbName = dbName)
-  #
-  # dbScript <- c(dbScript,
-  #               addDescription(),
-  #               pasteScriptEnd())
 
   logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dbName, ".R")))
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))

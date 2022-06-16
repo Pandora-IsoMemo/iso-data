@@ -1,12 +1,12 @@
-test_that("Function createNewDBSource()", {
+testthat::test_that("Function createNewDBSource()", {
   file.copy(
     from = file.path(testthat::test_path("examples"), "00-databases.R"),
     to = file.path(testthat::test_path(), "00-databases.R")
   )
 
   createNewDBSource(
-    dbName = "DBname",
-    tableName = "table",
+    dbName = "myDBname",
+    tableName = "myTable",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
     scriptFolder = testthat::test_path(),
@@ -14,7 +14,7 @@ test_that("Function createNewDBSource()", {
   )
 
   testScript <-
-    readLines(testthat::test_path("02-DBNAME.R")) %>%
+    readLines(testthat::test_path("02-MYDBNAME.R")) %>%
     cleanUpScript()
 
   testRenviron <-
@@ -22,24 +22,24 @@ test_that("Function createNewDBSource()", {
 
   expectedScript <-
     c(
-      "extract.DBNAME <- function(x) {",
-      "  isoData <- getDBNAME()",
+      "extract.MYDBNAME <- function(x) {",
+      "  isoData <- getMYDBNAME()",
       "  x$dat <- isoData",
       "  x",
       "}",
-      "credsDBNAME <- function() {",
+      "credsMYDBNAME <- function() {",
       "  Credentials(",
       "    drv = RMySQL::MySQL,",
-      "    user = Sys.getenv(\"DBNAME_USER\"),",
-      "    password = Sys.getenv(\"DBNAME_PASSWORD\"),",
-      "    dbname = Sys.getenv(\"DBNAME_NAME\"),",
-      "    host = Sys.getenv(\"DBNAME_HOST\"),",
-      "    port = as.numeric(Sys.getenv(\"DBNAME_PORT\"))",
+      "    user = Sys.getenv(\"MYDBNAME_USER\"),",
+      "    password = Sys.getenv(\"MYDBNAME_PASSWORD\"),",
+      "    dbname = Sys.getenv(\"MYDBNAME_NAME\"),",
+      "    host = Sys.getenv(\"MYDBNAME_HOST\"),",
+      "    port = as.numeric(Sys.getenv(\"MYDBNAME_PORT\"))",
       "  )",
       "}",
-      "getDBNAME <- function() {",
-      "  query <- \"select * from DBNAME;\"",
-      "  dbtools::sendQuery(credsDBNAME(), query)",
+      "getMYDBNAME <- function() {",
+      "  query <- \"select * from myTable;\"",
+      "  dbtools::sendQuery(credsMYDBNAME(), query)",
       "}"
     )
   # readLines(testthat::test_path("examples", "02-template-db.R")) %>%
@@ -51,24 +51,24 @@ test_that("Function createNewDBSource()", {
       "# for Jenkins. Do not fill in credentials!",
       "# Uploading this script helps to maintain an overview for setting up all db connections.",
       "",
-      "DBNAME_USER=\"\"",
-      "DBNAME_PASSWORD=\"\"",
-      "DBNAME_NAME=\"\"",
-      "DBNAME_HOST=\"\"",
-      "DBNAME_PORT=\"\""
+      "MYDBNAME_USER=\"\"",
+      "MYDBNAME_PASSWORD=\"\"",
+      "MYDBNAME_NAME=\"\"",
+      "MYDBNAME_HOST=\"\"",
+      "MYDBNAME_PORT=\"\""
     )
 
   testthat::expect_equal(testScript, expectedScript)
   testthat::expect_equal(testRenviron, expectedRenviron)
 
   # clean up
-  unlink(testthat::test_path("02-DBNAME.R"))
+  unlink(testthat::test_path("02-MYDBNAME.R"))
   unlink(testthat::test_path(".Renviron"))
   unlink(testthat::test_path("00-databases.R"))
 })
 
 
-test_that("Function setupRenviron()", {
+testthat::test_that("Function setupRenviron()", {
   setupRenviron(dbName = formatDBName("dbName1"),
                 scriptFolder = testthat::test_path())
 
@@ -88,7 +88,7 @@ test_that("Function setupRenviron()", {
       "DBNAME1_PORT=\"\""
     )
 
-  expect_equal(testScript, expectedScript)
+  testthat::expect_equal(testScript, expectedScript)
 
   setupRenviron(dbName = formatDBName("dbXYZ"),
                 scriptFolder = testthat::test_path())
@@ -115,14 +115,14 @@ test_that("Function setupRenviron()", {
       "DBXYZ_PORT=\"\""
     )
 
-  expect_equal(testScript, expectedScript)
+  testthat::expect_equal(testScript, expectedScript)
 
   # clean up
   unlink(testthat::test_path(".Renviron"))
 })
 
 
-test_that("Function updateDatabaseList()", {
+testthat::test_that("Function updateDatabaseList()", {
   file.copy(
     from = file.path(testthat::test_path("examples"), "00-databases.R"),
     to = file.path(testthat::test_path(), "00-databases.R")
@@ -185,7 +185,7 @@ test_that("Function updateDatabaseList()", {
       "}"
     )
 
-  expect_equal(testScript, expectedScript)
+  testthat::expect_equal(testScript, expectedScript)
 
   # clean up
   unlink(testthat::test_path("00-databases.R"))

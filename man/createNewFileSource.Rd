@@ -11,7 +11,7 @@ createNewFileSource(
   coordType,
   locationType,
   remotePath = NULL,
-  sheetName = NULL,
+  sheetName = 1,
   scriptFolder = "R"
 )
 }
