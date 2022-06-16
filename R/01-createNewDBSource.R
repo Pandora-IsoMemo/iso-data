@@ -31,18 +31,18 @@ createNewDBSource <- function(dbName,
 
   dbName <- formatDBName(dbName)
 
-  dbScript <- pasteScriptBegin(dbName = dbName)
+  scriptTemplate <-
+    file.path(system.file(package = "MpiIsoData"), "templates",  "template-db-source.R") %>%
+    readLines()
 
-  dbScript <- c(dbScript,
-                addDataLoadForDB(dbName = dbName))
+  dbScript <- tmpl(scriptTemplate, dbName = dbName, tableName = tableName) %>%
+    as.character()
 
-  dbScript <- c(dbScript,
-                addDescription(),
-                pasteScriptEnd())
-
-  dbScript <- c(dbScript,
-                addDBSettings(dbName = dbName,
-                              tableName = tableName))
+  # dbScript <- pasteScriptBegin(dbName = dbName)
+  #
+  # dbScript <- c(dbScript,
+  #               addDescription(),
+  #               pasteScriptEnd())
 
   logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dbName, ".R")))
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
@@ -57,48 +57,6 @@ createNewDBSource <- function(dbName,
   )
 }
 
-
-#' Add Data Load For database source
-#'
-#' add lines to the script for data load from database
-#'
-#' @inheritParams createNewDBSource
-addDataLoadForDB <- function(dbName) {
-  c("# load data",
-    paste0("  isoData <- get", dbName, "()"),
-    "")
-}
-
-
-#' Paste DB settings
-#'
-#' @inheritParams createNewDBSource
-addDBSettings <- function(dbName, tableName) {
-  c(
-    "",
-    "# Template for the credentials of the database",
-    paste0("creds", dbName, " <- function(){"),
-    "    Credentials(",
-    "        drv = RMySQL::MySQL,",
-    paste0("        user = Sys.getenv(\"", dbName, "_USER\"),"),
-    paste0("        password = Sys.getenv(\"", dbName, "_PASSWORD\"),"),
-    paste0("        dbname = Sys.getenv(\"", dbName, "_NAME\"),"),
-    paste0("        host = Sys.getenv(\"", dbName, "_HOST\"),"),
-    paste0("        port = as.numeric(Sys.getenv(\"",
-           dbName,
-           "_PORT\")),"),
-    "    )",
-    "}",
-    "",
-    paste0("get", dbName, " <- function(){"),
-    "  query <- paste(",
-    paste0("      \"select * from ", tableName, ";\""),
-    "  )",
-    "",
-    paste0("  dbtools::sendQuery(creds", dbName, "(), query)"),
-    "}"
-  )
-}
 
 #' Format DB Name
 #'

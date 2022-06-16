@@ -4,6 +4,7 @@
 #' @importFrom openxlsx read.xlsx
 #' @importFrom stringi stri_escape_unicode
 #' @importFrom stats na.exclude setNames
+#' @importFrom templates tmpl
 #' @importFrom tidyr gather
 #' @importFrom utils read.csv read.csv2
 NULL
