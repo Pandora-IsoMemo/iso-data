@@ -58,13 +58,15 @@ createNewDBSource <- function(dataSourceName,
   logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
 
-  setupRenviron(dataSourceName = dataSourceName,
-                dbName = dbName,
-                dbUser = dbUser,
-                dbPassword = dbPassword,
-                dbHost = dbHost,
-                dbPort = dbPort,
-                scriptFolder = file.path(rootFolder))
+  setupRenviron(
+    dataSourceName = dataSourceName,
+    dbName = dbName,
+    dbUser = dbUser,
+    dbPassword = dbPassword,
+    dbHost = dbHost,
+    dbPort = dbPort,
+    scriptFolder = file.path(rootFolder)
+  )
 
   updateDatabaseList(
     dataSourceName = dataSourceName,
@@ -155,13 +157,23 @@ updateDatabaseList <-
            datingType,
            coordType,
            scriptFolder = "R") {
-    newSource <- c(
-      "        ),",
-      "        singleSource (",
-      paste0("          name = \"", dataSourceName, "\","),
-      paste0("          datingType = \"", datingType, "\","),
-      paste0("          coordType = \"", coordType, "\"")
-    )
+    newSource <-
+      tmpl(
+        paste0(
+          c(
+            "        ),",
+            "        singleSource (",
+            "          name = \"{{ dataSourceName }}\",",
+            "          datingType = \"{{ datingType }}\",",
+            "          coordType = \"{{ coordType }}\""
+          ),
+          collapse = "\n"
+        ),
+        dataSourceName = dataSourceName,
+        datingType = datingType,
+        coordType = coordType
+      ) %>%
+      as.character()
 
     databaseFile <-
       readLines(con = file.path(scriptFolder, "00-databases.R")) %>%
