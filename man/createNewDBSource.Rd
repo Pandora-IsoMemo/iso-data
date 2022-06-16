@@ -6,6 +6,11 @@
 \usage{
 createNewDBSource(
   dataSourceName,
+  dbName,
+  dbUser,
+  dbPassword,
+  dbHost,
+  dbPort,
   tableName,
   datingType,
   coordType,
@@ -15,6 +20,16 @@ createNewDBSource(
 }
 \arguments{
 \item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
+
+\item{dbName}{(character) database name}
+
+\item{dbUser}{(character) database user}
+
+\item{dbPassword}{(character) database password}
+
+\item{dbHost}{(character) database host}
+
+\item{dbPort}{(character) database port}
 
 \item{tableName}{name of the table containing the data}
 

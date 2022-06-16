@@ -6,6 +6,11 @@ testthat::test_that("Function createNewDBSource()", {
 
   createNewDBSource(
     dataSourceName = "myDBname",
+    dbName = "myDB",
+    dbUser = "myUser",
+    dbPassword = "myPw",
+    dbHost = "abc-dbxy.fgj.com",
+    dbPort = 567,
     tableName = "myTable",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
@@ -51,11 +56,11 @@ testthat::test_that("Function createNewDBSource()", {
       "# for Jenkins. Do not fill in credentials!",
       "# Uploading this script helps to maintain an overview for setting up all db connections.",
       "",
-      "MYDBNAME_USER=\"\"",
-      "MYDBNAME_PASSWORD=\"\"",
-      "MYDBNAME_NAME=\"\"",
-      "MYDBNAME_HOST=\"\"",
-      "MYDBNAME_PORT=\"\""
+      "MYDBNAME_DBNAME=\"myDB\"",
+      "MYDBNAME_USER=\"myUser\"",
+      "MYDBNAME_PASSWORD=\"myPw\"",
+      "MYDBNAME_HOST=\"abc-dbxy.fgj.com\"",
+      "MYDBNAME_PORT=567"
     )
 
   testthat::expect_equal(testScript, expectedScript)
@@ -69,8 +74,15 @@ testthat::test_that("Function createNewDBSource()", {
 
 
 testthat::test_that("Function setupRenviron()", {
-  setupRenviron(dataSourceName = formatDBName("gh-67*"),
-                scriptFolder = testthat::test_path())
+  setupRenviron(
+    dataSourceName = formatDBName("gh-67*"),
+    dbName = "myDB",
+    dbUser = "myUser",
+    dbPassword = "myPw",
+    dbHost = "abc-dbxy.fgj.com",
+    dbPort = 567,
+    scriptFolder = testthat::test_path()
+  )
 
   testScript <-
     readLines(testthat::test_path(".Renviron"))
@@ -81,17 +93,24 @@ testthat::test_that("Function setupRenviron()", {
       "# for Jenkins. Do not fill in credentials!",
       "# Uploading this script helps to maintain an overview for setting up all db connections.",
       "",
-      "GH_67_USER=\"\"",
-      "GH_67_PASSWORD=\"\"",
-      "GH_67_NAME=\"\"",
-      "GH_67_HOST=\"\"",
-      "GH_67_PORT=\"\""
+      "GH_67_DBNAME=\"myDB\"",
+      "GH_67_USER=\"myUser\"",
+      "GH_67_PASSWORD=\"myPw\"",
+      "GH_67_HOST=\"abc-dbxy.fgj.com\"",
+      "GH_67_PORT=567"
     )
 
   testthat::expect_equal(testScript, expectedScript)
 
-  setupRenviron(dataSourceName = formatDBName("dbXYZ"),
-                scriptFolder = testthat::test_path())
+  setupRenviron(
+    dataSourceName = formatDBName("dbXYZ"),
+    dbName = "myDB2",
+    dbUser = "myUser2",
+    dbPassword = "myPw2",
+    dbHost = "mno-dbxy.stu.com",
+    dbPort = 567,
+    scriptFolder = testthat::test_path()
+  )
 
   testScript <-
     readLines(testthat::test_path(".Renviron"))
@@ -102,17 +121,17 @@ testthat::test_that("Function setupRenviron()", {
       "# for Jenkins. Do not fill in credentials!",
       "# Uploading this script helps to maintain an overview for setting up all db connections.",
       "",
-      "GH_67_USER=\"\"",
-      "GH_67_PASSWORD=\"\"",
-      "GH_67_NAME=\"\"",
-      "GH_67_HOST=\"\"",
-      "GH_67_PORT=\"\"",
+      "GH_67_DBNAME=\"myDB\"",
+      "GH_67_USER=\"myUser\"",
+      "GH_67_PASSWORD=\"myPw\"",
+      "GH_67_HOST=\"abc-dbxy.fgj.com\"",
+      "GH_67_PORT=567",
       "",
-      "DBXYZ_USER=\"\"",
-      "DBXYZ_PASSWORD=\"\"",
-      "DBXYZ_NAME=\"\"",
-      "DBXYZ_HOST=\"\"",
-      "DBXYZ_PORT=\"\""
+      "DBXYZ_DBNAME=\"myDB2\"",
+      "DBXYZ_USER=\"myUser2\"",
+      "DBXYZ_PASSWORD=\"myPw2\"",
+      "DBXYZ_HOST=\"mno-dbxy.stu.com\"",
+      "DBXYZ_PORT=567"
     )
 
   testthat::expect_equal(testScript, expectedScript)

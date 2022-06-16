@@ -4,10 +4,28 @@
 \alias{setupRenviron}
 \title{Setup Renviron}
 \usage{
-setupRenviron(dataSourceName, scriptFolder = "")
+setupRenviron(
+  dataSourceName,
+  dbUser,
+  dbPassword,
+  dbName,
+  dbHost,
+  dbPort,
+  scriptFolder = ""
+)
 }
 \arguments{
 \item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
+
+\item{dbUser}{(character) database user}
+
+\item{dbPassword}{(character) database password}
+
+\item{dbName}{(character) database name}
+
+\item{dbHost}{(character) database host}
+
+\item{dbPort}{(character) database port}
 
 \item{scriptFolder}{(character) place to store the scripts.}
 }
