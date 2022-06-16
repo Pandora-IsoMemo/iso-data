@@ -3,7 +3,7 @@
 #' Creates a script for a new data source from a database connection and sets .Renviron variables.
 #' Only "mySql" databases are supported.
 #'
-#' @param dbName (character) name of the new database source, e.g. "xyDBname"
+#' @param dataSourceName (character) name of the new database source, e.g. "xyDBname"
 #' @param tableName name of the table containing the data
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coord type for the database, e.g. "decimal degrees"
@@ -11,25 +11,25 @@
 #' @param rootFolder (character) root folder of the package, usually containing .Renviron,
 #' DESCRIPTION, ...
 #' @export
-createNewDBSource <- function(dbName,
+createNewDBSource <- function(dataSourceName,
                               tableName,
                               datingType,
                               coordType,
                               scriptFolder = "R",
                               rootFolder = ".") {
   # check for duplicated db names
-  if (formatDBName(dbName) %in% formatDBName(dbnames()))
+  if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
     stop(
       paste0(
-        "dbName = ",
-        dbName,
+        "dataSourceName = ",
+        dataSourceName,
         " already exists in (",
         paste0(dbnames(), collapse = ", "),
         "). Please provide case-insensitive unique names without special characters."
       )
     )
 
-  dbName <- formatDBName(dbName)
+  dataSourceName <- formatDBName(dataSourceName)
 
   scriptTemplate <-
     file.path(system.file(package = "MpiIsoData"),
@@ -39,17 +39,17 @@ createNewDBSource <- function(dbName,
 
   dbScript <-
     tmpl(paste0(scriptTemplate, collapse = "\n"),
-         dbName = dbName,
+         dataSourceName = dataSourceName,
          tableName = tableName) %>%
     as.character()
 
-  logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dbName, ".R")))
-  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
+  logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
+  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
 
-  setupRenviron(dbName = dbName, scriptFolder = file.path(rootFolder))
+  setupRenviron(dataSourceName = dataSourceName, scriptFolder = file.path(rootFolder))
 
   updateDatabaseList(
-    dbName = dbName,
+    dataSourceName = dataSourceName,
     datingType = datingType,
     coordType = coordType,
     scriptFolder = file.path(scriptFolder)
@@ -59,15 +59,17 @@ createNewDBSource <- function(dbName,
 
 #' Format DB Name
 #'
-#' @param dbName (character) user-provided name of the new data source
+#' @param dataSourceName (character) user-provided name of the new data source
 #' @return (character) name formated to upper letters and underscore for special characters
-formatDBName <- function(dbName) {
+formatDBName <- function(dataSourceName) {
   # upper letters
-  res <- toupper(dbName)
+  res <- toupper(dataSourceName)
   # replace special characters with underscore
   res <- gsub("[^[:alnum:]]", "_", res)
   # replace "__" with "_"
-  gsub("_+", "_", res)
+  res <- gsub("_+", "_", res)
+  # remove leading or ending "_"
+  gsub("^_|_$", "", res)
 }
 
 #' Setup Renviron
@@ -75,7 +77,7 @@ formatDBName <- function(dbName) {
 #' Creates or updates the .Renviron file with placeholders for a new database connection.
 #'
 #' @inheritParams createNewDBSource
-setupRenviron <- function(dbName, scriptFolder = "") {
+setupRenviron <- function(dataSourceName, scriptFolder = "") {
   renvironBegin <- c(
     "# Never upload any credentials to GitHub. The variable definitions are only placeholders",
     "# for Jenkins. Do not fill in credentials!",
@@ -84,11 +86,11 @@ setupRenviron <- function(dbName, scriptFolder = "") {
 
   renvironDef <- c(
     "",
-    paste0(dbName, "_USER=\"\""),
-    paste0(dbName, "_PASSWORD=\"\""),
-    paste0(dbName, "_NAME=\"\""),
-    paste0(dbName, "_HOST=\"\""),
-    paste0(dbName, "_PORT=\"\"")
+    paste0(dataSourceName, "_USER=\"\""),
+    paste0(dataSourceName, "_PASSWORD=\"\""),
+    paste0(dataSourceName, "_NAME=\"\""),
+    paste0(dataSourceName, "_HOST=\"\""),
+    paste0(dataSourceName, "_PORT=\"\"")
   )
 
   filePath <- file.path(scriptFolder, ".Renviron")
@@ -112,14 +114,14 @@ setupRenviron <- function(dbName, scriptFolder = "") {
 #'
 #' @inheritParams createNewDBSource
 updateDatabaseList <-
-  function(dbName,
+  function(dataSourceName,
            datingType,
            coordType,
            scriptFolder = "R") {
     newSource <- c(
       "        ),",
       "        singleSource (",
-      paste0("          name = \"", dbName, "\","),
+      paste0("          name = \"", dataSourceName, "\","),
       paste0("          datingType = \"", datingType, "\","),
       paste0("          coordType = \"", coordType, "\"")
     )

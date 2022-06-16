@@ -27,7 +27,7 @@ extract.testdb <- function(x) {
 2. Execute the following function to create a new file `R/02-<datasource>.R` with 
    a) data retrieved from a mySql database. Here, the `<tableName>` must be specified.
 ```r
-createNewDBSource(dbName = <datasource>,
+createNewDBSource(dataSourceName = <datasource>,
                   datingType = <datingType>,
                   coordType = <coordType>,
                   tableName = <tableName>,
@@ -38,7 +38,7 @@ createNewDBSource(dbName = <datasource>,
  Provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
  a `<sheetName>` can be specified.
 ```r
-createNewFileSource(dbName = <datasource>,
+createNewFileSource(dataSourceName = <datasource>,
                     datingType = <datingType>,
                     coordType = <coordType>,
                     locationType = <location>,

@@ -5,7 +5,7 @@ testthat::test_that("Function createNewDBSource()", {
   )
 
   createNewDBSource(
-    dbName = "myDBname",
+    dataSourceName = "myDBname",
     tableName = "myTable",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
@@ -69,7 +69,7 @@ testthat::test_that("Function createNewDBSource()", {
 
 
 testthat::test_that("Function setupRenviron()", {
-  setupRenviron(dbName = formatDBName("dbName1"),
+  setupRenviron(dataSourceName = formatDBName("gh-67*"),
                 scriptFolder = testthat::test_path())
 
   testScript <-
@@ -81,16 +81,16 @@ testthat::test_that("Function setupRenviron()", {
       "# for Jenkins. Do not fill in credentials!",
       "# Uploading this script helps to maintain an overview for setting up all db connections.",
       "",
-      "DBNAME1_USER=\"\"",
-      "DBNAME1_PASSWORD=\"\"",
-      "DBNAME1_NAME=\"\"",
-      "DBNAME1_HOST=\"\"",
-      "DBNAME1_PORT=\"\""
+      "GH_67_USER=\"\"",
+      "GH_67_PASSWORD=\"\"",
+      "GH_67_NAME=\"\"",
+      "GH_67_HOST=\"\"",
+      "GH_67_PORT=\"\""
     )
 
   testthat::expect_equal(testScript, expectedScript)
 
-  setupRenviron(dbName = formatDBName("dbXYZ"),
+  setupRenviron(dataSourceName = formatDBName("dbXYZ"),
                 scriptFolder = testthat::test_path())
 
   testScript <-
@@ -102,11 +102,11 @@ testthat::test_that("Function setupRenviron()", {
       "# for Jenkins. Do not fill in credentials!",
       "# Uploading this script helps to maintain an overview for setting up all db connections.",
       "",
-      "DBNAME1_USER=\"\"",
-      "DBNAME1_PASSWORD=\"\"",
-      "DBNAME1_NAME=\"\"",
-      "DBNAME1_HOST=\"\"",
-      "DBNAME1_PORT=\"\"",
+      "GH_67_USER=\"\"",
+      "GH_67_PASSWORD=\"\"",
+      "GH_67_NAME=\"\"",
+      "GH_67_HOST=\"\"",
+      "GH_67_PORT=\"\"",
       "",
       "DBXYZ_USER=\"\"",
       "DBXYZ_PASSWORD=\"\"",
@@ -129,7 +129,7 @@ testthat::test_that("Function updateDatabaseList()", {
   )
 
   updateDatabaseList(
-    dbName = formatDBName("dbName1"),
+    dataSourceName = formatDBName("abc#123"),
     datingType = "radiocarbonXYZ",
     coordType = "ABC degrees",
     scriptFolder = testthat::test_path()
@@ -163,7 +163,7 @@ testthat::test_that("Function updateDatabaseList()", {
       "           coordType = \"decimal degrees\"",
       "        ),",
       "        singleSource (",
-      "          name = \"DBNAME1\",",
+      "          name = \"ABC_123\",",
       "          datingType = \"radiocarbonXYZ\",",
       "          coordType = \"ABC degrees\"",
       "        )",

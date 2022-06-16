@@ -5,7 +5,7 @@
 \title{Create New DB Source}
 \usage{
 createNewDBSource(
-  dbName,
+  dataSourceName,
   tableName,
   datingType,
   coordType,
@@ -14,7 +14,7 @@ createNewDBSource(
 )
 }
 \arguments{
-\item{dbName}{(character) name of the new database source, e.g. "xyDBname"}
+\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
 
 \item{tableName}{name of the table containing the data}
 

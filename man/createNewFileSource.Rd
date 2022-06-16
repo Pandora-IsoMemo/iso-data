@@ -5,7 +5,7 @@
 \title{Create New File Source}
 \usage{
 createNewFileSource(
-  dbName,
+  dataSourceName,
   fileName,
   datingType,
   coordType,
@@ -16,7 +16,7 @@ createNewFileSource(
 )
 }
 \arguments{
-\item{dbName}{(character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
+\item{dataSourceName}{(character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
 "LiVES"}
 
 \item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}

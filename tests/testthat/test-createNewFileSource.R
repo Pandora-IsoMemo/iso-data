@@ -1,7 +1,7 @@
-testthat::test_that("Function createNewFileSource() duplicate dbName", {
+testthat::test_that("Function createNewFileSource() duplicate dataSourceName", {
   expect_error(
     createNewFileSource(
-      dbName = "CiMa",
+      dataSourceName = "CiMa",
       datingType = "radiocarbon",
       coordType = "decimal degrees",
       locationType = "remote",
@@ -20,7 +20,7 @@ testthat::test_that("Function createNewFileSource() for 02-CIMA.R file", {
   )
 
   createNewFileSource(
-    dbName = "CIMA2",
+    dataSourceName = "CIMA2",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
     locationType = "remote",
@@ -60,7 +60,7 @@ testthat::test_that("Function createNewFileSource() for remote xlsx file", {
   )
 
   createNewFileSource(
-    dbName = "dbname",
+    dataSourceName = "dbname",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
     locationType = "remote",
@@ -99,7 +99,7 @@ testthat::test_that("Function createNewFileSource() for local csv file", {
   )
 
   createNewFileSource(
-    dbName = "dbname",
+    dataSourceName = "dbname",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
     locationType = "local",

@@ -4,10 +4,10 @@
 \alias{formatDBName}
 \title{Format DB Name}
 \usage{
-formatDBName(dbName)
+formatDBName(dataSourceName)
 }
 \arguments{
-\item{dbName}{(character) user-provided name of the new data source}
+\item{dataSourceName}{(character) user-provided name of the new data source}
 }
 \value{
 (character) name formated to upper letters and underscore for special characters

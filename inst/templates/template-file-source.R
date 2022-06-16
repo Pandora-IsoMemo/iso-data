@@ -1,6 +1,6 @@
 # Set up for a data source from a file
 
-extract.{{ dbName }} <- function(x) {
+extract.{{ dataSourceName }} <- function(x) {
   # set path to file
   dataFile <- {{ filePath }}
 

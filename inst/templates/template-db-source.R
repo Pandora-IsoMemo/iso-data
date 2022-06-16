@@ -1,8 +1,8 @@
 # Set up for a data source from a database
 
-extract.{{ dbName }} <- function(x) {
+extract.{{ dataSourceName }} <- function(x) {
   # load data
-  isoData <- get{{ dbName }}()
+  isoData <- get{{ dataSourceName }}()
 
   # create Description
   #
@@ -23,19 +23,19 @@ extract.{{ dbName }} <- function(x) {
 
 # set up credentials of a database
 
-creds{{ dbName }} <- function() {
+creds{{ dataSourceName }} <- function() {
   Credentials(
     drv = RMySQL::MySQL,
-    user = Sys.getenv("{{ dbName }}_USER"),
-    password = Sys.getenv("{{ dbName }}_PASSWORD"),
-    dbname = Sys.getenv("{{ dbName }}_NAME"),
-    host = Sys.getenv("{{ dbName }}_HOST"),
-    port = as.numeric(Sys.getenv("{{ dbName }}_PORT"))
+    user = Sys.getenv("{{ dataSourceName }}_USER"),
+    password = Sys.getenv("{{ dataSourceName }}_PASSWORD"),
+    dbname = Sys.getenv("{{ dataSourceName }}_NAME"),
+    host = Sys.getenv("{{ dataSourceName }}_HOST"),
+    port = as.numeric(Sys.getenv("{{ dataSourceName }}_PORT"))
   )
 }
 
-get{{ dbName }} <- function() {
+get{{ dataSourceName }} <- function() {
   query <- "select * from {{ tableName }};"
 
-  dbtools::sendQuery(creds{{ dbName }}(), query)
+  dbtools::sendQuery(creds{{ dataSourceName }}(), query)
 }

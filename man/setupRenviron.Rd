@@ -4,10 +4,10 @@
 \alias{setupRenviron}
 \title{Setup Renviron}
 \usage{
-setupRenviron(dbName, scriptFolder = "")
+setupRenviron(dataSourceName, scriptFolder = "")
 }
 \arguments{
-\item{dbName}{(character) name of the new database source, e.g. "xyDBname"}
+\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
 
 \item{scriptFolder}{(character) place to store the scripts.}
 }

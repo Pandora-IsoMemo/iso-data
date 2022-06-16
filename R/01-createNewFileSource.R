@@ -3,7 +3,7 @@
 #' Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files
 #' are supported.
 #'
-#' @param dbName (character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
+#' @param dataSourceName (character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
 #' "LiVES"
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coord type for the database, e.g. "decimal degrees"
@@ -17,7 +17,7 @@
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 #' @export
-createNewFileSource <- function(dbName,
+createNewFileSource <- function(dataSourceName,
                                 fileName,
                                 datingType,
                                 coordType,
@@ -26,18 +26,18 @@ createNewFileSource <- function(dbName,
                                 sheetName = 1,
                                 scriptFolder = "R") {
   # check for duplicated db names
-  if (formatDBName(dbName) %in% formatDBName(dbnames()))
+  if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
     stop(
       paste0(
-        "dbName = ",
-        dbName,
+        "dataSourceName = ",
+        dataSourceName,
         " already exists in (",
         paste0(dbnames(), collapse = ", "),
         "). Please provide case-insensitive unique names without special characters."
       )
     )
 
-  dbName <- formatDBName(dbName)
+  dataSourceName <- formatDBName(dataSourceName)
 
   filePath <- addFilePath(fileName = fileName,
                           locationType = locationType,
@@ -54,16 +54,16 @@ createNewFileSource <- function(dbName,
 
   dbScript <- tmpl(
     paste0(scriptTemplate, collapse = "\n"),
-    dbName = dbName,
+    dataSourceName = dataSourceName,
     filePath = filePath,
     fileImport = fileImport
   ) %>%
     as.character()
 
-  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dbName, ".R")))
+  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
 
   updateDatabaseList(
-    dbName = dbName,
+    dataSourceName = dataSourceName,
     datingType = datingType,
     coordType = coordType,
     scriptFolder = file.path(scriptFolder)
