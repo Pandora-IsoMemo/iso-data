@@ -25,46 +25,47 @@ extract.testdb <- function(x) {
 
 1. Specify the name `<datasource>`, `<datingType>` and `<coordType>` for the new data source.
 2. Execute the following function to create a new file `R/02-<datasource>.R` with 
-   a) data retrieved from a mySql database. Here, the `<tableName>` must be specified.
+
+   a) data retrieved from a mySql database. Here, database credentials `<dbName>, <dbUser>, <dbPassword>, <dbHost>, <dbPort>` and the `<tableName>` must be specified. The credentials are not to be stored on Github.
+   They will not be stored in any file that will be uploaded to Github. They are only needed for
+   local development and for testing the database connection.
+   
 ```r
 createNewDBSource(dataSourceName = <datasource>,
                   datingType = <datingType>,
                   coordType = <coordType>,
-                  tableName = <tableName>,
-                  descriptionCreator = NULL)
+                  dbName = <dbName>,
+                  dbUser = <dbUser>,
+                  dbPassword = <dbPassword>,
+                  dbHost = <dbHost>,
+                  dbPort = <dbPort>,
+                  tableName = <tableName>)
 ```
-    b) data retrieved from a static `"local"` file in `inst/'` folder or from a `"remote"`
- `<location>`. If second the `<remotePath>` must be given.
- Provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
- a `<sheetName>` can be specified.
+
+   b) data retrieved from a static file in the `inst/extdata'` folder (` <location> = "local"`)  or from a
+   remote file (`<location> = "remote"`). If second the `<remotePath>` must be given.
+   Provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
+   a `<sheetName>` can be specified.
+ 
 ```r
 createNewFileSource(dataSourceName = <datasource>,
                     datingType = <datingType>,
                     coordType = <coordType>,
+                    fileName = <filename>,
                     locationType = <location>,
                     remotePath = <remotePath>,
-                    fileName = <filename>,
-                    sheetName = <sheetName>,
-                    descriptionCreator = NULL)
+                    sheetName = <sheetName>)
 ```
 
-
-A column containing a description can be added to the new data source with the
-`<descriptionCreator>`. E.g. 
-
-- select a particular column `var`: `<descriptionCreator> = isoData$var` or
-- paste two columns `var1` and `var2`: `<descriptionCreator> = paste(isoData$var1, isoData$var2)`.
-
-Executing either `createNewDBSource` or `createNewFileSource` 
+Execution of the commands above for `createNewDBSource` or `createNewFileSource` 
 
 - creates a new file `R/02-<datasource>.R`,
 - sets the function name to `extract.<datasource>` in the new file `R/02-<datasource>.R`,
-- an entry in `R/00-databases.R` will be added automatically,
-- for mySql databases an `.Renviron` file will be created/updated that containes placeholders for
-database credentials.
+- adds automatically a new entry in `R/00-databases.R`,
+- for mySql databases creates/updates the `.Renviron` file that contains database credentials.
 
 The files `R/02-<datasource>.R` can contain individual and extensive data preparations that can be
-added manually, e.g. compare `R/02-LiVES.R`.
+adjusted manually, e.g. compare `R/02-LiVES.R`.
 
 ## Test Data Sources
 

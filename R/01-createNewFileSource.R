@@ -18,9 +18,9 @@
 #' for tests).
 #' @export
 createNewFileSource <- function(dataSourceName,
-                                fileName,
                                 datingType,
                                 coordType,
+                                fileName,
                                 locationType,
                                 remotePath = NULL,
                                 sheetName = 1,

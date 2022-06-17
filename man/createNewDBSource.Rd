@@ -6,20 +6,24 @@
 \usage{
 createNewDBSource(
   dataSourceName,
+  datingType,
+  coordType,
   dbName,
   dbUser,
   dbPassword,
   dbHost,
   dbPort,
   tableName,
-  datingType,
-  coordType,
   scriptFolder = "R",
   rootFolder = "."
 )
 }
 \arguments{
 \item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
+
+\item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
+
+\item{coordType}{(character) coord type for the database, e.g. "decimal degrees"}
 
 \item{dbName}{(character) database name}
 
@@ -32,10 +36,6 @@ createNewDBSource(
 \item{dbPort}{(character) database port}
 
 \item{tableName}{name of the table containing the data}
-
-\item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
-
-\item{coordType}{(character) coord type for the database, e.g. "decimal degrees"}
 
 \item{scriptFolder}{(character) place to store the scripts.}
 

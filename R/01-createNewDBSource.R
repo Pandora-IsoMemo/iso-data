@@ -4,27 +4,27 @@
 #' Only "mySql" databases are supported.
 #'
 #' @param dataSourceName (character) name of the new database source, e.g. "xyDBname"
+#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
+#' @param coordType (character) coord type for the database, e.g. "decimal degrees"
 #' @param dbName (character) database name
 #' @param dbUser (character) database user
 #' @param dbPassword (character) database password
 #' @param dbHost (character) database host
 #' @param dbPort (character) database port
 #' @param tableName name of the table containing the data
-#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
-#' @param coordType (character) coord type for the database, e.g. "decimal degrees"
 #' @param scriptFolder (character) place to store the scripts.
 #' @param rootFolder (character) root folder of the package, usually containing .Renviron,
 #' DESCRIPTION, ...
 #' @export
 createNewDBSource <- function(dataSourceName,
+                              datingType,
+                              coordType,
                               dbName,
                               dbUser,
                               dbPassword,
                               dbHost,
                               dbPort,
                               tableName,
-                              datingType,
-                              coordType,
                               scriptFolder = "R",
                               rootFolder = ".") {
   # check for duplicated db names

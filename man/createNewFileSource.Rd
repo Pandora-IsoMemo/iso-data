@@ -6,9 +6,9 @@
 \usage{
 createNewFileSource(
   dataSourceName,
-  fileName,
   datingType,
   coordType,
+  fileName,
   locationType,
   remotePath = NULL,
   sheetName = 1,
@@ -19,11 +19,11 @@ createNewFileSource(
 \item{dataSourceName}{(character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
 "LiVES"}
 
-\item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
-
 \item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
 
 \item{coordType}{(character) coord type for the database, e.g. "decimal degrees"}
+
+\item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
 
 \item{locationType}{type of location, any of "local" or "remote".
 OPTION 1: "local" (add the file to inst/extdata/).
