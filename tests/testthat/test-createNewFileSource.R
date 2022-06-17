@@ -42,8 +42,6 @@ testthat::test_that("Function createNewFileSource() for 02-CIMA.R file", {
       "  x",
       "}"
     )
-  # readLines(testthat::test_path("examples", "02-CIMA.R")) %>%
-  # cleanUpScript()
 
   testthat::expect_equal(testScript, expectedScript)
 
