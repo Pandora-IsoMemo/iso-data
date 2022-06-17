@@ -107,7 +107,7 @@ setupRenviron <-
     filePath <- file.path(scriptFolder, ".Renviron")
 
     scriptTemplate <-
-      file.path(getTemplateDir(), "template.Renviron") %>%
+      file.path(getTemplateDir(), "template-Renviron.R") %>%
       readLines()
 
     if (!file.exists(filePath)) {

@@ -23,7 +23,8 @@ testthat::test_that("Function createNewDBSource()", {
     cleanUpScript()
 
   testRenviron <-
-    readLines(testthat::test_path(".Renviron"))
+    readLines(testthat::test_path(".Renviron")) %>%
+    cleanUpScript()
 
   expectedScript <-
     c(
@@ -52,17 +53,6 @@ testthat::test_that("Function createNewDBSource()", {
 
   expectedRenviron <-
     c(
-      "# Never upload this files with credentials to GitHub!",
-      "# Only use locally for database connections for development and testing.",
-      "#",
-      "# expected format for credentials:",
-      "#",
-      "# DBNAME_NAME=\"db1\"",
-      "# DBNAME_USER=\"user1\"",
-      "# DBNAME_PASSWORD=\"pw1\"",
-      "# DBNAME_HOST=\"123\"",
-      "# DBNAME_PORT=\"123\"",
-      "",
       "MYDBNAME_DBNAME=\"myDB\"",
       "MYDBNAME_USER=\"myUser\"",
       "MYDBNAME_PASSWORD=\"myPw\"",
@@ -92,21 +82,11 @@ testthat::test_that("Function setupRenviron()", {
   )
 
   testScript <-
-    readLines(testthat::test_path(".Renviron"))
+    readLines(testthat::test_path(".Renviron")) %>%
+    cleanUpScript()
 
   expectedScript <-
     c(
-      "# Never upload this files with credentials to GitHub!",
-      "# Only use locally for database connections for development and testing.",
-      "#",
-      "# expected format for credentials:",
-      "#",
-      "# DBNAME_NAME=\"db1\"",
-      "# DBNAME_USER=\"user1\"",
-      "# DBNAME_PASSWORD=\"pw1\"",
-      "# DBNAME_HOST=\"123\"",
-      "# DBNAME_PORT=\"123\"",
-      "",
       "GH_67_DBNAME=\"myDB\"",
       "GH_67_USER=\"myUser\"",
       "GH_67_PASSWORD=\"myPw\"",
@@ -127,27 +107,16 @@ testthat::test_that("Function setupRenviron()", {
   )
 
   testScript <-
-    readLines(testthat::test_path(".Renviron"))
+    readLines(testthat::test_path(".Renviron")) %>%
+    cleanUpScript()
 
   expectedScript <-
     c(
-      "# Never upload this files with credentials to GitHub!",
-      "# Only use locally for database connections for development and testing.",
-      "#",
-      "# expected format for credentials:",
-      "#",
-      "# DBNAME_NAME=\"db1\"",
-      "# DBNAME_USER=\"user1\"",
-      "# DBNAME_PASSWORD=\"pw1\"",
-      "# DBNAME_HOST=\"123\"",
-      "# DBNAME_PORT=\"123\"",
-      "",
       "GH_67_DBNAME=\"myDB\"",
       "GH_67_USER=\"myUser\"",
       "GH_67_PASSWORD=\"myPw\"",
       "GH_67_HOST=\"abc-dbxy.fgj.com\"",
       "GH_67_PORT=567",
-      "",
       "DBXYZ_DBNAME=\"myDB2\"",
       "DBXYZ_USER=\"myUser2\"",
       "DBXYZ_PASSWORD=\"myPw2\"",
