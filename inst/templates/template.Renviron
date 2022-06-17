@@ -1,0 +1,16 @@
+# Never upload this files with credentials to GitHub!
+# Only use locally for database connections for development and testing.
+#
+# expected format for credentials:
+#
+# DBNAME_NAME="db1"
+# DBNAME_USER="user1"
+# DBNAME_PASSWORD="pw1"
+# DBNAME_HOST="123"
+# DBNAME_PORT="123"
+
+{{ dataSourceName }}_DBNAME="{{ dbName }}"
+{{ dataSourceName }}_USER="{{ dbUser }}"
+{{ dataSourceName }}_PASSWORD="{{ dbPassword }}"
+{{ dataSourceName }}_HOST="{{ dbHost }}"
+{{ dataSourceName }}_PORT={{ dbPort }}

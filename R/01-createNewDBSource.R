@@ -42,9 +42,7 @@ createNewDBSource <- function(dataSourceName,
   dataSourceName <- formatDBName(dataSourceName)
 
   scriptTemplate <-
-    file.path(system.file(package = "MpiIsoData"),
-              "templates",
-              "template-db-source.R") %>%
+    file.path(getTemplateDir(), "template-db-source.R") %>%
     readLines()
 
   dbScript <-
@@ -92,6 +90,7 @@ formatDBName <- function(dataSourceName) {
   gsub("^_|_$", "", res)
 }
 
+
 #' Setup Renviron
 #'
 #' Creates or updates the .Renviron file with placeholders for a new database connection.
@@ -99,50 +98,53 @@ formatDBName <- function(dataSourceName) {
 #' @inheritParams createNewDBSource
 setupRenviron <-
   function(dataSourceName,
+           dbName,
            dbUser,
            dbPassword,
-           dbName,
            dbHost,
            dbPort,
            scriptFolder = "") {
-    renvironBegin <- c(
-      "# Never upload any credentials to GitHub. The variable definitions are only placeholders",
-      "# for Jenkins. Do not fill in credentials!",
-      "# Uploading this script helps to maintain an overview for setting up all db connections."
-    )
-
-    renvironDef <-
-      tmpl(
-        paste0(
-          c(
-            "",
-            "{{ dataSourceName }}_DBNAME=\"{{ dbName }}\"",
-            "{{ dataSourceName }}_USER=\"{{ dbUser }}\"",
-            "{{ dataSourceName }}_PASSWORD=\"{{ dbPassword }}\"",
-            "{{ dataSourceName }}_HOST=\"{{ dbHost }}\"",
-            "{{ dataSourceName }}_PORT={{ dbPort }}"
-          ),
-          collapse = "\n"
-        ),
-        dataSourceName = dataSourceName,
-        dbName = dbName,
-        dbUser = dbUser,
-        dbPassword = dbPassword,
-        dbHost = dbHost,
-        dbPort = dbPort
-      ) %>%
-      as.character()
-
     filePath <- file.path(scriptFolder, ".Renviron")
+
+    scriptTemplate <-
+      file.path(getTemplateDir(), "template.Renviron") %>%
+      readLines()
+
     if (!file.exists(filePath)) {
+      # create new Renviron
+      rEnvironNew <-
+        tmpl(
+          paste0(scriptTemplate, collapse = "\n"),
+          dataSourceName = dataSourceName,
+          dbName = dbName,
+          dbUser = dbUser,
+          dbPassword = dbPassword,
+          dbHost = dbHost,
+          dbPort = dbPort
+        ) %>%
+        as.character()
+
       logging("Creating new file: %s", filePath)
-      writeLines(c(renvironBegin, renvironDef),
-                 con = filePath)
+      writeLines(rEnvironNew, con = filePath)
     } else {
+      # update existing Renviron
+      # remove first lines from the template which contain comments
+      scriptTemplate <- scriptTemplate[-(1:10)]
+
+      rEnvironUpdate <-
+        tmpl(
+          paste0(scriptTemplate, collapse = "\n"),
+          dataSourceName = dataSourceName,
+          dbName = dbName,
+          dbUser = dbUser,
+          dbPassword = dbPassword,
+          dbHost = dbHost,
+          dbPort = dbPort
+        ) %>%
+        as.character()
+
       logging("Updating existing file: %s", filePath)
-      write(renvironDef,
-            file = filePath,
-            append = TRUE)
+      write(rEnvironUpdate, file = filePath, append = TRUE)
     }
   }
 

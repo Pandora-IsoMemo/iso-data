@@ -6,9 +6,9 @@
 \usage{
 setupRenviron(
   dataSourceName,
+  dbName,
   dbUser,
   dbPassword,
-  dbName,
   dbHost,
   dbPort,
   scriptFolder = ""
@@ -17,11 +17,11 @@ setupRenviron(
 \arguments{
 \item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
 
+\item{dbName}{(character) database name}
+
 \item{dbUser}{(character) database user}
 
 \item{dbPassword}{(character) database password}
-
-\item{dbName}{(character) database name}
 
 \item{dbHost}{(character) database host}
 

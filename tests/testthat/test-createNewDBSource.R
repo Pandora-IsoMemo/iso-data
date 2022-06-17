@@ -52,9 +52,16 @@ testthat::test_that("Function createNewDBSource()", {
 
   expectedRenviron <-
     c(
-      "# Never upload any credentials to GitHub. The variable definitions are only placeholders",
-      "# for Jenkins. Do not fill in credentials!",
-      "# Uploading this script helps to maintain an overview for setting up all db connections.",
+      "# Never upload this files with credentials to GitHub!",
+      "# Only use locally for database connections for development and testing.",
+      "#",
+      "# expected format for credentials:",
+      "#",
+      "# DBNAME_NAME=\"db1\"",
+      "# DBNAME_USER=\"user1\"",
+      "# DBNAME_PASSWORD=\"pw1\"",
+      "# DBNAME_HOST=\"123\"",
+      "# DBNAME_PORT=\"123\"",
       "",
       "MYDBNAME_DBNAME=\"myDB\"",
       "MYDBNAME_USER=\"myUser\"",
@@ -89,9 +96,16 @@ testthat::test_that("Function setupRenviron()", {
 
   expectedScript <-
     c(
-      "# Never upload any credentials to GitHub. The variable definitions are only placeholders",
-      "# for Jenkins. Do not fill in credentials!",
-      "# Uploading this script helps to maintain an overview for setting up all db connections.",
+      "# Never upload this files with credentials to GitHub!",
+      "# Only use locally for database connections for development and testing.",
+      "#",
+      "# expected format for credentials:",
+      "#",
+      "# DBNAME_NAME=\"db1\"",
+      "# DBNAME_USER=\"user1\"",
+      "# DBNAME_PASSWORD=\"pw1\"",
+      "# DBNAME_HOST=\"123\"",
+      "# DBNAME_PORT=\"123\"",
       "",
       "GH_67_DBNAME=\"myDB\"",
       "GH_67_USER=\"myUser\"",
@@ -117,9 +131,16 @@ testthat::test_that("Function setupRenviron()", {
 
   expectedScript <-
     c(
-      "# Never upload any credentials to GitHub. The variable definitions are only placeholders",
-      "# for Jenkins. Do not fill in credentials!",
-      "# Uploading this script helps to maintain an overview for setting up all db connections.",
+      "# Never upload this files with credentials to GitHub!",
+      "# Only use locally for database connections for development and testing.",
+      "#",
+      "# expected format for credentials:",
+      "#",
+      "# DBNAME_NAME=\"db1\"",
+      "# DBNAME_USER=\"user1\"",
+      "# DBNAME_PASSWORD=\"pw1\"",
+      "# DBNAME_HOST=\"123\"",
+      "# DBNAME_PORT=\"123\"",
       "",
       "GH_67_DBNAME=\"myDB\"",
       "GH_67_USER=\"myUser\"",

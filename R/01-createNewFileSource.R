@@ -47,9 +47,7 @@ createNewFileSource <- function(dataSourceName,
                               sheetName = sheetName)
 
   scriptTemplate <-
-    file.path(system.file(package = "MpiIsoData"),
-              "templates",
-              "template-file-source.R") %>%
+    file.path(getTemplateDir(), "template-file-source.R") %>%
     readLines()
 
   dbScript <- tmpl(
@@ -70,6 +68,11 @@ createNewFileSource <- function(dataSourceName,
   )
 }
 
+#' Get Template directory
+#'
+getTemplateDir <- function() {
+  file.path(system.file(package = "MpiIsoData"), "templates")
+}
 
 #' Add File Path
 #'
