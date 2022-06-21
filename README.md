@@ -103,7 +103,7 @@ devtools::check()
 
 ## Deployment
 
-Code from the master branch will be automatically deployed to the dev system on the MPI server (given successful `devtools::check()`) and will be on the beta version of the API and App
+Code from the main branch will be automatically deployed to the dev system on the MPI server (given successful `devtools::check()`) and will be on the beta version of the API and App
 
 Code from the depl branch will be deployed to the production sytems (API and App)
 
