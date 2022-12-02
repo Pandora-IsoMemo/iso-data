@@ -1,6 +1,53 @@
 # IsoMemo Data Package (iso-data)
 
-## Modify Data Sources
+## Add A New Data Source
+
+1. Choose name `<datasource>`, `<datingType>` and `<coordType>` for the new data source.
+2. Execute the following function to create a new file `R/02-<datasource>.R` with 
+
+   **a) data retrieved from a mySql database.** Here, database credentials `<dbName>, <dbUser>, <dbPassword>, <dbHost>, <dbPort>` and the 
+   `<tableName>` must be specified. The credentials are not to be stored on Github.
+   They will not be stored in any file that will be uploaded to Github. They are only needed for
+   local development and for testing the database connection.
+   
+   ```r
+   createNewDBSource(dataSourceName = <datasource>,
+                     datingType = <datingType>,
+                     coordType = <coordType>,
+                     dbName = <dbName>,
+                     dbUser = <dbUser>,
+                     dbPassword = <dbPassword>,
+                     dbHost = <dbHost>,
+                     dbPort = <dbPort>,
+                     tableName = <tableName>)
+   ```
+
+   **b) data retrieved from a static file** in the `inst/extdata'` folder (` <location> = "local"`)  or **from a
+   remote file** (`<location> = "remote"`). If second the `<remotePath>` must be given.
+   Provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
+   a `<sheetName>` can be specified.
+ 
+   ```r
+   createNewFileSource(dataSourceName = <datasource>,
+                       datingType = <datingType>,
+                       coordType = <coordType>,
+                       fileName = <filename>,
+                       locationType = <location>,
+                       remotePath = <remotePath>,
+                       sheetName = <sheetName>)
+   ```
+
+Execution of the commands above for `createNewDBSource` or `createNewFileSource` 
+
+- creates a new file `R/02-<datasource>.R`,
+- sets the function name to `extract.<datasource>` in the new file `R/02-<datasource>.R`,
+- adds automatically a new entry in `R/00-databases.R`,
+- for mySql databases creates/updates the `.Renviron` file that contains database credentials.
+
+The files `R/02-<datasource>.R` can contain individual and extensive data preparations that can be
+adjusted manually, e.g. compare `R/02-LiVES.R`.
+
+## Modify An Existing Data Sources
 
 Data extraction for all data sources are defined in the files `R/02-<datasource>.R`. Within the function `extract.<datasource>.R` you can retrieve data, modify values as you like. You only need to ensure these points:
 
@@ -20,52 +67,6 @@ extract.testdb <- function(x) {
     x # return x
 }
 ```
-
-## Add New Data Source
-
-1. Specify the name `<datasource>`, `<datingType>` and `<coordType>` for the new data source.
-2. Execute the following function to create a new file `R/02-<datasource>.R` with 
-
-   a) data retrieved from a mySql database. Here, database credentials `<dbName>, <dbUser>, <dbPassword>, <dbHost>, <dbPort>` and the `<tableName>` must be specified. The credentials are not to be stored on Github.
-   They will not be stored in any file that will be uploaded to Github. They are only needed for
-   local development and for testing the database connection.
-   
-```r
-createNewDBSource(dataSourceName = <datasource>,
-                  datingType = <datingType>,
-                  coordType = <coordType>,
-                  dbName = <dbName>,
-                  dbUser = <dbUser>,
-                  dbPassword = <dbPassword>,
-                  dbHost = <dbHost>,
-                  dbPort = <dbPort>,
-                  tableName = <tableName>)
-```
-
-   b) data retrieved from a static file in the `inst/extdata'` folder (` <location> = "local"`)  or from a
-   remote file (`<location> = "remote"`). If second the `<remotePath>` must be given.
-   Provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
-   a `<sheetName>` can be specified.
- 
-```r
-createNewFileSource(dataSourceName = <datasource>,
-                    datingType = <datingType>,
-                    coordType = <coordType>,
-                    fileName = <filename>,
-                    locationType = <location>,
-                    remotePath = <remotePath>,
-                    sheetName = <sheetName>)
-```
-
-Execution of the commands above for `createNewDBSource` or `createNewFileSource` 
-
-- creates a new file `R/02-<datasource>.R`,
-- sets the function name to `extract.<datasource>` in the new file `R/02-<datasource>.R`,
-- adds automatically a new entry in `R/00-databases.R`,
-- for mySql databases creates/updates the `.Renviron` file that contains database credentials.
-
-The files `R/02-<datasource>.R` can contain individual and extensive data preparations that can be
-adjusted manually, e.g. compare `R/02-LiVES.R`.
 
 ## Test Data Sources
 
