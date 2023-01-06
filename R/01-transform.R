@@ -4,6 +4,8 @@ transform.default <- function(x, ...) {
   dat <- x$dat
 
   #map other fields and prepare data
+  # sources will contain a new entry x$mapping, then:
+  # mapping <- getMappingTable(mappingFile = x$mapping)
   mapping <- getMappingTable()
   dat <- mapFields(dat, mapping, x$name)
   dat <- handleIDs(dat)
