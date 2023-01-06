@@ -5,7 +5,7 @@
 # Never upload this files with credentials to GitHub!
 # Only use locally for database connections for development and when testing.
 #
-# expected format for credentials:
+# Expected format for credentials:
 #
 # DBNAME_NAME="db"
 # DBNAME_USER="user"
