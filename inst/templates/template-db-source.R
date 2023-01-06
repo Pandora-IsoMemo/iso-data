@@ -1,20 +1,23 @@
 # Set up for a data source from a database
 
 extract.{{ dataSourceName }} <- function(x) {
-  # load data
+  # DO NOT MODIFY:
+  # loads data
   isoData <- get{{ dataSourceName }}()
 
-  # create Description
-  #
+  # -------
+  # CUSTOMIZE DATA PREPARATION:
+
+
   # e.g. paste two columns to define a new description column. For this, uncomment and update
   # column names.
-  # add code here if required ->>>
-
+  # adds a description
   #  isoData$description <- paste(isoData$var1, isoData$var2)
 
-  # <<<- until here
 
-  # pass data to next steps (no need to change anything here)
+  # -------
+  # DO NOT MODIFY:
+  # passing data to next steps (no need to change anything here)
   x$dat <- isoData
 
   x
