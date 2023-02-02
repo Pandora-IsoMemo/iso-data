@@ -1,5 +1,9 @@
 # IsoMemo Data Package (iso-data)
 
+## Infrastructure
+
+![image](https://user-images.githubusercontent.com/16759098/216335554-864c2d9b-0200-48f5-b6b7-975f66b1fe74.png)
+
 ## Add a New Data Source
 
 1. Define the new data source: Choose names `<datasource>`, `<datingType>` and `<coordType>`.
