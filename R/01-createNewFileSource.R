@@ -57,7 +57,7 @@ createNewFileSource <- function(dataSourceName,
     fileImport = fileImport
   ) %>%
     as.character()
-
+logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
 
   updateDatabaseList(
