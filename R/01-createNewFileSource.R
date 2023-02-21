@@ -7,23 +7,23 @@
 #' "LiVES"
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coord type for the database, e.g. "decimal degrees"
-#' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param locationType type of location, any of "local" or "remote".
 #' OPTION 1: "local" (add the file to inst/extdata/).
 #' OPTION 2: "remote" (load data from remote path).
+#' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param remotePath path to remote file, if locationType == "remote",
 #' e.g. "http://www.14sea.org/img/"
-#' @param sheetName name of the table sheet for xlsx files, e.g. "14C Dates"
+#' @param sheetNumber number of the table sheet for xlsx files, e.g. "14C Dates"
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 #' @export
 createNewFileSource <- function(dataSourceName,
                                 datingType,
                                 coordType,
-                                fileName,
                                 locationType,
+                                fileName,
                                 remotePath = NULL,
-                                sheetName = 1,
+                                sheetNumber = 1,
                                 scriptFolder = "R") {
   # check for duplicated db names
   if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
@@ -44,7 +44,7 @@ createNewFileSource <- function(dataSourceName,
                           remotePath = remotePath)
 
   fileImport <- addFileImport(fileType = tools::file_ext(fileName),
-                              sheetName = sheetName)
+                              sheetNumber = sheetNumber)
 
   scriptTemplate <-
     file.path(getTemplateDir(), "template-file-source.R") %>%
@@ -104,7 +104,7 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
 #'
 #' @inheritParams createNewFileSource
 #' @param fileType (character) type of file, "csv" or "xlsx" only
-addFileImport <- function(fileType, sheetName = 1) {
+addFileImport <- function(fileType, sheetNumber = 1) {
   if (!(fileType %in% c("csv", "xlsx")))
     stop("File type not supported. Only use \".csv\" or \".xlsx\" files.")
 
@@ -117,8 +117,8 @@ addFileImport <- function(fileType, sheetName = 1) {
   } else {
     # fileType == "xlsx"
     fileImport <-
-      tmpl("read.xlsx(xlsxFile = dataFile, sheet = \"{{ sheetName }}\")",
-           sheetName = sheetName) %>%
+      tmpl("read.xlsx(xlsxFile = dataFile, sheet = {{ sheetNumber }})",
+           sheetNumber = sheetNumber) %>%
       as.character()
   }
 

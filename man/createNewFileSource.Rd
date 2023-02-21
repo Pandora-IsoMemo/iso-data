@@ -8,10 +8,10 @@ createNewFileSource(
   dataSourceName,
   datingType,
   coordType,
-  fileName,
   locationType,
+  fileName,
   remotePath = NULL,
-  sheetName = 1,
+  sheetNumber = 1,
   scriptFolder = "R"
 )
 }
@@ -23,16 +23,16 @@ createNewFileSource(
 
 \item{coordType}{(character) coord type for the database, e.g. "decimal degrees"}
 
-\item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
-
 \item{locationType}{type of location, any of "local" or "remote".
 OPTION 1: "local" (add the file to inst/extdata/).
 OPTION 2: "remote" (load data from remote path).}
 
+\item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
+
 \item{remotePath}{path to remote file, if locationType == "remote",
 e.g. "http://www.14sea.org/img/"}
 
-\item{sheetName}{name of the table sheet for xlsx files, e.g. "14C Dates"}
+\item{sheetNumber}{number of the table sheet for xlsx files, e.g. "14C Dates"}
 
 \item{scriptFolder}{(character) place to store the scripts, usually in the R folder (except
 for tests).}
