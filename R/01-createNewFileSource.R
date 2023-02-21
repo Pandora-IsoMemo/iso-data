@@ -88,18 +88,22 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
     if (is.null(remotePath))
       stop("Provide a \"remotePath\" for \"remote\" locations.")
 
-    path <- remotePath
+    path <- tmpl(
+      "file.path('{{ path }}', '{{ fileName }}')",
+      path = remotePath,
+      fileName = fileName
+    ) %>%
+      as.character()
   } else {
     # locationType == "local"
-    path <- "system.file(\"extdata\", package = \"MpiIsoData\")"
+    path <- tmpl(
+      "file.path(system.file('extdata', package = 'MpiIsoData'), '{{ fileName }}')",
+      fileName = fileName
+    ) %>%
+      as.character()
   }
 
-  tmpl(
-    "file.path({{ path }}, \"{{ fileName }}\")",
-    path = path,
-    fileName = fileName
-  ) %>%
-    as.character()
+  path
 }
 
 
@@ -115,10 +119,10 @@ addFileImport <- function(fileType, sheetNumber = 1) {
     fileImport <-
       paste0(
         "read.csv(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
-        "na.strings = c(\"\", \"NA\"), strip.white = TRUE)"
+        "na.strings = c('', 'NA'), strip.white = TRUE)"
       )
   } else {
-    # fileType == "xlsx"
+    # -> if (fileType == "xlsx")
     fileImport <-
       tmpl("read.xlsx(xlsxFile = dataFile, sheet = {{ sheetNumber }})",
            sheetNumber = sheetNumber) %>%

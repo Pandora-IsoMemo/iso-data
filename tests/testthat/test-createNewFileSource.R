@@ -36,8 +36,8 @@ testthat::test_that("Function createNewFileSource() for 02-CIMA.R file", {
   expectedScript <-
     c(
       "extract.CIMA2 <- function(x) {",
-      "  dataFile <- file.path(\"https://pandoradata.earth/dataset/cbbc35e0-af60-4224-beea-181be10f7f71/resource/f7581eb1-b2b8-4926-ba77-8bc92ddb4fdb/download\", \"cima-humans.xlsx\")",
-      "  isoData <- read.xlsx(xlsxFile = dataFile, sheet = \"1\")",
+      "  dataFile <- file.path('https://pandoradata.earth/dataset/cbbc35e0-af60-4224-beea-181be10f7f71/resource/f7581eb1-b2b8-4926-ba77-8bc92ddb4fdb/download', 'cima-humans.xlsx')",
+      "  isoData <- read.xlsx(xlsxFile = dataFile, sheet = 1)",
       "  x$dat <- isoData",
       "  x",
       "}"
@@ -64,7 +64,7 @@ testthat::test_that("Function createNewFileSource() for remote xlsx file", {
     locationType = "remote",
     fileName = "14SEA_Full_Dataset_2017-01-29.xlsx",
     remotePath = "http://www.14sea.org/img",
-    sheetName = "14C Dates",
+    sheetNumber = 1,
     scriptFolder = testthat::test_path()
   )
 
@@ -75,8 +75,8 @@ testthat::test_that("Function createNewFileSource() for remote xlsx file", {
   expectedScript <-
     c(
       "extract.DBNAME <- function(x) {",
-      "  dataFile <- file.path(\"http://www.14sea.org/img\", \"14SEA_Full_Dataset_2017-01-29.xlsx\")",
-      "  isoData <- read.xlsx(xlsxFile = dataFile, sheet = \"14C Dates\")",
+      "  dataFile <- file.path('http://www.14sea.org/img', '14SEA_Full_Dataset_2017-01-29.xlsx')",
+      "  isoData <- read.xlsx(xlsxFile = dataFile, sheet = 1)",
       "  x$dat <- isoData",
       "  x",
       "}"
@@ -112,8 +112,8 @@ testthat::test_that("Function createNewFileSource() for local csv file", {
   expectedScript <-
     c(
       "extract.DBNAME <- function(x) {",
-      "  dataFile <- file.path(\"system.file(\"extdata\", package = \"MpiIsoData\")\", \"IntChron.csv\")",
-      "  isoData <- read.csv(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, na.strings = c(\"\", \"NA\"), strip.white = TRUE)",
+      "  dataFile <- file.path(system.file('extdata', package = 'MpiIsoData'), 'IntChron.csv')",
+      "  isoData <- read.csv(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, na.strings = c('', 'NA'), strip.white = TRUE)",
       "  x$dat <- isoData",
       "  x",
       "}"
