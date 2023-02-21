@@ -1,62 +1,88 @@
 # IsoMemo Data Package (iso-data)
 
+## Infrastructure
+![Infrastructure](https://user-images.githubusercontent.com/16759098/216335554-864c2d9b-0200-48f5-b6b7-975f66b1fe74.png)
+
 ## Add a New Data Source
 
-1. Define the new data source: Choose names `<datasource>`, `<datingType>` and `<coordType>`.
-2. Execute one of the functions `createNewDBSource()` or `createNewFileSource()` to create a new 
-file `R/02-<datasource>.R`. Respectively, two cases are possible:
+There are two ways to define a new data source:
+  
+1. data source retrieved from a **mySql database**
+2. data source retrieved from a **local or remote file**
 
-   **a) data retrieved from a mySql database:** Here, database credentials 
-   `<dbName>, <dbUser>, <dbPassword>, <dbHost>, <dbPort>` and the `<tableName>` must be specified.
-   The credentials are not to be stored on Github. 
-   
-   They will not be stored in any file that will be uploaded to Github. They are only needed for
-   local development and for testing the database connection.
-   
-   ```r
-   createNewDBSource(dataSourceName = <datasource>,
-                     datingType = <datingType>,
-                     coordType = <coordType>,
-                     dbName = <dbName>,
-                     dbUser = <dbUser>,
-                     dbPassword = <dbPassword>,
-                     dbHost = <dbHost>,
-                     dbPort = <dbPort>,
-                     tableName = <tableName>)
-   ```
+Executing one of the functions
 
-   **b) data retrieved from a file:**
-     - either from a **local file** in the `inst/extdata'` folder
-   (` <location> = "local"`), or
-     - from a **remote file** (`<location> = "remote"`). 
-   Here, the `<remotePath>` must be given.
-   
-   Please, provide the `<filename>` (only `*.csv` or `*.xlsx` are supported). Optionally for `.xlsx` files,
-   a `<sheetName>` can be specified.
- 
-   ```r
-   createNewFileSource(dataSourceName = <datasource>,
-                       datingType = <datingType>,
-                       coordType = <coordType>,
-                       fileName = <filename>,
-                       locationType = <location>,
-                       remotePath = <remotePath>,
-                       sheetName = <sheetName>)
-   ```
+- `createNewDBSource()` or 
+- `createNewFileSource()`
 
-Executing one of the above function calls will automatically:
+will automatically:
 
 1. create a new file `R/02-<datasource>.R`,
 2. define a new function `extract.<datasource>` in the new file `R/02-<datasource>.R`,
 3. add a new entry in `R/00-databases.R`,
 4. (only for mySql databases) create/update the `.Renviron` file that contains database credentials.
 
-Files for sources `R/02-<datasource>.R` may contain individual and extensive data preparations that can be
-adjusted manually, e.g. compare `R/02-LiVES.R`, and the next section 
-"Modify An Existing Data Source".
+The Files `R/02-<datasource>.R` for different data sources may contain individual and extensive data
+preparations that can be adjusted manually. For details compare e.g. `R/02-LiVES.R`, and read the 
+section [Modify An Existing Data Source](#modify-an-existing-data-source).
+
+### Specify the type of data
+
+For both data sources, **database** and **file**, three mandatory parameters must be specified:
+
+- `dataSourceName`: (character) name of the new data source, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
+- `datingType`: (character) dating type, e.g. "radiocarbon" or "expert"
+- `coordType`: (character) coordinate type of latitude and longitude columns, one of
+  - "decimal degrees", e.g. `40.446` or `79.982`,
+  - "degrees decimal minutes", e.g. `40° 26.767' N` or `79° 58.933' W`,
+  - "degrees minutes seconds", e.g. `40° 26' 46'' N` or `79° 58' 56'' W`
+
+### Specify the data source
+
+#### MySql database:
+
+Here, database credentials `<dbName>, <dbUser>, <dbPassword>, <dbHost>, <dbPort>` and the 
+`<tableName>` must be specified. The credentials are not to be stored on Github, they will not be 
+stored in any file that will be uploaded to Github. The credentials are only needed for local
+development and for testing the database connection.
+   
+```r
+createNewDBSource(dataSourceName = <datasource>,
+                  datingType = <datingType>,
+                  coordType = <coordType>,
+                  dbName = <dbName>,
+                  dbUser = <dbUser>,
+                  dbPassword = <dbPassword>,
+                  dbHost = <dbHost>,
+                  dbPort = <dbPort>,
+                  tableName = <tableName>)
+```
+
+#### File:
+
+Data can be loaded either
+
+- from a **local file** that must be stored in the `inst/extdata'` folder, or
+- from a **remote file**, the `<remotePath>` must be given, e.g. `"http://www.14sea.org/img/"`
+ 
+Please set `<location> = "local"` in the first case, and `<location> = "remote"` in the second case.
+
+Please, provide the `<filename>` with extension (only `*.csv` or `*.xlsx` are supported), e.g. 
+`"data.csv"`, `"14SEA_Full_Dataset_2017-01-29.xlsx"`
+
+Optionally for `.xlsx` files, a `<sheetNumber>` as integer can be specified.
+ 
+```r
+createNewFileSource(dataSourceName = <datasource>,
+                    datingType = <datingType>,
+                    coordType = <coordType>,
+                    fileName = <filename>,
+                    locationType = <location>,
+                    remotePath = <remotePath>,
+                    sheetNumber = <sheetNumber>)
+```
 
 ## Modify an Existing Data Source
-
 Data extraction for all data sources are defined in the files `R/02-<datasource>.R`. Within the function `extract.<datasource>.R` you can retrieve data, modify values as you like. You only need to ensure these points:
 
 - the function name needs to be `extract.<datasource>`. `<datasource>` needs to match the entry `name` in the file `R/00-databases.R`

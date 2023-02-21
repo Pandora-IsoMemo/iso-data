@@ -6,24 +6,27 @@
 #' @param dataSourceName (character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
 #' "LiVES"
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
-#' @param coordType (character) coord type for the database, e.g. "decimal degrees"
-#' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
+#' @param coordType (character) coordinate type of latitude and longitude columns; one of
+#'  "decimal degrees" (e.g. 40.446 or 79.982),
+#'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
+#'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
 #' @param locationType type of location, any of "local" or "remote".
 #' OPTION 1: "local" (add the file to inst/extdata/).
 #' OPTION 2: "remote" (load data from remote path).
+#' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param remotePath path to remote file, if locationType == "remote",
 #' e.g. "http://www.14sea.org/img/"
-#' @param sheetName name of the table sheet for xlsx files, e.g. "14C Dates"
+#' @param sheetNumber (integer) number of the table sheet for xlsx files, e.g. "14C Dates"
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 #' @export
 createNewFileSource <- function(dataSourceName,
                                 datingType,
                                 coordType,
-                                fileName,
                                 locationType,
+                                fileName,
                                 remotePath = NULL,
-                                sheetName = 1,
+                                sheetNumber = 1,
                                 scriptFolder = "R") {
   # check for duplicated db names
   if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
@@ -44,7 +47,7 @@ createNewFileSource <- function(dataSourceName,
                           remotePath = remotePath)
 
   fileImport <- addFileImport(fileType = tools::file_ext(fileName),
-                              sheetName = sheetName)
+                              sheetNumber = sheetNumber)
 
   scriptTemplate <-
     file.path(getTemplateDir(), "template-file-source.R") %>%
@@ -57,7 +60,7 @@ createNewFileSource <- function(dataSourceName,
     fileImport = fileImport
   ) %>%
     as.character()
-
+logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
   writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
 
   updateDatabaseList(
@@ -85,18 +88,22 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
     if (is.null(remotePath))
       stop("Provide a \"remotePath\" for \"remote\" locations.")
 
-    path <- remotePath
+    path <- tmpl(
+      "file.path('{{ path }}', '{{ fileName }}')",
+      path = remotePath,
+      fileName = fileName
+    ) %>%
+      as.character()
   } else {
     # locationType == "local"
-    path <- "system.file(\"extdata\", package = \"MpiIsoData\")"
+    path <- tmpl(
+      "file.path(system.file('extdata', package = 'MpiIsoData'), '{{ fileName }}')",
+      fileName = fileName
+    ) %>%
+      as.character()
   }
 
-  tmpl(
-    "file.path(\"{{ path }}\", \"{{ fileName }}\")",
-    path = path,
-    fileName = fileName
-  ) %>%
-    as.character()
+  path
 }
 
 
@@ -104,7 +111,7 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
 #'
 #' @inheritParams createNewFileSource
 #' @param fileType (character) type of file, "csv" or "xlsx" only
-addFileImport <- function(fileType, sheetName = 1) {
+addFileImport <- function(fileType, sheetNumber = 1) {
   if (!(fileType %in% c("csv", "xlsx")))
     stop("File type not supported. Only use \".csv\" or \".xlsx\" files.")
 
@@ -112,13 +119,13 @@ addFileImport <- function(fileType, sheetName = 1) {
     fileImport <-
       paste0(
         "read.csv(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
-        "na.strings = c(\"\", \"NA\"), strip.white = TRUE)"
+        "na.strings = c('', 'NA'), strip.white = TRUE)"
       )
   } else {
-    # fileType == "xlsx"
+    # -> if (fileType == "xlsx")
     fileImport <-
-      tmpl("read.xlsx(xlsxFile = dataFile, sheet = \"{{ sheetName }}\")",
-           sheetName = sheetName) %>%
+      tmpl("read.xlsx(xlsxFile = dataFile, sheet = {{ sheetNumber }})",
+           sheetNumber = sheetNumber) %>%
       as.character()
   }
 

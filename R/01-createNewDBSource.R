@@ -5,7 +5,10 @@
 #'
 #' @param dataSourceName (character) name of the new database source, e.g. "xyDBname"
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
-#' @param coordType (character) coord type for the database, e.g. "decimal degrees"
+#' @param coordType (character) coordinate type of latitude and longitude columns; one of
+#'  "decimal degrees" (e.g. 40.446 or 79.982),
+#'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
+#'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
 #' @param dbName (character) database name
 #' @param dbUser (character) database user
 #' @param dbPassword (character) database password
