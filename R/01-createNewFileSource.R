@@ -10,6 +10,7 @@
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
 #'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
 #'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
+#' @param mappingName (character) name of the mapping
 #' @param locationType type of location, any of "local" or "remote".
 #' OPTION 1: "local" (add the file to inst/extdata/).
 #' OPTION 2: "remote" (load data from remote path).
@@ -23,6 +24,7 @@
 createNewFileSource <- function(dataSourceName,
                                 datingType,
                                 coordType,
+                                mappingName,
                                 locationType,
                                 fileName,
                                 remotePath = NULL,
@@ -56,12 +58,15 @@ createNewFileSource <- function(dataSourceName,
   dbScript <- tmpl(
     paste0(scriptTemplate, collapse = "\n"),
     dataSourceName = dataSourceName,
+    mappingName = mappingName,
     filePath = filePath,
     fileImport = fileImport
   ) %>%
     as.character()
-logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
-  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
+  logging("Creating new file: %s",
+          file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
+  writeLines(dbScript,
+             con = file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
 
   updateDatabaseList(
     dataSourceName = dataSourceName,

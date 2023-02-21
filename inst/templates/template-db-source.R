@@ -1,4 +1,4 @@
-# Set up for a data source from a database
+# Set up extract function for a database source ----
 
 extract.{{ dataSourceName }} <- function(x) {
   # DO NOT MODIFY:
@@ -41,4 +41,31 @@ get{{ dataSourceName }} <- function() {
   query <- "select * from {{ tableName }};"
 
   dbtools::sendQuery(creds{{ dataSourceName }}(), query)
+}
+
+
+# Set up load function for a database source ----
+
+load.{{ dataSourceName }} <- function(x, ...) {
+  logDebug("Entering lload method for '%s'", x$name)
+
+  df <- x$dat
+  db <- x$name
+
+  data <- getDefaultData(df, db)
+  extraCharacter <- getExtra(df, db, "character")
+  extraNumeric <- getExtra(df, db, "numeric")
+
+  if (nrow(df) > 0){
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_data` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_extraCharacter` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_extraNumeric` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_warning` WHERE `source` = '", db, "';"));
+
+    sendDataMPI(data, table = "{{ mappingName }}_data", mode = "insert")
+    sendDataMPI(extraCharacter, table = "{{ mappingName }}_extraCharacter", mode = "insert")
+    sendDataMPI(extraNumeric, table = "{{ mappingName }}_extraNumeric", mode = "insert")
+  }
+
+  x
 }

@@ -8,6 +8,7 @@ createNewFileSource(
   dataSourceName,
   datingType,
   coordType,
+  mappingName,
   locationType,
   fileName,
   remotePath = NULL,
@@ -25,6 +26,8 @@ createNewFileSource(
 "decimal degrees" (e.g. 40.446 or 79.982),
 "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
 "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")}
+
+\item{mappingName}{(character) name of the mapping}
 
 \item{locationType}{type of location, any of "local" or "remote".
 OPTION 1: "local" (add the file to inst/extdata/).

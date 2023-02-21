@@ -1,6 +1,7 @@
-# Set up for a data source from a file
+# Set up extract function for a file source ----
 
 extract.{{ dataSourceName }} <- function(x) {
+  logDebug("Entering extract method for '%s'", x$name)
   # DO NOT MODIFY:
   # path to file
   dataFile <- {{ filePath }}
@@ -22,6 +23,33 @@ extract.{{ dataSourceName }} <- function(x) {
   # DO NOT MODIFY:
   # passing isoData to next steps (no need to change anything here)
   x$dat <- isoData
+
+  x
+}
+
+
+# Set up load function for a file source ----
+
+load.{{ dataSourceName }} <- function(x, ...) {
+  logDebug("Entering lload method for '%s'", x$name)
+
+  df <- x$dat
+  db <- x$name
+
+  data <- getDefaultData(df, db)
+  extraCharacter <- getExtra(df, db, "character")
+  extraNumeric <- getExtra(df, db, "numeric")
+
+  if (nrow(df) > 0){
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_data` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_extraCharacter` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_extraNumeric` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_warning` WHERE `source` = '", db, "';"));
+
+    sendDataMPI(data, table = "{{ mappingName }}_data", mode = "insert")
+    sendDataMPI(extraCharacter, table = "{{ mappingName }}_extraCharacter", mode = "insert")
+    sendDataMPI(extraNumeric, table = "{{ mappingName }}_extraNumeric", mode = "insert")
+  }
 
   x
 }

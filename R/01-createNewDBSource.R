@@ -9,6 +9,7 @@
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
 #'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
 #'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
+#' @param mappingName (character) name of the mapping
 #' @param dbName (character) database name
 #' @param dbUser (character) database user
 #' @param dbPassword (character) database password
@@ -22,6 +23,7 @@
 createNewDBSource <- function(dataSourceName,
                               datingType,
                               coordType,
+                              mappingName,
                               dbName,
                               dbUser,
                               dbPassword,
@@ -52,12 +54,15 @@ createNewDBSource <- function(dataSourceName,
     tmpl(
       paste0(scriptTemplate, collapse = "\n"),
       dataSourceName = dataSourceName,
-      tableName = tableName
+      mappingName = mappingName,
+      tableName = tableName,
     ) %>%
     as.character()
 
-  logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
-  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
+  logging("Creating new file: %s",
+          file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
+  writeLines(dbScript,
+             con = file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
 
   setupRenviron(
     dataSourceName = dataSourceName,
