@@ -13,7 +13,8 @@ updateDatabaseList(
 )
 }
 \arguments{
-\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
+\item{dataSourceName}{(character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
+"LiVES"}
 
 \item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
 
@@ -25,7 +26,8 @@ updateDatabaseList(
 \item{mappingName}{(character) name of the mapping, e.g. "Field_Mapping". The mapping,
 a .csv file, must be available under "inst/mapping/".}
 
-\item{scriptFolder}{(character) place to store the scripts.}
+\item{scriptFolder}{(character) place to store the scripts, usually in the R folder (except
+for tests).}
 }
 \description{
 Updates the list of all data sources.

@@ -2,7 +2,7 @@
 #'
 #' Updates the list of all data sources.
 #'
-#' @inheritParams createNewDBSource
+#' @inheritParams createNewFileSource
 updateDatabaseList <-
   function(dataSourceName,
            datingType,

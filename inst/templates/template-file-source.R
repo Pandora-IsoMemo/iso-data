@@ -35,20 +35,21 @@ load.{{ dataSourceName }} <- function(x, ...) {
 
   df <- x$dat
   db <- x$name
+  mapping <- x$mapping
 
   data <- getDefaultData(df, db)
   extraCharacter <- getExtra(df, db, "character")
   extraNumeric <- getExtra(df, db, "numeric")
 
   if (nrow(df) > 0){
-    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_data` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_extraCharacter` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_extraNumeric` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `{{ mappingName }}_warning` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `", mapping, "_data` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `", mapping, "_extraCharacter` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `", mapping, "_extraNumeric` WHERE `source` = '", db, "';"));
+    sendQueryMPI(paste0("DELETE FROM `", mapping, "_warning` WHERE `source` = '", db, "';"));
 
-    sendDataMPI(data, table = "{{ mappingName }}_data", mode = "insert")
-    sendDataMPI(extraCharacter, table = "{{ mappingName }}_extraCharacter", mode = "insert")
-    sendDataMPI(extraNumeric, table = "{{ mappingName }}_extraNumeric", mode = "insert")
+    sendDataMPI(data, table = paste0(mapping, "_data"), mode = "insert")
+    sendDataMPI(extraCharacter, table = paste0(mapping, "_extraCharacter"), mode = "insert")
+    sendDataMPI(extraNumeric, table = paste(mapping, "_extraNumeric"), mode = "insert")
   }
 
   x
