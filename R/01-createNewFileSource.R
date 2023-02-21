@@ -92,7 +92,7 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
   }
 
   tmpl(
-    "file.path(\"{{ path }}\", \"{{ fileName }}\")",
+    "file.path({{ path }}, \"{{ fileName }}\")",
     path = path,
     fileName = fileName
   ) %>%
