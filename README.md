@@ -6,13 +6,17 @@
 
 ## Add a New Data Source
 
-To add a new data source from a **database** or from a **file** one must execute one of the
-following functions: 
+There are two ways to define a new data source:
+  
+1. data source retrieved from a **mySql database**
+2. data source retrieved from a **local or remote file**
+
+Executing one of the functions
 
 - `createNewDBSource()` or 
-- `createNewFileSource()`, respectively.
+- `createNewFileSource()`
 
-Executing one of the two function calls will automatically:
+will automatically:
 
 1. create a new file `R/02-<datasource>.R`,
 2. define a new function `extract.<datasource>` in the new file `R/02-<datasource>.R`,
@@ -25,14 +29,14 @@ section [Modify An Existing Data Source](#modify-an-existing-data-source).
 
 ### Specify the type of data
 
-For both data sources, **database** and **file**, the following parameters must be specified:
+For both data sources, **database** and **file**, three mandatory parameters must be specified:
 
 - `dataSourceName`: (character) name of the new data source, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
 - `datingType`: (character) dating type, e.g. "radiocarbon" or "expert"
 - `coordType`: (character) coordinate type of latitude and longitude columns, one of
-  - "decimal degrees", e.g. 40.446 or 79.982,
-  - "degrees decimal minutes", e.g. "40° 26.767' N" or "79° 58.933' W",
-  - "degrees minutes seconds", e.g. "40° 26' 46'' N" or "79° 58' 56'' W"
+  - "decimal degrees", e.g. `40.446` or `79.982`,
+  - "degrees decimal minutes", e.g. `40° 26.767' N` or `79° 58.933' W`,
+  - "degrees minutes seconds", e.g. `40° 26' 46'' N` or `79° 58' 56'' W`
 
 ### Specify the data source
 
