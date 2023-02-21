@@ -1,7 +1,6 @@
 # IsoMemo Data Package (iso-data)
 
 ## Infrastructure
-
 ![Infrastructure](https://user-images.githubusercontent.com/16759098/216335554-864c2d9b-0200-48f5-b6b7-975f66b1fe74.png)
 
 ## Add a New Data Source
@@ -84,7 +83,6 @@ createNewFileSource(dataSourceName = <datasource>,
 ```
 
 ## Modify an Existing Data Source
-
 Data extraction for all data sources are defined in the files `R/02-<datasource>.R`. Within the function `extract.<datasource>.R` you can retrieve data, modify values as you like. You only need to ensure these points:
 
 - the function name needs to be `extract.<datasource>`. `<datasource>` needs to match the entry `name` in the file `R/00-databases.R`
