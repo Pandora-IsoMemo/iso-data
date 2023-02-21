@@ -6,14 +6,17 @@
 #' @param dataSourceName (character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
 #' "LiVES"
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
-#' @param coordType (character) coord type for the database, e.g. "decimal degrees"
+#' @param coordType (character) coordinate type of latitude and longitude columns; one of
+#'  "decimal degrees" (e.g. 40.446 or 79.982),
+#'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
+#'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
 #' @param locationType type of location, any of "local" or "remote".
 #' OPTION 1: "local" (add the file to inst/extdata/).
 #' OPTION 2: "remote" (load data from remote path).
 #' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param remotePath path to remote file, if locationType == "remote",
 #' e.g. "http://www.14sea.org/img/"
-#' @param sheetNumber number of the table sheet for xlsx files, e.g. "14C Dates"
+#' @param sheetNumber (integer) number of the table sheet for xlsx files, e.g. "14C Dates"
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 #' @export
