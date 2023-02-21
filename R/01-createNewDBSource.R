@@ -9,7 +9,8 @@
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
 #'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
 #'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
-#' @param mappingName (character) name of the mapping
+#' @param mappingName (character) name of the mapping, e.g. "Field_Mapping". The mapping,
+#' a .csv file, must be available under "inst/mapping/".
 #' @param dbName (character) database name
 #' @param dbUser (character) database user
 #' @param dbPassword (character) database password
@@ -78,6 +79,7 @@ createNewDBSource <- function(dataSourceName,
     dataSourceName = dataSourceName,
     datingType = datingType,
     coordType = coordType,
+    mappingName = mappingName,
     scriptFolder = file.path(scriptFolder)
   )
 }
@@ -154,54 +156,4 @@ setupRenviron <-
       logging("Updating existing file: %s", filePath)
       write(rEnvironUpdate, file = filePath, append = TRUE)
     }
-  }
-
-
-#' Update Database List
-#'
-#' Updates the list of all data sources.
-#'
-#' @inheritParams createNewDBSource
-updateDatabaseList <-
-  function(dataSourceName,
-           datingType,
-           coordType,
-           scriptFolder = "R") {
-    newSource <-
-      tmpl(
-        paste0(
-          c(
-            "        ),",
-            "        singleSource (",
-            "          name = \"{{ dataSourceName }}\",",
-            "          datingType = \"{{ datingType }}\",",
-            "          coordType = \"{{ coordType }}\""
-          ),
-          collapse = "\n"
-        ),
-        dataSourceName = dataSourceName,
-        datingType = datingType,
-        coordType = coordType
-      ) %>%
-      as.character()
-
-    databaseFile <-
-      readLines(con = file.path(scriptFolder, "00-databases.R")) %>%
-      cleanUpScript()
-
-    dbBegin <- grep("databases <- ", databaseFile)
-    dbnamesBegin <- grep("dbnames <- ", databaseFile)
-
-    dbDef <- databaseFile[dbBegin:(dbnamesBegin - 1)]
-    otherDefs <- databaseFile[dbnamesBegin:length(databaseFile)]
-
-    lastRow <- length(dbDef)
-
-    dbDef <-
-      c(dbDef[1:(lastRow - 3)], newSource, dbDef[(lastRow - 2):lastRow])
-
-    logging("Updating existing file: %s",
-            file.path(scriptFolder, "00-databases.R"))
-    writeLines(c(dbDef, "", otherDefs),
-               con = file.path(scriptFolder, "00-databases.R"))
   }

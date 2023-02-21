@@ -2,23 +2,27 @@ databases <- function() {
     list(
         singleSource (
             name = '14CSea',
-            datingType = "radiocarbon",
-            coordType = "decimal degrees"
+            datingType = 'radiocarbon',
+            coordType = 'decimal degrees',
+            mapping = 'Field_Mapping'
         ),
         singleSource (
             name = 'LiVES',
-            datingType = "radiocarbon",
-            coordType = NA
+            datingType = 'radiocarbon',
+            coordType = NA,
+            mapping = 'Field_Mapping'
         ),
         singleSource (
             name = 'IntChron',
-            datingType = "radiocarbon",
-            coordType = "decimal degrees"
+            datingType = 'radiocarbon',
+            coordType = 'decimal degrees',
+            mapping = 'Field_Mapping'
         ),
         singleSource (
-           name = "CIMA",
-           datingType = "radiocarbon",
-           coordType = "decimal degrees"
+           name = 'CIMA',
+           datingType = 'radiocarbon',
+           coordType = 'decimal degrees',
+           mapping = 'Field_Mapping'
         )
     )
 }

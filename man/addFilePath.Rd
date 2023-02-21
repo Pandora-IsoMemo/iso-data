@@ -10,7 +10,7 @@ addFilePath(fileName, locationType, remotePath = NULL)
 \item{fileName}{name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"}
 
 \item{locationType}{type of location, any of "local" or "remote".
-OPTION 1: "local" (add the file to inst/extdata/).
+OPTION 1: "local" (the file must be available under inst/extdata/).
 OPTION 2: "remote" (load data from remote path).}
 
 \item{remotePath}{path to remote file, if locationType == "remote",

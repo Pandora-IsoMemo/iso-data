@@ -10,9 +10,10 @@
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
 #'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
 #'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
-#' @param mappingName (character) name of the mapping
+#' @param mappingName (character) name of the mapping, e.g. "Field_Mapping". The mapping,
+#' a .csv file, must be available under "inst/mapping/".
 #' @param locationType type of location, any of "local" or "remote".
-#' OPTION 1: "local" (add the file to inst/extdata/).
+#' OPTION 1: "local" (the file must be available under inst/extdata/).
 #' OPTION 2: "remote" (load data from remote path).
 #' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param remotePath path to remote file, if locationType == "remote",
@@ -72,6 +73,7 @@ createNewFileSource <- function(dataSourceName,
     dataSourceName = dataSourceName,
     datingType = datingType,
     coordType = coordType,
+    mappingName = mappingName,
     scriptFolder = file.path(scriptFolder)
   )
 }
