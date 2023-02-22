@@ -3,7 +3,7 @@
 #' @inheritParams createNewFileSource
 #' @export
 getMappingTable <- function(mappingName) {
-  if (!(mappingName %in% dir(system.file('mapping', package = 'MpiIsoData')))) {
+  if (!(paste0(mappingName, ".csv") %in% dir(system.file('mapping', package = 'MpiIsoData')))) {
     stop("Mapping not found! Please add the mapping file to inst/mapping/.")
   }
 

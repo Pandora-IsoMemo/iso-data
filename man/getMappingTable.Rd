@@ -4,10 +4,11 @@
 \alias{getMappingTable}
 \title{getMappingTable}
 \usage{
-getMappingTable(mappingFile = "Field_Mapping.csv")
+getMappingTable(mappingName)
 }
 \arguments{
-\item{mappingFile}{file name of the mapping}
+\item{mappingName}{(character) name of the mapping, e.g. "Field_Mapping". The mapping,
+a .csv file, must be available under "inst/mapping/".}
 }
 \description{
 getMappingTable
