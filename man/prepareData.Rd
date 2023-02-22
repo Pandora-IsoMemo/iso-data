@@ -18,8 +18,6 @@ prepareData(dat, mapping, coordType)
 }
 \description{
 Prepares data within the transform step of the ETL. Following updates are done:
- - types of variables are set
- - latitude and longitude is converted into decimal degrees
- - implausible latitude and longitude values are deleted
- - DOIs are added
+types of variables are set, latitude and longitude is converted into decimal degrees,
+implausible latitude and longitude values are deleted, DOIs are added.
 }

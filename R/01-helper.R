@@ -21,7 +21,7 @@ mapFields <- function(isoData, mapping, dataBase){
   #
 
   fieldsRename <- fieldsRename %>%
-    filter(db %in% names(isoData))
+    filter(.data$db %in% names(isoData))
 
   isoData <- isoData %>%
     dplyr::rename_at(dplyr::vars(fieldsRename$db), ~ fieldsRename$shiny)
@@ -128,10 +128,8 @@ convertLatLong <- function(isoData, coordType,
 #' Prepare Data
 #'
 #' Prepares data within the transform step of the ETL. Following updates are done:
-#'  - types of variables are set
-#'  - latitude and longitude is converted into decimal degrees
-#'  - implausible latitude and longitude values are deleted
-#'  - DOIs are added
+#' types of variables are set, latitude and longitude is converted into decimal degrees,
+#' implausible latitude and longitude values are deleted, DOIs are added.
 #'
 #' @param dat mapped data
 #' @param mapping mapping table that was used
