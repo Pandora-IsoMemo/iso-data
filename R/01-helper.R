@@ -133,9 +133,9 @@ convertLatLong <- function(isoData, coordType,
 #'  - implausible latitude and longitude values are deleted
 #'  - DOIs are added
 #'
-#'  @param dat mapped data
-#'  @param mapping mapping table that was used
-#'  @inheritParams createNewFileSource
+#' @param dat mapped data
+#' @param mapping mapping table that was used
+#' @inheritParams createNewFileSource
 prepareData <- function(dat, mapping, coordType){
   dat <- setVariableType(dat, mapping)
 

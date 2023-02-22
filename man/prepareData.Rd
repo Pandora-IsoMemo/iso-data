@@ -6,15 +6,20 @@
 \usage{
 prepareData(dat, mapping, coordType)
 }
+\arguments{
+\item{dat}{mapped data}
+
+\item{mapping}{mapping table that was used}
+
+\item{coordType}{(character) coordinate type of latitude and longitude columns; one of
+"decimal degrees" (e.g. 40.446 or 79.982),
+"degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
+"degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")}
+}
 \description{
 Prepares data within the transform step of the ETL. Following updates are done:
  - types of variables are set
  - latitude and longitude is converted into decimal degrees
  - implausible latitude and longitude values are deleted
  - DOIs are added
-}
-\details{
-@param dat mapped data
- @param mapping mapping table that was used
- @inheritParams createNewFileSource
 }
