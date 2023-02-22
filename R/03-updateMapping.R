@@ -6,25 +6,20 @@ utils::globalVariables(c("shiny", "fieldType", "category"))
 #'
 #' Updates mapping table in database
 #'
-#' @param sources (list) see result of \code{databases()}
-#'
 #' @export
-etlMapping <- function(sources = databases()){
-  listOfMappings <- sapply(sources, function(source) source[["mapping"]]) %>%
-    unique()
-
-  for (mappingName in listOfMappings) {
+etlMapping <- function(){
+  for (mappingName in mappingNames()) {
     mappingTable <- getMappingTable(mappingName = mappingName)
 
     mapping <- mappingTable %>%
       select(shiny, fieldType, category)
 
     if (mappingName == "Field_Mapping") {
-      # remove prefix for this mappingName
-      # here a prefix was not used yet
-      mappingName <- NULL
+      # update the old mapping table without prefix (here a prefix was not used yet)
+      sendDataMPI(mapping, table = "mapping", mode = "truncate")
+    } else {
+      sendDataMPI(mapping, table = paste0(c(mappingName, "mapping"), collapse = "_"), mode = "truncate")
     }
-    sendDataMPI(mapping, table = paste0(c(mappingName, "mapping"), collapse = "_"), mode = "truncate")
   }
   ## mappingSource <- mappingTable %>%
   ##   select(-fieldType, -category) %>%

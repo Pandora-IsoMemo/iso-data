@@ -131,21 +131,21 @@ convertLatLong <- function(isoData, coordType,
 #' types of variables are set, latitude and longitude is converted into decimal degrees,
 #' implausible latitude and longitude values are deleted, DOIs are added.
 #'
-#' @param dat mapped data
+#' @param isoData mapped data
 #' @param mapping mapping table that was used
 #' @inheritParams createNewFileSource
-prepareData <- function(dat, mapping, coordType){
-  dat <- setVariableType(dat, mapping)
+prepareData <- function(isoData, mapping, coordType){
+  isoData <- setVariableType(isoData, mapping)
 
   if (coordType %in% c("decimal degrees", "degrees decimal minutes", "degrees minutes seconds")) {
-    dat <- convertLatLong(dat, coordType = coordType)
-    dat <- deleteInplausibleLatLong(dat)
+    isoData <- convertLatLong(isoData, coordType = coordType)
+    isoData <- deleteInplausibleLatLong(isoData)
   } else if (!is.na(coordType)) {
     warning("CoordType not valid. Conversion of latitude and longitude skipped.")
   }
 
-  dat <- addDOIs(dat)
-  dat
+  isoData <- addDOIs(isoData)
+  isoData
 }
 
 convertCoordinates <- function(x, from = "decimal degrees", digits = 4){

@@ -10,23 +10,30 @@ load.default <- function(x, ...) {
   extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
   if (mapping == "Field_Mapping") {
-    # remove prefix for this mappingName
-    # here a prefix was not used yet
+    # update the tables for the old mapping without prefix (here a prefix was not used yet)
     mapping <- NULL
   }
 
   if (nrow(df) > 0){
-    sendQueryMPI(paste0("DELETE FROM `", paste0(mapping, "data", collapse = "_"), "` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `", paste0(mapping, "extraCharacter", collapse = "_"), "` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `", paste0(mapping, "extraNumeric", collapse = "_"), "` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `", paste0(mapping, "warning", collapse = "_"), "` WHERE `source` = '", db, "';"));
+    sendQueryMPI(deleteOldQry(mapping, table = "data", source = db));
+    sendQueryMPI(deleteOldQry(mapping, table = "extraCharacter", source = db));
+    sendQueryMPI(deleteOldQry(mapping, table = "extraNumeric", source = db));
+    sendQueryMPI(deleteOldQry(mapping, table = "warning", source = db));
 
-    sendDataMPI(data, table = paste0(mapping, "data", collapse = "_"), mode = "insert")
-    sendDataMPI(extraCharacter, table = paste0(mapping, "extraCharacter", collapse = "_"), mode = "insert")
-    sendDataMPI(extraNumeric, table = paste0(mapping, "extraNumeric", collapse = "_"), mode = "insert")
+    sendDataMPI(data, table = paste0(c(mapping, "data"), collapse = "_"), mode = "insert")
+    sendDataMPI(extraCharacter, table = paste0(c(mapping, "extraCharacter"), collapse = "_"), mode = "insert")
+    sendDataMPI(extraNumeric, table = paste0(c(mapping, "extraNumeric"), collapse = "_"), mode = "insert")
   }
 
   x
+}
+
+deleteOldQry <- function(mappingName, table, source){
+  dbtools::Query(
+    "DELETE FROM `{{ table }}` WHERE `source` = '{{ source }}';",
+    table  = paste0(c(mappingName, table), collapse = "_"),
+    source = source
+  )
 }
 
 getDefaultData <- function(df, db, mapping){

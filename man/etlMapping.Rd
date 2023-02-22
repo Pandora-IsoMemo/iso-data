@@ -4,10 +4,7 @@
 \alias{etlMapping}
 \title{Update ETL Mapping}
 \usage{
-etlMapping(sources = databases())
-}
-\arguments{
-\item{sources}{(list) see result of \code{databases()}}
+etlMapping()
 }
 \description{
 Updates mapping table in database

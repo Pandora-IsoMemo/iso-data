@@ -4,10 +4,10 @@
 \alias{prepareData}
 \title{Prepare Data}
 \usage{
-prepareData(dat, mapping, coordType)
+prepareData(isoData, mapping, coordType)
 }
 \arguments{
-\item{dat}{mapped data}
+\item{isoData}{mapped data}
 
 \item{mapping}{mapping table that was used}
 
