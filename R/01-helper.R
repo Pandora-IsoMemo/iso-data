@@ -1,7 +1,3 @@
-# To prevent R CMD check from Complaining in line
-# filter(!is.na(db), nchar(db) > 0)
-utils::globalVariables("db")
-
 mapFields <- function(isoData, mapping, dataBase){
   names(isoData) <- stri_escape_unicode(names(isoData))
 
@@ -9,7 +5,7 @@ mapFields <- function(isoData, mapping, dataBase){
     select(shiny, db = dataBase)
 
   fieldsRename <- fields %>%
-    filter(!is.na(db), nchar(db) > 0)
+    filter(!is.na(.data$db), nchar(.data$db) > 0)
 
   # partial matches
   pMatch <- lapply(fieldsRename$db, function(x){
