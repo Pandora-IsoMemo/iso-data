@@ -5,9 +5,9 @@ load.default <- function(x, ...) {
   db <- x$name
   mapping <- x$mapping
 
-  data <- getDefaultData(df, db)
-  extraCharacter <- getExtra(df, db, "character")
-  extraNumeric <- getExtra(df, db, "numeric")
+  data <- getDefaultData(df, db, mapping = mapping)
+  extraCharacter <- getExtra(df, db, mapping = mapping, type = "character")
+  extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
   if (mapping == "Field_Mapping") {
     # remove prefix for this mappingName
@@ -29,18 +29,18 @@ load.default <- function(x, ...) {
   x
 }
 
-getDefaultData <- function(df, db){
-  vars <- defaultVars()
+getDefaultData <- function(df, db, mapping){
+  vars <- defaultVars(mappingName = mapping)
 
   df %>%
     select_if(names(df) %in% vars) %>%
     mutate(source = db)
 }
 
-getExtra <- function(df, db, type = "character"){
+getExtra <- function(df, db, mapping, type = "character"){
   variable <- value <- id <- NULL
 
-  defaultVars <- defaultVars()
+  defaultVars <- defaultVars(mappingName = mapping)
   idVar <- names(df) == "id"
 
   is.type <- get(paste0("is.", type), mode = "function")
@@ -65,8 +65,12 @@ getExtra <- function(df, db, type = "character"){
 }
 
 
-defaultVars <- function(){
-  c(
+defaultVars <- function(mappingName){
+  if (!(paste0(mappingName, ".csv") %in% dir(system.file('mapping', package = 'MpiIsoData')))) {
+    stop("Mapping not found! Please add the mapping file to inst/mapping/.")
+  }
+
+  fieldMappingVars <- c(
     "id",
     "description",
     "d13C",
@@ -82,5 +86,13 @@ defaultVars <- function(){
     "calibratedDate",
     "calibratedDateLower",
     "calibratedDateUpper"
+  )
+
+  # optionally define other mapping specific defaultVars, maybe by removing non-default variables
+  #   from getMappingTable(mappingName)$shiny ?
+  # currently we have only one mapping
+  switch(mappingName,
+          "Field_Mapping" = fieldMappingVars,
+         fieldMappingVars
   )
 }
