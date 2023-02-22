@@ -5,6 +5,11 @@
 #' @export
 cleanUp <- function(mappingNames = mappingNames()){
   for (mappingName in mappingNames) {
+    if (mappingName == "Field_Mapping") {
+      # clean the tables for the old mapping without prefix (here a prefix was not used yet)
+      mappingName <- NULL
+    }
+
     sendQueryMPI(cleanUpQry(mappingName, "data"))
     sendQueryMPI(cleanUpQry(mappingName, "extraCharacter"))
     sendQueryMPI(cleanUpQry(mappingName, "extraNumeric"))
