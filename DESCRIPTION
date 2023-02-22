@@ -12,11 +12,12 @@ LazyData: true
 Imports:
   dbtools,
   dplyr,
-  httr,
   futile.logger,
+  httr,
 	magrittr,
   openxlsx,
   purrr,
+  rlang,
   RMySQL,
   rvest,
   stringi,

@@ -2,6 +2,7 @@
 #' @importFrom dbtools testConnection Credentials
 #' @importFrom magrittr "%>%"
 #' @importFrom openxlsx read.xlsx
+#' @importFrom rlang .data
 #' @importFrom stringi stri_escape_unicode
 #' @importFrom stats na.exclude setNames
 #' @importFrom templates tmpl
