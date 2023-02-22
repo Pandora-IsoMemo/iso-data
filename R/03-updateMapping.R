@@ -14,6 +14,9 @@ etlMapping <- function(){
     mapping <- mappingTable %>%
       select(shiny, fieldType, category)
 
+    # check if table exists, if not create one -> which column specs are required?
+    # -> IF OBJECT_ID('TableName', 'U') IS NOT NULL to check for a table
+
     if (mappingName == "Field_Mapping") {
       # update the old mapping table without prefix (here a prefix was not used yet)
       sendDataMPI(mapping, table = "mapping", mode = "truncate")

@@ -14,11 +14,14 @@ load.default <- function(x, ...) {
     mapping <- NULL
   }
 
+  # check if table exists, if not create one -> which column specs are required?
+  # -> IF OBJECT_ID('TableName', 'U') IS NOT NULL to check for a table
+
   if (nrow(df) > 0){
-    sendQueryMPI(deleteOldQry(mapping, table = "data", source = db));
-    sendQueryMPI(deleteOldQry(mapping, table = "extraCharacter", source = db));
-    sendQueryMPI(deleteOldQry(mapping, table = "extraNumeric", source = db));
-    sendQueryMPI(deleteOldQry(mapping, table = "warning", source = db));
+    sendQueryMPI(deleteOldDataQry(mapping, "data", db));
+    sendQueryMPI(deleteOldDataQry(mapping, "extraCharacter", db));
+    sendQueryMPI(deleteOldDataQry(mapping, "extraNumeric", db));
+    sendQueryMPI(deleteOldDataQry(mapping, "warning", db));
 
     sendDataMPI(data, table = paste0(c(mapping, "data"), collapse = "_"), mode = "insert")
     sendDataMPI(extraCharacter, table = paste0(c(mapping, "extraCharacter"), collapse = "_"), mode = "insert")
@@ -28,7 +31,7 @@ load.default <- function(x, ...) {
   x
 }
 
-deleteOldQry <- function(mappingName, table, source){
+deleteOldDataQry <- function(mappingName, table, source){
   dbtools::Query(
     "DELETE FROM `{{ table }}` WHERE `source` = '{{ source }}';",
     table  = paste0(c(mappingName, table), collapse = "_"),
