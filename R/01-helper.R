@@ -120,17 +120,34 @@ deleteInplausibleLatLong <- function(isoData){
 
 convertLatLong <- function(isoData, coordType,
                            latitude = "latitude", longitude = "longitude"){
-  isoData[, longitude] <- convertCoordinates(isoData[, longitude], coordType)
-  isoData[, latitude] <- convertCoordinates(isoData[, latitude], coordType)
+  isoData[, longitude] <- convertCoordinates(isoData[, longitude], from = coordType)
+  isoData[, latitude] <- convertCoordinates(isoData[, latitude], from = coordType)
   isoData
 }
 
-prepareData <- function(isoData, mapping, CoordType){
-  isoData <- setVariableType(isoData, mapping)
-  isoData <- deleteInplausibleLatLong(isoData)
-  isoData <- convertLatLong(isoData, coordType = "decimal degrees")
-  isoData <- addDOIs(isoData)
-  isoData
+#' Prepare Data
+#'
+#' Prepares data within the transform step of the ETL. Following updates are done:
+#'  - types of variables are set
+#'  - latitude and longitude is converted into decimal degrees
+#'  - implausible latitude and longitude values are deleted
+#'  - DOIs are added
+#'
+#'  @param dat mapped data
+#'  @param mapping mapping table that was used
+#'  @inheritParams createNewFileSource
+prepareData <- function(dat, mapping, coordType){
+  dat <- setVariableType(dat, mapping)
+
+  if (coordType %in% c("decimal degrees", "degrees decimal minutes", "degrees minutes seconds")) {
+    dat <- convertLatLong(dat, coordType = coordType)
+    dat <- deleteInplausibleLatLong(dat)
+  } else if (!is.na(coordType)) {
+    warning("CoordType not valid. Conversion of latitude and longitude skipped.")
+  }
+
+  dat <- addDOIs(dat)
+  dat
 }
 
 convertCoordinates <- function(x, from = "decimal degrees", digits = 4){

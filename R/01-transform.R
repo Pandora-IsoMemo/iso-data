@@ -18,6 +18,11 @@ transform.default <- function(x, ...) {
     dat$datingType <- x$datingType
   }
 
+  # Prepares data. Following updates are done:
+  #  - types of variables are set
+  #  - latitude and longitude is converted into decimal degrees
+  #  - implausible latitude and longitude values are deleted
+  #  - DOIs are added
   dat <- prepareData(dat, mapping, x$coordType)
 
   x$dat <- dat
