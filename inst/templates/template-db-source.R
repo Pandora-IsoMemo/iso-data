@@ -42,31 +42,3 @@ get{{ dataSourceName }} <- function() {
 
   dbtools::sendQuery(creds{{ dataSourceName }}(), query)
 }
-
-
-# Set up load function for a database source ----
-
-load.{{ dataSourceName }} <- function(x, ...) {
-  logDebug("Entering lload method for '%s'", x$name)
-
-  df <- x$dat
-  db <- x$name
-  mapping <- x$mapping
-
-  data <- getDefaultData(df, db)
-  extraCharacter <- getExtra(df, db, "character")
-  extraNumeric <- getExtra(df, db, "numeric")
-
-  if (nrow(df) > 0){
-    sendQueryMPI(paste0("DELETE FROM `", mapping, "_data` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `", mapping, "_extraCharacter` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `", mapping, "_extraNumeric` WHERE `source` = '", db, "';"));
-    sendQueryMPI(paste0("DELETE FROM `", mapping, "_warning` WHERE `source` = '", db, "';"));
-
-    sendDataMPI(data, table = paste0(mapping, "_data"), mode = "insert")
-    sendDataMPI(extraCharacter, table = paste0(mapping, "_extraCharacter"), mode = "insert")
-    sendDataMPI(extraNumeric, table = paste(mapping, "_extraNumeric"), mode = "insert")
-  }
-
-  x
-}
