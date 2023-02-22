@@ -56,7 +56,7 @@ createNewDBSource <- function(dataSourceName,
       paste0(scriptTemplate, collapse = "\n"),
       dataSourceName = dataSourceName,
       mappingName = mappingName,
-      tableName = tableName,
+      tableName = tableName
     ) %>%
     as.character()
 

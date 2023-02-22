@@ -18,7 +18,7 @@ updateDatabaseList <-
             "          name = '{{ dataSourceName }}',",
             "          datingType = '{{ datingType }}',",
             "          coordType = '{{ coordType }}',",
-            "          mapping = '{{ mappingName }}',"
+            "          mapping = '{{ mappingName }}'"
           ),
           collapse = "\n"
         ),

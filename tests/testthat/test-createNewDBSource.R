@@ -14,12 +14,13 @@ testthat::test_that("Function createNewDBSource()", {
     tableName = "myTable",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
+    mappingName = "Field_Mapping",
     scriptFolder = testthat::test_path(),
     rootFolder = testthat::test_path()
   )
 
   testScript <-
-    readLines(testthat::test_path("02-MYDBNAME.R")) %>%
+    readLines(testthat::test_path("02-Field_Mapping_MYDBNAME.R")) %>%
     cleanUpScript()
 
   testRenviron <-
@@ -36,15 +37,15 @@ testthat::test_that("Function createNewDBSource()", {
       "credsMYDBNAME <- function() {",
       "  Credentials(",
       "    drv = RMySQL::MySQL,",
-      "    user = Sys.getenv(\"MYDBNAME_USER\"),",
-      "    password = Sys.getenv(\"MYDBNAME_PASSWORD\"),",
-      "    dbname = Sys.getenv(\"MYDBNAME_NAME\"),",
-      "    host = Sys.getenv(\"MYDBNAME_HOST\"),",
-      "    port = as.numeric(Sys.getenv(\"MYDBNAME_PORT\"))",
+      "    user = Sys.getenv('MYDBNAME_USER'),",
+      "    password = Sys.getenv('MYDBNAME_PASSWORD'),",
+      "    dbname = Sys.getenv('MYDBNAME_NAME'),",
+      "    host = Sys.getenv('MYDBNAME_HOST'),",
+      "    port = as.numeric(Sys.getenv('MYDBNAME_PORT'))",
       "  )",
       "}",
       "getMYDBNAME <- function() {",
-      "  query <- \"select * from myTable;\"",
+      "  query <- 'select * from myTable;'",
       "  dbtools::sendQuery(credsMYDBNAME(), query)",
       "}"
     )
@@ -53,10 +54,10 @@ testthat::test_that("Function createNewDBSource()", {
 
   expectedRenviron <-
     c(
-      "MYDBNAME_DBNAME=\"myDB\"",
-      "MYDBNAME_USER=\"myUser\"",
-      "MYDBNAME_PASSWORD=\"myPw\"",
-      "MYDBNAME_HOST=\"abc-dbxy.fgj.com\"",
+      "MYDBNAME_DBNAME='myDB'",
+      "MYDBNAME_USER='myUser'",
+      "MYDBNAME_PASSWORD='myPw'",
+      "MYDBNAME_HOST='abc-dbxy.fgj.com'",
       "MYDBNAME_PORT=567"
     )
 
@@ -64,7 +65,7 @@ testthat::test_that("Function createNewDBSource()", {
   testthat::expect_equal(testRenviron, expectedRenviron)
 
   # clean up
-  unlink(testthat::test_path("02-MYDBNAME.R"))
+  unlink(testthat::test_path("02-Field_Mapping_MYDBNAME.R"))
   unlink(testthat::test_path(".Renviron"))
   unlink(testthat::test_path("00-databases.R"))
 })
@@ -87,10 +88,10 @@ testthat::test_that("Function setupRenviron()", {
 
   expectedScript <-
     c(
-      "GH_67_DBNAME=\"myDB\"",
-      "GH_67_USER=\"myUser\"",
-      "GH_67_PASSWORD=\"myPw\"",
-      "GH_67_HOST=\"abc-dbxy.fgj.com\"",
+      "GH_67_DBNAME='myDB'",
+      "GH_67_USER='myUser'",
+      "GH_67_PASSWORD='myPw'",
+      "GH_67_HOST='abc-dbxy.fgj.com'",
       "GH_67_PORT=567"
     )
 
@@ -112,15 +113,15 @@ testthat::test_that("Function setupRenviron()", {
 
   expectedScript <-
     c(
-      "GH_67_DBNAME=\"myDB\"",
-      "GH_67_USER=\"myUser\"",
-      "GH_67_PASSWORD=\"myPw\"",
-      "GH_67_HOST=\"abc-dbxy.fgj.com\"",
+      "GH_67_DBNAME='myDB'",
+      "GH_67_USER='myUser'",
+      "GH_67_PASSWORD='myPw'",
+      "GH_67_HOST='abc-dbxy.fgj.com'",
       "GH_67_PORT=567",
-      "DBXYZ_DBNAME=\"myDB2\"",
-      "DBXYZ_USER=\"myUser2\"",
-      "DBXYZ_PASSWORD=\"myPw2\"",
-      "DBXYZ_HOST=\"mno-dbxy.stu.com\"",
+      "DBXYZ_DBNAME='myDB2'",
+      "DBXYZ_USER='myUser2'",
+      "DBXYZ_PASSWORD='myPw2'",
+      "DBXYZ_HOST='mno-dbxy.stu.com'",
       "DBXYZ_PORT=567"
     )
 
@@ -141,6 +142,7 @@ testthat::test_that("Function updateDatabaseList()", {
     dataSourceName = formatDBName("abc#123"),
     datingType = "radiocarbonXYZ",
     coordType = "ABC degrees",
+    mappingName = "Field_Mapping",
     scriptFolder = testthat::test_path()
   )
 
@@ -148,46 +150,53 @@ testthat::test_that("Function updateDatabaseList()", {
     readLines(testthat::test_path("00-databases.R"))
 
   expectedScript <-
-    c(
-      "databases <- function() {",
+    c("databases <- function() {",
       "  list(",
       "    singleSource (",
       "      name = '14CSea',",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = \"decimal degrees\"",
+      "      datingType = 'radiocarbon',",
+      "      coordType = 'decimal degrees',",
+      "      mapping = 'Field_Mapping'",
       "    ),",
       "    singleSource (",
       "      name = 'LiVES',",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = NA",
+      "      datingType = 'radiocarbon',",
+      "      coordType = NA,",
+      "      mapping = 'Field_Mapping'",
       "    ),",
       "    singleSource (",
       "      name = 'IntChron',",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = \"decimal degrees\"",
+      "      datingType = 'radiocarbon',",
+      "      coordType = 'decimal degrees',",
+      "      mapping = 'Field_Mapping'",
       "    ),",
       "    singleSource (",
-      "      name = \"CIMA\",",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = \"decimal degrees\"",
+      "      name = 'CIMA',",
+      "      datingType = 'radiocarbon',",
+      "      coordType = 'decimal degrees',",
+      "      mapping = 'Field_Mapping'",
       "        ),",
       "        singleSource (",
-      "          name = \"ABC_123\",",
-      "          datingType = \"radiocarbonXYZ\",",
-      "          coordType = \"ABC degrees\"",
+      "          name = 'ABC_123',",
+      "          datingType = 'radiocarbonXYZ',",
+      "          coordType = 'ABC degrees',",
+      "          mapping = 'Field_Mapping'",
       "    )",
       "  )",
       "}",
       "",
       "dbnames <- function() {",
-      "  unlist(lapply(databases(), `[[`, \"name\"))",
+      "  unlist(lapply(databases(), `[[`, 'name'))",
       "}",
-      "singleSource <- function(name, datingType, coordType, ...) {",
-      "  out <- list(name = name,",
-      "              datingType = datingType,",
-      "              coordType = coordType,",
-      "              ...)",
-      "  class(out) <- c(name, \"list\")",
+      "singleSource <- function(name, datingType, coordType, mapping, ...) {",
+      "  out <- list(",
+      "    name = name,",
+      "    datingType = datingType,",
+      "    coordType = coordType,",
+      "    mapping = mapping,",
+      "    ...",
+      "    )",
+      "  class(out) <- c(name, 'list')",
       "  out",
       "}"
     )

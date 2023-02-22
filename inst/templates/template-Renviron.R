@@ -7,14 +7,14 @@
 #
 # Expected format for credentials:
 #
-# DBNAME_NAME="db"
-# DBNAME_USER="user"
-# DBNAME_PASSWORD="password"
-# DBNAME_HOST="www.domain.com"
+# DBNAME_NAME='db'
+# DBNAME_USER='user'
+# DBNAME_PASSWORD='password'
+# DBNAME_HOST='www.domain.com'
 # DBNAME_PORT=1234
 
-{{ dataSourceName }}_DBNAME="{{ dbName }}"
-{{ dataSourceName }}_USER="{{ dbUser }}"
-{{ dataSourceName }}_PASSWORD="{{ dbPassword }}"
-{{ dataSourceName }}_HOST="{{ dbHost }}"
+{{ dataSourceName }}_DBNAME='{{ dbName }}'
+{{ dataSourceName }}_USER='{{ dbUser }}'
+{{ dataSourceName }}_PASSWORD='{{ dbPassword }}'
+{{ dataSourceName }}_HOST='{{ dbHost }}'
 {{ dataSourceName }}_PORT={{ dbPort }}

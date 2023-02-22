@@ -28,7 +28,7 @@ databases <- function() {
 }
 
 dbnames <- function() {
-    unlist(lapply(databases(), `[[`, "name"))
+    unlist(lapply(databases(), `[[`, 'name'))
 }
 
 singleSource <- function(name, datingType, coordType, ...) {
@@ -38,6 +38,6 @@ singleSource <- function(name, datingType, coordType, ...) {
     coordType = coordType,
     ...
   )
-  class(out) <- c(name, "list")
+  class(out) <- c(name, 'list')
   out
 }

@@ -29,16 +29,16 @@ extract.{{ dataSourceName }} <- function(x) {
 creds{{ dataSourceName }} <- function() {
   Credentials(
     drv = RMySQL::MySQL,
-    user = Sys.getenv("{{ dataSourceName }}_USER"),
-    password = Sys.getenv("{{ dataSourceName }}_PASSWORD"),
-    dbname = Sys.getenv("{{ dataSourceName }}_NAME"),
-    host = Sys.getenv("{{ dataSourceName }}_HOST"),
-    port = as.numeric(Sys.getenv("{{ dataSourceName }}_PORT"))
+    user = Sys.getenv('{{ dataSourceName }}_USER'),
+    password = Sys.getenv('{{ dataSourceName }}_PASSWORD'),
+    dbname = Sys.getenv('{{ dataSourceName }}_NAME'),
+    host = Sys.getenv('{{ dataSourceName }}_HOST'),
+    port = as.numeric(Sys.getenv('{{ dataSourceName }}_PORT'))
   )
 }
 
 get{{ dataSourceName }} <- function() {
-  query <- "select * from {{ tableName }};"
+  query <- 'select * from {{ tableName }};'
 
   dbtools::sendQuery(creds{{ dataSourceName }}(), query)
 }
