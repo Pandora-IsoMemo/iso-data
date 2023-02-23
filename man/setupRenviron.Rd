@@ -15,7 +15,8 @@ setupRenviron(
 )
 }
 \arguments{
-\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
+\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname". The name
+of the source must be contained as a column name in the mapping file.}
 
 \item{dbName}{(character) database name}
 

@@ -20,7 +20,8 @@ createNewDBSource(
 )
 }
 \arguments{
-\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname"}
+\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname". The name
+of the source must be contained as a column name in the mapping file.}
 
 \item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
 

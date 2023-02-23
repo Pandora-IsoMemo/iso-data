@@ -3,8 +3,8 @@
 #' Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files
 #' are supported.
 #'
-#' @param dataSourceName (character) name of the new database source, e.g. "14CSea", "CIMA", "IntChron",
-#' "LiVES"
+#' @param dataSourceName (character) name of the new database source, e.g. "14CSea", "CIMA",
+#'  "IntChron", "LiVES". The name of the source must be contained as a column name in the mapping file.
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coordinate type of latitude and longitude columns; one of
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
@@ -125,7 +125,7 @@ addFileImport <- function(fileType, sheetNumber = 1) {
   if (fileType == "csv") {
     fileImport <-
       paste0(
-        "read.csv(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
+        "read.csv2(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
         "na.strings = c('', 'NA'), strip.white = TRUE)"
       )
   } else {

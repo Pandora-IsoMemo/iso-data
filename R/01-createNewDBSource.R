@@ -3,7 +3,8 @@
 #' Creates a script for a new data source from a database connection and sets .Renviron variables.
 #' Only "mySql" databases are supported.
 #'
-#' @param dataSourceName (character) name of the new database source, e.g. "xyDBname"
+#' @param dataSourceName (character) name of the new database source, e.g. "xyDBname". The name
+#' of the source must be contained as a column name in the mapping file.
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coordinate type of latitude and longitude columns; one of
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
