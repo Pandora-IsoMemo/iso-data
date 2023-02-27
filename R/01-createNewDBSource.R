@@ -25,54 +25,8 @@ createNewDBSource <- function(dataSourceName,
                               tableName,
                               scriptFolder = "R",
                               rootFolder = ".") {
-  # 1. create script for database source ----
-  scriptTemplate <-
-    file.path(getTemplateDir(), "template-db-source.R") %>%
-    readLines()
-
-  dataSourceName <- setDataSourceName(dataSourceName)
-
-  dbScript <-
-    tmpl(
-      paste0(scriptTemplate, collapse = "\n"),
-      dataSourceName = dataSourceName,
-      mappingName = mappingName,
-      tableName = tableName
-    ) %>%
-    as.character()
-
-  logging("Creating new file: %s",
-          file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
-  writeLines(dbScript,
-             con = file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
-
-  # 2. update list of databases ----
-  updateDatabaseList(
-    dataSourceName = dataSourceName,
-    datingType = datingType,
-    coordType = coordType,
-    mappingName = mappingName,
-    scriptFolder = file.path(scriptFolder)
-  )
-
-  # 3. setup / update Renviron file ----
-  setupRenviron(
-    dataSourceName = dataSourceName,
-    dbName = dbName,
-    dbUser = dbUser,
-    dbPassword = dbPassword,
-    dbHost = dbHost,
-    dbPort = dbPort,
-    scriptFolder = file.path(rootFolder)
-  )
-}
-
-#' Set Data Source Name
-#'
-#' @inheritParams updateDatabaseList
-setDataSourceName <- function(dataSourceName) {
-  # check for duplicated db names
-  if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
+  # 1. check for duplicated data source names
+  if (formatDataSourceName(dataSourceName) %in% formatDataSourceName(dbnames()))
     stop(
       paste0(
         "dataSourceName = ",
@@ -83,14 +37,52 @@ setDataSourceName <- function(dataSourceName) {
       )
     )
 
-  formatDBName(dataSourceName)
+  # 2. create script for database source ----
+  scriptTemplate <-
+    file.path(getTemplateDir(), "template-db-source.R") %>%
+    readLines()
+
+  dbScript <-
+    tmpl(
+      paste0(scriptTemplate, collapse = "\n"),
+      dataSourceName = dataSourceName %>%
+        formatDataSourceName(),
+      mappingName = mappingName,
+      tableName = tableName
+    ) %>%
+    as.character()
+
+  scriptName <- paste0("02-", mappingName, "_", dataSourceName %>% formatDataSourceName(), ".R")
+  logging("Creating new file: %s", file.path(scriptFolder, scriptName))
+  writeLines(dbScript, con = file.path(scriptFolder, scriptName))
+
+  # 3. update list of databases ----
+  updateDatabaseList(
+    dataSourceName = dataSourceName,
+    datingType = datingType,
+    coordType = coordType,
+    mappingName = mappingName,
+    scriptFolder = file.path(scriptFolder)
+  )
+
+  # 4. setup / update Renviron file ----
+  setupRenviron(
+    dataSourceName = dataSourceName %>% formatDataSourceName(),
+    dbName = dbName,
+    dbUser = dbUser,
+    dbPassword = dbPassword,
+    dbHost = dbHost,
+    dbPort = dbPort,
+    scriptFolder = file.path(rootFolder)
+  )
 }
+
 
 #' Format DB Name
 #'
 #' @inheritParams updateDatabaseList
 #' @return (character) name formated to upper letters and underscore for special characters
-formatDBName <- function(dataSourceName) {
+formatDataSourceName <- function(dataSourceName) {
   # upper letters
   res <- toupper(dataSourceName)
   # replace special characters with underscore
@@ -98,14 +90,7 @@ formatDBName <- function(dataSourceName) {
   # replace "__" with "_"
   res <- gsub("_+", "_", res)
   # remove leading or ending "_"
-  res <- gsub("^_|_$", "", res)
-
-  if (!identical(res, dataSourceName)) {
-    warning(paste0("The dataSourceName was changed from: '", dataSourceName, "' to: '", res,
-                   "'.\n Please update the mapping respectivaly."))
-  }
-
-  res
+  gsub("^_|_$", "", res)
 }
 
 

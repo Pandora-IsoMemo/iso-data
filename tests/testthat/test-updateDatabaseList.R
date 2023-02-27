@@ -5,7 +5,7 @@ testthat::test_that("Function updateDatabaseList()", {
   )
 
   updateDatabaseList(
-    dataSourceName = formatDBName("abc#123"),
+    dataSourceName = formatDataSourceName("abc#123"),
     datingType = "radiocarbonXYZ",
     coordType = "ABC degrees",
     mappingName = "Field_Mapping",

@@ -25,12 +25,23 @@ createNewFileSource <- function(dataSourceName,
                                 sep = ";",
                                 dec = ",",
                                 scriptFolder = "R") {
-  # 1. create script for file source ----
+  # 1. check for duplicated data source names
+  if (formatDataSourceName(dataSourceName) %in% formatDataSourceName(dbnames()))
+    stop(
+      paste0(
+        "dataSourceName = ",
+        dataSourceName,
+        " already exists in (",
+        paste0(dbnames(), collapse = ", "),
+        "). Please provide case-insensitive unique names without special characters."
+      )
+    )
+
+  # 2. create script for file source ----
   scriptTemplate <-
     file.path(getTemplateDir(), "template-file-source.R") %>%
     readLines()
 
-  dataSourceName <- setDataSourceName(dataSourceName)
   filePath <- addFilePath(fileName = fileName,
                           locationType = locationType,
                           remotePath = remotePath)
@@ -41,19 +52,19 @@ createNewFileSource <- function(dataSourceName,
 
   dbScript <- tmpl(
     paste0(scriptTemplate, collapse = "\n"),
-    dataSourceName = dataSourceName,
+    dataSourceName = dataSourceName %>%
+      formatDataSourceName(),
     mappingName = mappingName,
     filePath = filePath,
     fileImport = fileImport
   ) %>%
     as.character()
 
-  logging("Creating new file: %s",
-          file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
-  writeLines(dbScript,
-             con = file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
+  scriptName <- paste0("02-", mappingName, "_", dataSourceName %>% formatDataSourceName(), ".R")
+  logging("Creating new file: %s", file.path(scriptFolder, scriptName))
+  writeLines(dbScript, con = file.path(scriptFolder, scriptName))
 
-  # 2. update list of databases ----
+  # 3. update list of databases ----
   updateDatabaseList(
     dataSourceName = dataSourceName,
     datingType = datingType,

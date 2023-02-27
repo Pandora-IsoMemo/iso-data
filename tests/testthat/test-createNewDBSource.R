@@ -73,7 +73,7 @@ testthat::test_that("Function createNewDBSource()", {
 
 testthat::test_that("Function setupRenviron()", {
   setupRenviron(
-    dataSourceName = formatDBName("gh-67*"),
+    dataSourceName = formatDataSourceName("gh-67*"),
     dbName = "myDB",
     dbUser = "myUser",
     dbPassword = "myPw",
@@ -98,7 +98,7 @@ testthat::test_that("Function setupRenviron()", {
   testthat::expect_equal(testScript, expectedScript)
 
   setupRenviron(
-    dataSourceName = formatDBName("dbXYZ"),
+    dataSourceName = formatDataSourceName("dbXYZ"),
     dbName = "myDB2",
     dbUser = "myUser2",
     dbPassword = "myPw2",
