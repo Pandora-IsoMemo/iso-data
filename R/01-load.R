@@ -9,32 +9,29 @@ load.default <- function(x, ...) {
   extraCharacter <- getExtra(df, db, mapping = mapping, type = "character")
   extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
-  if (mapping == "Field_Mapping") {
-    # update the tables for the old mapping without prefix (here a prefix was not used yet)
-    mapping <- NULL
-  }
-
-  # check if table exists, if not create one -> which column specs are required?
-  # -> IF OBJECT_ID('TableName', 'U') IS NOT NULL to check for a table
-
   if (nrow(df) > 0){
     sendQueryMPI(deleteOldDataQry(mapping, "data", db));
     sendQueryMPI(deleteOldDataQry(mapping, "extraCharacter", db));
     sendQueryMPI(deleteOldDataQry(mapping, "extraNumeric", db));
     sendQueryMPI(deleteOldDataQry(mapping, "warning", db));
 
-    sendDataMPI(data, table = paste0(c(mapping, "data"), collapse = "_"), mode = "insert")
-    sendDataMPI(extraCharacter, table = paste0(c(mapping, "extraCharacter"), collapse = "_"), mode = "insert")
-    sendDataMPI(extraNumeric, table = paste0(c(mapping, "extraNumeric"), collapse = "_"), mode = "insert")
+    updateOrCreateTableMPI(dat = data, prefix = mapping, table = "data", mode = "insert")
+    updateOrCreateTableMPI(dat = extraCharacter, prefix = mapping, table = "extraCharacter", mode = "insert")
+    updateOrCreateTableMPI(dat = extraNumeric, prefix = mapping, table = "extraNumeric", mode = "insert")
   }
 
   x
 }
 
-deleteOldDataQry <- function(mappingName, table, source){
+deleteOldDataQry <- function(prefix, table, source){
+  if (prefix == "Field_Mapping") {
+    # update the tables for the old mapping without prefix (here a prefix was not used yet)
+    prefix <- NULL
+  }
+
   dbtools::Query(
     "DELETE FROM `{{ table }}` WHERE `source` = '{{ source }}';",
-    table  = paste0(c(mappingName, table), collapse = "_"),
+    table  = paste0(c(prefix, table), collapse = "_"),
     source = source
   )
 }
