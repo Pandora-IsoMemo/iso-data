@@ -26,16 +26,7 @@ createNewDBSource <- function(dataSourceName,
                               scriptFolder = "R",
                               rootFolder = ".") {
   # 1. check for duplicated data source names
-  if (formatDataSourceName(dataSourceName) %in% formatDataSourceName(dbnames()))
-    stop(
-      paste0(
-        "dataSourceName = ",
-        dataSourceName,
-        " already exists in (",
-        paste0(dbnames(), collapse = ", "),
-        "). Please provide case-insensitive unique names without special characters."
-      )
-    )
+  checkDataSourceName(dataSourceName)
 
   # 2. create script for database source ----
   scriptTemplate <-
@@ -75,16 +66,39 @@ createNewDBSource <- function(dataSourceName,
     dbPort = dbPort,
     scriptFolder = file.path(rootFolder)
   )
+
+  # 5. load updated databse list
+  devtools::load_all(".")
 }
 
+#' Check Data Source Name
+#'
+#' @inheritParams updateDatabaseList
+checkDataSourceName <- function(dataSourceName) {
+  if (formatDataSourceName(dataSourceName, isCheck = TRUE) %in% formatDataSourceName(dbnames(), isCheck = TRUE))
+    stop(
+      paste0(
+        "dataSourceName = ",
+        dataSourceName,
+        " already exists in (",
+        paste0(dbnames(), collapse = ", "),
+        "). Please provide case-insensitive unique names without special characters."
+      )
+    )
+}
 
 #' Format DB Name
 #'
 #' @inheritParams updateDatabaseList
+#' @param isCheck (logical) TRUE if check of dataSourceName
 #' @return (character) name formated to upper letters and underscore for special characters
-formatDataSourceName <- function(dataSourceName) {
-  # upper letters
-  res <- toupper(dataSourceName)
+formatDataSourceName <- function(dataSourceName, isCheck = FALSE) {
+  res <- dataSourceName
+
+  if (isCheck) {
+    # upper letters
+    res <- res %>% toupper()
+  }
   # replace special characters with underscore
   res <- gsub("[^[:alnum:]]", "_", res)
   # replace "__" with "_"

@@ -26,16 +26,7 @@ createNewFileSource <- function(dataSourceName,
                                 dec = ",",
                                 scriptFolder = "R") {
   # 1. check for duplicated data source names
-  if (formatDataSourceName(dataSourceName) %in% formatDataSourceName(dbnames()))
-    stop(
-      paste0(
-        "dataSourceName = ",
-        dataSourceName,
-        " already exists in (",
-        paste0(dbnames(), collapse = ", "),
-        "). Please provide case-insensitive unique names without special characters."
-      )
-    )
+  checkDataSourceName(dataSourceName)
 
   # 2. create script for file source ----
   scriptTemplate <-
@@ -72,6 +63,9 @@ createNewFileSource <- function(dataSourceName,
     mappingName = mappingName,
     scriptFolder = file.path(scriptFolder)
   )
+
+  # 4. load updated databse list
+  devtools::load_all(".")
 }
 
 #' Get Template directory
