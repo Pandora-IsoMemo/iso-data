@@ -36,10 +36,12 @@ createNewFileSource <- function(dataSourceName,
   filePath <- addFilePath(fileName = fileName,
                           locationType = locationType,
                           remotePath = remotePath)
-  fileImport <- addFileImport(fileType = tools::file_ext(fileName),
-                              sheetNumber = sheetNumber,
-                              sep = sep,
-                              dec = dec)
+  fileImport <- addFileImport(
+    fileType = tools::file_ext(fileName),
+    sheetNumber = sheetNumber,
+    sep = sep,
+    dec = dec
+  )
 
   dbScript <- tmpl(
     paste0(scriptTemplate, collapse = "\n"),
@@ -51,7 +53,12 @@ createNewFileSource <- function(dataSourceName,
   ) %>%
     as.character()
 
-  scriptName <- paste0("02-", mappingName, "_", dataSourceName %>% formatDataSourceName(), ".R")
+  scriptName <-
+    paste0("02-",
+           mappingName,
+           "_",
+           dataSourceName %>% formatDataSourceName(),
+           ".R")
   logging("Creating new file: %s", file.path(scriptFolder, scriptName))
   writeLines(dbScript, con = file.path(scriptFolder, scriptName))
 
@@ -85,11 +92,9 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
     if (is.null(remotePath))
       stop("Provide a \"remotePath\" for \"remote\" locations.")
 
-    path <- tmpl(
-      "file.path('{{ path }}', '{{ fileName }}')",
-      path = remotePath,
-      fileName = fileName
-    ) %>%
+    path <- tmpl("file.path('{{ path }}', '{{ fileName }}')",
+                 path = remotePath,
+                 fileName = fileName) %>%
       as.character()
   } else {
     # locationType == "local"
@@ -108,32 +113,38 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
 #'
 #' @param fileType (character) type of file, "csv" or "xlsx" only
 #' @inheritParams createNewFileSource
-addFileImport <- function(fileType, sheetNumber = 1, sep = ";", dec = ",") {
-  if (!(fileType %in% c("csv", "xlsx")))
-    stop("File type not supported. Only use \".csv\" or \".xlsx\" files.")
+addFileImport <-
+  function(fileType,
+           sheetNumber = 1,
+           sep = ";",
+           dec = ",") {
+    if (!(fileType %in% c("csv", "xlsx")))
+      stop("File type not supported. Only use \".csv\" or \".xlsx\" files.")
 
-  if (fileType == "csv") {
-    fileImport <-
-      paste0(
-        "read.csv2(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
-        "na.strings = c('', 'NA'), strip.white = TRUE)"
-      )
+    if (fileType == "csv") {
+      fileImport <-
+        paste0(
+          "read.csv2(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
+          "na.strings = c('', 'NA'), strip.white = TRUE)"
+        )
 
-    fileImport <-
-      tmpl(paste0(
-        "read.csv2(file = dataFile, sep = '{{ sep }}', dec = '{{ dec }}', stringsAsFactors = FALSE, ",
-        "check.names = FALSE, na.strings = c('', 'NA'), strip.white = TRUE)"
-      ),
-      sep = sep,
-      dec = dec) %>%
-      as.character()
-  } else {
-    # -> if (fileType == "xlsx")
-    fileImport <-
-      tmpl("read.xlsx(xlsxFile = dataFile, sheet = {{ sheetNumber }})",
-           sheetNumber = sheetNumber) %>%
-      as.character()
+      fileImport <-
+        tmpl(
+          paste0(
+            "read.csv2(file = dataFile, sep = '{{ sep }}', dec = '{{ dec }}', stringsAsFactors = FALSE, ",
+            "check.names = FALSE, na.strings = c('', 'NA'), strip.white = TRUE)"
+          ),
+          sep = sep,
+          dec = dec
+        ) %>%
+        as.character()
+    } else {
+      # -> if (fileType == "xlsx")
+      fileImport <-
+        tmpl("read.xlsx(xlsxFile = dataFile, sheet = {{ sheetNumber }})",
+             sheetNumber = sheetNumber) %>%
+        as.character()
+    }
+
+    fileImport
   }
-
-  fileImport
-}

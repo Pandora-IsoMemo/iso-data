@@ -43,7 +43,12 @@ createNewDBSource <- function(dataSourceName,
     ) %>%
     as.character()
 
-  scriptName <- paste0("02-", mappingName, "_", dataSourceName %>% formatDataSourceName(), ".R")
+  scriptName <-
+    paste0("02-",
+           mappingName,
+           "_",
+           dataSourceName %>% formatDataSourceName(),
+           ".R")
   logging("Creating new file: %s", file.path(scriptFolder, scriptName))
   writeLines(dbScript, con = file.path(scriptFolder, scriptName))
 
