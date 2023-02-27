@@ -73,12 +73,12 @@ testthat::test_that("Function createNewFileSource() for remote xlsx file", {
   )
 
   testScript <-
-    readLines(testthat::test_path("02-Field_Mapping_DBNAME.R")) %>%
+    readLines(testthat::test_path("02-Field_Mapping_dbname.R")) %>%
     cleanUpScript()
 
   expectedScript <-
     c(
-      "extract.DBNAME <- function(x) {",
+      "extract.dbname <- function(x) {",
       "  logDebug(\"Entering extract method for '%s'\", x$name)",
       "  dataFile <- file.path('http://www.14sea.org/img', '14SEA_Full_Dataset_2017-01-29.xlsx')",
       "  isoData <- read.xlsx(xlsxFile = dataFile, sheet = 1)",
@@ -90,7 +90,7 @@ testthat::test_that("Function createNewFileSource() for remote xlsx file", {
   testthat::expect_equal(testScript, expectedScript)
 
   # clean up
-  unlink(testthat::test_path("02-Field_Mapping_DBNAME.R"))
+  unlink(testthat::test_path("02-Field_Mapping_dbname.R"))
   unlink(testthat::test_path("00-databases.R"))
 })
 
@@ -112,12 +112,12 @@ testthat::test_that("Function createNewFileSource() for local csv file", {
   )
 
   testScript <-
-    readLines(testthat::test_path("02-Field_Mapping_DBNAME.R")) %>%
+    readLines(testthat::test_path("02-Field_Mapping_dbname.R")) %>%
     cleanUpScript()
 
   expectedScript <-
     c(
-      "extract.DBNAME <- function(x) {",
+      "extract.dbname <- function(x) {",
       "  logDebug(\"Entering extract method for '%s'\", x$name)",
       "  dataFile <- file.path(system.file('extdata', package = 'MpiIsoData'), 'IntChron.csv')",
       "  isoData <- read.csv2(file = dataFile, sep = ';', dec = ',', stringsAsFactors = FALSE, check.names = FALSE, na.strings = c('', 'NA'), strip.white = TRUE)",
@@ -129,6 +129,6 @@ testthat::test_that("Function createNewFileSource() for local csv file", {
   testthat::expect_equal(testScript, expectedScript)
 
   # clean up
-  unlink(testthat::test_path("02-Field_Mapping_DBNAME.R"))
+  unlink(testthat::test_path("02-Field_Mapping_dbname.R"))
   unlink(testthat::test_path("00-databases.R"))
 })

@@ -38,7 +38,8 @@ createNewDBSource <- function(dataSourceName,
       paste0(scriptTemplate, collapse = "\n"),
       dataSourceName = dataSourceName %>%
         formatDataSourceName(),
-      mappingName = mappingName,
+      dataSourceNameCreds = dataSourceName %>%
+        formatDataSourceName(toUpper = TRUE),
       tableName = tableName
     ) %>%
     as.character()
@@ -63,7 +64,7 @@ createNewDBSource <- function(dataSourceName,
 
   # 4. setup / update Renviron file ----
   setupRenviron(
-    dataSourceName = dataSourceName %>% formatDataSourceName(),
+    dataSourceName = dataSourceName %>% formatDataSourceName(toUpper = TRUE),
     dbName = dbName,
     dbUser = dbUser,
     dbPassword = dbPassword,
@@ -71,16 +72,16 @@ createNewDBSource <- function(dataSourceName,
     dbPort = dbPort,
     scriptFolder = file.path(rootFolder)
   )
-
-  # 5. load updated databse list
-  devtools::load_all(".")
 }
 
 #' Check Data Source Name
 #'
 #' @inheritParams updateDatabaseList
 checkDataSourceName <- function(dataSourceName) {
-  if (formatDataSourceName(dataSourceName, isCheck = TRUE) %in% formatDataSourceName(dbnames(), isCheck = TRUE))
+  # load most recent database list
+  devtools::load_all(".")
+
+  if (formatDataSourceName(dataSourceName, toUpper = TRUE) %in% formatDataSourceName(dbnames(), toUpper = TRUE))
     stop(
       paste0(
         "dataSourceName = ",
@@ -95,12 +96,12 @@ checkDataSourceName <- function(dataSourceName) {
 #' Format DB Name
 #'
 #' @inheritParams updateDatabaseList
-#' @param isCheck (logical) TRUE if check of dataSourceName
+#' @param toUpper (logical) TRUE transform letters to upper letters, default FALSE
 #' @return (character) name formated to upper letters and underscore for special characters
-formatDataSourceName <- function(dataSourceName, isCheck = FALSE) {
+formatDataSourceName <- function(dataSourceName, toUpper = FALSE) {
   res <- dataSourceName
 
-  if (isCheck) {
+  if (toUpper) {
     # upper letters
     res <- res %>% toupper()
   }

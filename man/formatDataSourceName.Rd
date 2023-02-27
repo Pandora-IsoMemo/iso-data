@@ -4,14 +4,14 @@
 \alias{formatDataSourceName}
 \title{Format DB Name}
 \usage{
-formatDataSourceName(dataSourceName, isCheck = FALSE)
+formatDataSourceName(dataSourceName, toUpper = FALSE)
 }
 \arguments{
 \item{dataSourceName}{(character) name of the new data source, something like "xyDBname",
 "14CSea", "CIMA", "IntChron", "LiVES". The name of the source must be contained exactly
 as a column name in the mapping file.}
 
-\item{isCheck}{(logical) TRUE if check of dataSourceName}
+\item{toUpper}{(logical) TRUE transform letters to upper letters, default FALSE}
 }
 \value{
 (character) name formated to upper letters and underscore for special characters

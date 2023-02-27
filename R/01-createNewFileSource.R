@@ -47,7 +47,6 @@ createNewFileSource <- function(dataSourceName,
     paste0(scriptTemplate, collapse = "\n"),
     dataSourceName = dataSourceName %>%
       formatDataSourceName(),
-    mappingName = mappingName,
     filePath = filePath,
     fileImport = fileImport
   ) %>%
@@ -70,9 +69,6 @@ createNewFileSource <- function(dataSourceName,
     mappingName = mappingName,
     scriptFolder = file.path(scriptFolder)
   )
-
-  # 4. load updated databse list
-  devtools::load_all(".")
 }
 
 #' Get Template directory

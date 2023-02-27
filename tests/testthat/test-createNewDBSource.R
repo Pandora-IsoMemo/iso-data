@@ -20,7 +20,7 @@ testthat::test_that("Function createNewDBSource()", {
   )
 
   testScript <-
-    readLines(testthat::test_path("02-Field_Mapping_MYDBNAME.R")) %>%
+    readLines(testthat::test_path("02-Field_Mapping_myDBname.R")) %>%
     cleanUpScript()
 
   testRenviron <-
@@ -29,12 +29,12 @@ testthat::test_that("Function createNewDBSource()", {
 
   expectedScript <-
     c(
-      "extract.MYDBNAME <- function(x) {",
-      "  isoData <- getMYDBNAME()",
+      "extract.myDBname <- function(x) {",
+      "  isoData <- get_myDBname()",
       "  x$dat <- isoData",
       "  x",
       "}",
-      "credsMYDBNAME <- function() {",
+      "creds_myDBname <- function() {",
       "  Credentials(",
       "    drv = RMySQL::MySQL,",
       "    user = Sys.getenv('MYDBNAME_USER'),",
@@ -44,9 +44,9 @@ testthat::test_that("Function createNewDBSource()", {
       "    port = as.numeric(Sys.getenv('MYDBNAME_PORT'))",
       "  )",
       "}",
-      "getMYDBNAME <- function() {",
+      "get_myDBname <- function() {",
       "  query <- 'select * from myTable;'",
-      "  dbtools::sendQuery(credsMYDBNAME(), query)",
+      "  dbtools::sendQuery(creds_myDBname(), query)",
       "}"
     )
   # readLines(testthat::test_path("examples", "02-template-db.R")) %>%
@@ -65,7 +65,7 @@ testthat::test_that("Function createNewDBSource()", {
   testthat::expect_equal(testRenviron, expectedRenviron)
 
   # clean up
-  unlink(testthat::test_path("02-Field_Mapping_MYDBNAME.R"))
+  unlink(testthat::test_path("02-Field_Mapping_myDBname.R"))
   unlink(testthat::test_path(".Renviron"))
   unlink(testthat::test_path("00-databases.R"))
 })
@@ -73,7 +73,7 @@ testthat::test_that("Function createNewDBSource()", {
 
 testthat::test_that("Function setupRenviron()", {
   setupRenviron(
-    dataSourceName = formatDataSourceName("gh-67*"),
+    dataSourceName = formatDataSourceName("gh-67*", toUpper = TRUE),
     dbName = "myDB",
     dbUser = "myUser",
     dbPassword = "myPw",
@@ -98,7 +98,7 @@ testthat::test_that("Function setupRenviron()", {
   testthat::expect_equal(testScript, expectedScript)
 
   setupRenviron(
-    dataSourceName = formatDataSourceName("dbXYZ"),
+    dataSourceName = formatDataSourceName("dbXYZ", toUpper = TRUE),
     dbName = "myDB2",
     dbUser = "myUser2",
     dbPassword = "myPw2",

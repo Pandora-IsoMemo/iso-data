@@ -194,22 +194,3 @@ addWarning <- function(isoData, id, warning){
   )
   isoData
 }
-
- paste2 <- function (..., sep = " ", collapse = NULL, recycle0 = FALSE) {
-      args <- list(...)
-
-      args <- lapply(args, function(x) {
-          x[is.na(x)] <- ""
-          x
-      })
-
-      args$sep <- sep
-      args$collapse <- collapse
-      args$recycle0 <- recycle0
-
-      trimws(do.call(paste, args))
-  }
-
-  isEmpty <- function(x) {
-    is.null(x) | is.na(x) | x == ""
-  }

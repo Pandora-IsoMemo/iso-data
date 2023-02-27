@@ -43,7 +43,7 @@ testthat::test_that("Function updateDatabaseList()", {
       "      mapping = 'Field_Mapping'",
       "        ),",
       "        singleSource (",
-      "          name = 'ABC_123',",
+      "          name = 'abc_123',",
       "          datingType = 'radiocarbonXYZ',",
       "          coordType = 'ABC degrees',",
       "          mapping = 'Field_Mapping'",
