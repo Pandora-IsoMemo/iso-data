@@ -1,11 +1,15 @@
 transform.default <- function(x, ...) {
-  logDebug("Entering 'default' transform method for '%s'", x$name)
+  logging("Entering 'default' transform method for '%s' ...", x$name)
 
   dat <- x$dat
 
   #map other fields and prepare data
   mapping <- getMappingTable(mappingName = x$mapping)
+
+  logging("... apply mapping ... ")
   dat <- mapFields(dat, mapping, x$name)
+
+  logging("... set IDs ... ")
   dat <- handleIDs(dat)
 
   # do not use the full data when testing

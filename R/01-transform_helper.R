@@ -88,15 +88,19 @@ handleIDs <- function(isoData){
 #' @param mapping mapping table that was used
 #' @inheritParams createNewFileSource
 prepareData <- function(isoData, mapping, coordType){
+  logging("... set variable types ... ")
   isoData <- setVariableType(isoData, mapping)
 
   if (coordType %in% c("decimal degrees", "degrees decimal minutes", "degrees minutes seconds")) {
+    logging("... convert latitude and longitude into decimal degrees ... ")
     isoData <- convertLatLong(isoData, coordType = coordType)
+    logging("... delete implausible latitude and longitude values ... ")
     isoData <- deleteInplausibleLatLong(isoData)
   } else if (!is.na(coordType)) {
     warning("CoordType not valid. Conversion of latitude and longitude skipped.")
   }
 
+  logging("... add DOIs. ")
   isoData <- addDOIs(isoData)
   isoData
 }
