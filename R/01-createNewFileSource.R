@@ -3,8 +3,7 @@
 #' Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files
 #' are supported.
 #'
-#' @param dataSourceName (character) name of the new database source, e.g. "14CSea", "CIMA",
-#'  "IntChron", "LiVES". The name of the source must be contained as a column name in the mapping file.
+#' @inheritParams setDataSourceName
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coordinate type of latitude and longitude columns; one of
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
@@ -18,7 +17,7 @@
 #' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param remotePath path to remote file, if locationType == "remote",
 #' e.g. "http://www.14sea.org/img/"
-#' @param sheetNumber (integer) number of the table sheet for xlsx files, e.g. "14C Dates"
+#' @inheritParams addFileImport
 #' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
 #' for tests).
 #' @export
@@ -30,27 +29,20 @@ createNewFileSource <- function(dataSourceName,
                                 fileName,
                                 remotePath = NULL,
                                 sheetNumber = 1,
+                                sep = ";",
+                                dec = ",",
                                 scriptFolder = "R") {
-  # check for duplicated db names
-  if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
-    stop(
-      paste0(
-        "dataSourceName = ",
-        dataSourceName,
-        " already exists in (",
-        paste0(dbnames(), collapse = ", "),
-        "). Please provide case-insensitive unique names without special characters."
-      )
-    )
 
-  dataSourceName <- formatDBName(dataSourceName)
+  dataSourceName <- setDataSourceName(dataSourceName)
 
   filePath <- addFilePath(fileName = fileName,
                           locationType = locationType,
                           remotePath = remotePath)
 
   fileImport <- addFileImport(fileType = tools::file_ext(fileName),
-                              sheetNumber = sheetNumber)
+                              sheetNumber = sheetNumber,
+                              sep = sep,
+                              dec = dec)
 
   scriptTemplate <-
     file.path(getTemplateDir(), "template-file-source.R") %>%
@@ -116,9 +108,11 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
 
 #' Paste file import
 #'
-#' @inheritParams createNewFileSource
 #' @param fileType (character) type of file, "csv" or "xlsx" only
-addFileImport <- function(fileType, sheetNumber = 1) {
+#' @param sheetNumber (integer) number of the table sheet for xlsx files, e.g. "14C Dates"
+#' @param sep (character) field separator character
+#' @param dec (character) the character used in the file for decimal points
+addFileImport <- function(fileType, sheetNumber = 1, sep = ";", dec = ",") {
   if (!(fileType %in% c("csv", "xlsx")))
     stop("File type not supported. Only use \".csv\" or \".xlsx\" files.")
 
@@ -128,6 +122,15 @@ addFileImport <- function(fileType, sheetNumber = 1) {
         "read.csv2(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, ",
         "na.strings = c('', 'NA'), strip.white = TRUE)"
       )
+
+    fileImport <-
+      tmpl(paste0(
+        "read.csv2(file = dataFile, sep = '{{ sep }}', dec = '{{ dec }}', stringsAsFactors = FALSE, ",
+        "check.names = FALSE, na.strings = c('', 'NA'), strip.white = TRUE)"
+      ),
+      sep = sep,
+      dec = dec) %>%
+      as.character()
   } else {
     # -> if (fileType == "xlsx")
     fileImport <-

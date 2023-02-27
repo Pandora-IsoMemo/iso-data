@@ -3,8 +3,7 @@
 #' Creates a script for a new data source from a database connection and sets .Renviron variables.
 #' Only "mySql" databases are supported.
 #'
-#' @param dataSourceName (character) name of the new database source, e.g. "xyDBname". The name
-#' of the source must be contained as a column name in the mapping file.
+#' @inheritParams setDataSourceName
 #' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
 #' @param coordType (character) coordinate type of latitude and longitude columns; one of
 #'  "decimal degrees" (e.g. 40.446 or 79.982),
@@ -34,19 +33,8 @@ createNewDBSource <- function(dataSourceName,
                               tableName,
                               scriptFolder = "R",
                               rootFolder = ".") {
-  # check for duplicated db names
-  if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
-    stop(
-      paste0(
-        "dataSourceName = ",
-        dataSourceName,
-        " already exists in (",
-        paste0(dbnames(), collapse = ", "),
-        "). Please provide case-insensitive unique names without special characters."
-      )
-    )
 
-  dataSourceName <- formatDBName(dataSourceName)
+  dataSourceName <- setDataSourceName(dataSourceName)
 
   scriptTemplate <-
     file.path(getTemplateDir(), "template-db-source.R") %>%
@@ -85,10 +73,30 @@ createNewDBSource <- function(dataSourceName,
   )
 }
 
+#' Set Data Source Name
+#'
+#' @param dataSourceName (character) name of the new data source, something like "xyDBname",
+#'  "14CSea", "CIMA", "IntChron", "LiVES". The name of the source must be contained exactly
+#'  as a column name in the mapping file.
+setDataSourceName <- function(dataSourceName) {
+  # check for duplicated db names
+  if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
+    stop(
+      paste0(
+        "dataSourceName = ",
+        dataSourceName,
+        " already exists in (",
+        paste0(dbnames(), collapse = ", "),
+        "). Please provide case-insensitive unique names without special characters."
+      )
+    )
+
+  formatDBName(dataSourceName)
+}
 
 #' Format DB Name
 #'
-#' @param dataSourceName (character) user-provided name of the new data source
+#' @inheritParams setDataSourceName
 #' @return (character) name formated to upper letters and underscore for special characters
 formatDBName <- function(dataSourceName) {
   # upper letters
@@ -98,7 +106,14 @@ formatDBName <- function(dataSourceName) {
   # replace "__" with "_"
   res <- gsub("_+", "_", res)
   # remove leading or ending "_"
-  gsub("^_|_$", "", res)
+  res <- gsub("^_|_$", "", res)
+
+  if (!identical(res, dataSourceName)) {
+    warning(paste0("The dataSourceName was changed from: '", dataSourceName, "' to: '", res,
+                   "'.\n Please update the mapping respectivaly."))
+  }
+
+  res
 }
 
 

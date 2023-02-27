@@ -13,12 +13,15 @@ createNewFileSource(
   fileName,
   remotePath = NULL,
   sheetNumber = 1,
+  sep = ";",
+  dec = ",",
   scriptFolder = "R"
 )
 }
 \arguments{
-\item{dataSourceName}{(character) name of the new database source, e.g. "14CSea", "CIMA",
-"IntChron", "LiVES". The name of the source must be contained as a column name in the mapping file.}
+\item{dataSourceName}{(character) name of the new data source, something like "xyDBname",
+"14CSea", "CIMA", "IntChron", "LiVES". The name of the source must be contained exactly
+as a column name in the mapping file.}
 
 \item{datingType}{(character) dating type for the database, e.g. "radiocarbon" or "expert"}
 
@@ -40,6 +43,10 @@ OPTION 2: "remote" (load data from remote path).}
 e.g. "http://www.14sea.org/img/"}
 
 \item{sheetNumber}{(integer) number of the table sheet for xlsx files, e.g. "14C Dates"}
+
+\item{sep}{(character) field separator character}
+
+\item{dec}{(character) the character used in the file for decimal points}
 
 \item{scriptFolder}{(character) place to store the scripts, usually in the R folder (except
 for tests).}

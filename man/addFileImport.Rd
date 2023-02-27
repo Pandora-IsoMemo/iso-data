@@ -4,12 +4,16 @@
 \alias{addFileImport}
 \title{Paste file import}
 \usage{
-addFileImport(fileType, sheetNumber = 1)
+addFileImport(fileType, sheetNumber = 1, sep = ";", dec = ",")
 }
 \arguments{
 \item{fileType}{(character) type of file, "csv" or "xlsx" only}
 
 \item{sheetNumber}{(integer) number of the table sheet for xlsx files, e.g. "14C Dates"}
+
+\item{sep}{(character) field separator character}
+
+\item{dec}{(character) the character used in the file for decimal points}
 }
 \description{
 Paste file import

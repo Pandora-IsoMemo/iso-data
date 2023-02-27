@@ -15,8 +15,9 @@ setupRenviron(
 )
 }
 \arguments{
-\item{dataSourceName}{(character) name of the new database source, e.g. "xyDBname". The name
-of the source must be contained as a column name in the mapping file.}
+\item{dataSourceName}{(character) name of the new data source, something like "xyDBname",
+"14CSea", "CIMA", "IntChron", "LiVES". The name of the source must be contained exactly
+as a column name in the mapping file.}
 
 \item{dbName}{(character) database name}
 

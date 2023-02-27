@@ -120,7 +120,7 @@ testthat::test_that("Function createNewFileSource() for local csv file", {
       "extract.DBNAME <- function(x) {",
       "  logDebug(\"Entering extract method for '%s'\", x$name)",
       "  dataFile <- file.path(system.file('extdata', package = 'MpiIsoData'), 'IntChron.csv')",
-      "  isoData <- read.csv(file = dataFile, stringsAsFactors = FALSE, check.names = FALSE, na.strings = c('', 'NA'), strip.white = TRUE)",
+      "  isoData <- read.csv2(file = dataFile, sep = ';', dec = ',', stringsAsFactors = FALSE, check.names = FALSE, na.strings = c('', 'NA'), strip.white = TRUE)",
       "  x$dat <- isoData",
       "  x",
       "}"
