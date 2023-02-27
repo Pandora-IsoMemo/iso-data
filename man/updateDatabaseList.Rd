@@ -27,8 +27,7 @@ as a column name in the mapping file.}
 \item{mappingName}{(character) name of the mapping, e.g. "Field_Mapping". The mapping,
 a .csv file, must be available under "inst/mapping/".}
 
-\item{scriptFolder}{(character) place to store the scripts, usually in the R folder (except
-for tests).}
+\item{scriptFolder}{(character) place to store the scripts.}
 }
 \description{
 Updates the list of all data sources.

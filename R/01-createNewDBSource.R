@@ -3,21 +3,13 @@
 #' Creates a script for a new data source from a database connection and sets .Renviron variables.
 #' Only "mySql" databases are supported.
 #'
-#' @inheritParams setDataSourceName
-#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
-#' @param coordType (character) coordinate type of latitude and longitude columns; one of
-#'  "decimal degrees" (e.g. 40.446 or 79.982),
-#'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
-#'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
-#' @param mappingName (character) name of the mapping, e.g. "Field_Mapping". The mapping,
-#' a .csv file, must be available under "inst/mapping/".
+#' @inheritParams updateDatabaseList
 #' @param dbName (character) database name
 #' @param dbUser (character) database user
 #' @param dbPassword (character) database password
 #' @param dbHost (character) database host
 #' @param dbPort (character) database port
 #' @param tableName name of the table containing the data
-#' @param scriptFolder (character) place to store the scripts.
 #' @param rootFolder (character) root folder of the package, usually containing .Renviron,
 #' DESCRIPTION, ...
 #' @export
@@ -75,9 +67,7 @@ createNewDBSource <- function(dataSourceName,
 
 #' Set Data Source Name
 #'
-#' @param dataSourceName (character) name of the new data source, something like "xyDBname",
-#'  "14CSea", "CIMA", "IntChron", "LiVES". The name of the source must be contained exactly
-#'  as a column name in the mapping file.
+#' @inheritParams updateDatabaseList
 setDataSourceName <- function(dataSourceName) {
   # check for duplicated db names
   if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
@@ -96,7 +86,7 @@ setDataSourceName <- function(dataSourceName) {
 
 #' Format DB Name
 #'
-#' @inheritParams setDataSourceName
+#' @inheritParams updateDatabaseList
 #' @return (character) name formated to upper letters and underscore for special characters
 formatDBName <- function(dataSourceName) {
   # upper letters

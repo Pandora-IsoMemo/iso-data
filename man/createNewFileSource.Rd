@@ -48,8 +48,7 @@ e.g. "http://www.14sea.org/img/"}
 
 \item{dec}{(character) the character used in the file for decimal points}
 
-\item{scriptFolder}{(character) place to store the scripts, usually in the R folder (except
-for tests).}
+\item{scriptFolder}{(character) place to store the scripts.}
 }
 \description{
 Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files

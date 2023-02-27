@@ -3,23 +3,16 @@
 #' Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files
 #' are supported.
 #'
-#' @inheritParams setDataSourceName
-#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
-#' @param coordType (character) coordinate type of latitude and longitude columns; one of
-#'  "decimal degrees" (e.g. 40.446 or 79.982),
-#'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
-#'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
-#' @param mappingName (character) name of the mapping, e.g. "Field_Mapping". The mapping,
-#' a .csv file, must be available under "inst/mapping/".
+#' @inheritParams updateDatabaseList
 #' @param locationType type of location, any of "local" or "remote".
 #' OPTION 1: "local" (the file must be available under inst/extdata/).
 #' OPTION 2: "remote" (load data from remote path).
 #' @param fileName name of file, e.g. "data.csv", "14SEA_Full_Dataset_2017-01-29.xlsx"
 #' @param remotePath path to remote file, if locationType == "remote",
 #' e.g. "http://www.14sea.org/img/"
-#' @inheritParams addFileImport
-#' @param scriptFolder (character) place to store the scripts, usually in the R folder (except
-#' for tests).
+#' @param sheetNumber (integer) number of the table sheet for xlsx files, e.g. "14C Dates"
+#' @param sep (character) field separator character
+#' @param dec (character) the character used in the file for decimal points
 #' @export
 createNewFileSource <- function(dataSourceName,
                                 datingType,
@@ -109,9 +102,7 @@ addFilePath <- function(fileName, locationType, remotePath = NULL) {
 #' Paste file import
 #'
 #' @param fileType (character) type of file, "csv" or "xlsx" only
-#' @param sheetNumber (integer) number of the table sheet for xlsx files, e.g. "14C Dates"
-#' @param sep (character) field separator character
-#' @param dec (character) the character used in the file for decimal points
+#' @inheritParams createNewFileSource
 addFileImport <- function(fileType, sheetNumber = 1, sep = ";", dec = ",") {
   if (!(fileType %in% c("csv", "xlsx")))
     stop("File type not supported. Only use \".csv\" or \".xlsx\" files.")

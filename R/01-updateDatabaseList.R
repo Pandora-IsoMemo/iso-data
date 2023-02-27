@@ -2,7 +2,17 @@
 #'
 #' Updates the list of all data sources.
 #'
-#' @inheritParams createNewFileSource
+#' @param dataSourceName (character) name of the new data source, something like "xyDBname",
+#'  "14CSea", "CIMA", "IntChron", "LiVES". The name of the source must be contained exactly
+#'  as a column name in the mapping file.
+#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
+#' @param coordType (character) coordinate type of latitude and longitude columns; one of
+#'  "decimal degrees" (e.g. 40.446 or 79.982),
+#'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
+#'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
+#' @param mappingName (character) name of the mapping, e.g. "Field_Mapping". The mapping,
+#' a .csv file, must be available under "inst/mapping/".
+#' @param scriptFolder (character) place to store the scripts.
 updateDatabaseList <-
   function(dataSourceName,
            datingType,
