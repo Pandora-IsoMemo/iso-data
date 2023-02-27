@@ -1,5 +1,6 @@
-#' @importFrom dplyr select filter tibble as_tibble select_if mutate
 #' @importFrom dbtools testConnection Credentials
+#' @importFrom devtools load_all
+#' @importFrom dplyr select filter tibble as_tibble select_if mutate
 #' @importFrom magrittr "%>%"
 #' @importFrom openxlsx read.xlsx
 #' @importFrom rlang .data
