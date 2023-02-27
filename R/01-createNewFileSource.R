@@ -13,6 +13,7 @@
 #' @param sheetNumber (integer) number of the table sheet for xlsx files, e.g. "14C Dates"
 #' @param sep (character) field separator character
 #' @param dec (character) the character used in the file for decimal points
+#' @param isTest (logical) TRUE if automatic testing
 #' @export
 createNewFileSource <- function(dataSourceName,
                                 datingType,
@@ -24,9 +25,10 @@ createNewFileSource <- function(dataSourceName,
                                 sheetNumber = 1,
                                 sep = ";",
                                 dec = ",",
-                                scriptFolder = "R") {
+                                scriptFolder = "R",
+                                isTest = FALSE) {
   # 1. check for duplicated data source names
-  checkDataSourceName(dataSourceName)
+  checkDataSourceName(dataSourceName, isTest = isTest)
 
   # 2. create script for file source ----
   scriptTemplate <-

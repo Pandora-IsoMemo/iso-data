@@ -16,7 +16,8 @@ testthat::test_that("Function createNewDBSource()", {
     coordType = "decimal degrees",
     mappingName = "Field_Mapping",
     scriptFolder = testthat::test_path(),
-    rootFolder = testthat::test_path()
+    rootFolder = testthat::test_path(),
+    isTest = TRUE
   )
 
   testScript <-

@@ -12,6 +12,7 @@
 #' @param tableName name of the table containing the data
 #' @param rootFolder (character) root folder of the package, usually containing .Renviron,
 #' DESCRIPTION, ...
+#' @param isTest (logical) TRUE if automatic testing
 #' @export
 createNewDBSource <- function(dataSourceName,
                               datingType,
@@ -24,9 +25,10 @@ createNewDBSource <- function(dataSourceName,
                               dbPort,
                               tableName,
                               scriptFolder = "R",
-                              rootFolder = ".") {
+                              rootFolder = ".",
+                              isTest = FALSE) {
   # 1. check for duplicated data source names
-  checkDataSourceName(dataSourceName)
+  checkDataSourceName(dataSourceName, isTest = isTest)
 
   # 2. create script for database source ----
   scriptTemplate <-
@@ -77,9 +79,12 @@ createNewDBSource <- function(dataSourceName,
 #' Check Data Source Name
 #'
 #' @inheritParams updateDatabaseList
-checkDataSourceName <- function(dataSourceName) {
-  # load most recent database list
-  devtools::load_all(".")
+#' @param isTest (logical) TRUE if testing
+checkDataSourceName <- function(dataSourceName, isTest = FALSE) {
+  if (!isTest) {
+    # load most recent database list
+    devtools::load_all(".")
+  }
 
   if (formatDataSourceName(dataSourceName, toUpper = TRUE) %in% formatDataSourceName(dbnames(), toUpper = TRUE))
     stop(

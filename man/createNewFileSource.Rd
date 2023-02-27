@@ -15,7 +15,8 @@ createNewFileSource(
   sheetNumber = 1,
   sep = ";",
   dec = ",",
-  scriptFolder = "R"
+  scriptFolder = "R",
+  isTest = FALSE
 )
 }
 \arguments{
@@ -49,6 +50,8 @@ e.g. "http://www.14sea.org/img/"}
 \item{dec}{(character) the character used in the file for decimal points}
 
 \item{scriptFolder}{(character) place to store the scripts.}
+
+\item{isTest}{(logical) TRUE if automatic testing}
 }
 \description{
 Creates a script for a new data source from a local or remote file. Only "csv" or "xlsx" files

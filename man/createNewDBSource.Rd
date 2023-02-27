@@ -16,7 +16,8 @@ createNewDBSource(
   dbPort,
   tableName,
   scriptFolder = "R",
-  rootFolder = "."
+  rootFolder = ".",
+  isTest = FALSE
 )
 }
 \arguments{
@@ -50,6 +51,8 @@ The mapping (a .csv file) must be available under "inst/mapping/".}
 
 \item{rootFolder}{(character) root folder of the package, usually containing .Renviron,
 DESCRIPTION, ...}
+
+\item{isTest}{(logical) TRUE if automatic testing}
 }
 \description{
 Creates a script for a new data source from a database connection and sets .Renviron variables.
