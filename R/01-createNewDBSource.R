@@ -25,12 +25,12 @@ createNewDBSource <- function(dataSourceName,
                               tableName,
                               scriptFolder = "R",
                               rootFolder = ".") {
-
-  dataSourceName <- setDataSourceName(dataSourceName)
-
+  # 1. create script for database source ----
   scriptTemplate <-
     file.path(getTemplateDir(), "template-db-source.R") %>%
     readLines()
+
+  dataSourceName <- setDataSourceName(dataSourceName)
 
   dbScript <-
     tmpl(
@@ -46,6 +46,16 @@ createNewDBSource <- function(dataSourceName,
   writeLines(dbScript,
              con = file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
 
+  # 2. update list of databases ----
+  updateDatabaseList(
+    dataSourceName = dataSourceName,
+    datingType = datingType,
+    coordType = coordType,
+    mappingName = mappingName,
+    scriptFolder = file.path(scriptFolder)
+  )
+
+  # 3. setup / update Renviron file ----
   setupRenviron(
     dataSourceName = dataSourceName,
     dbName = dbName,
@@ -54,14 +64,6 @@ createNewDBSource <- function(dataSourceName,
     dbHost = dbHost,
     dbPort = dbPort,
     scriptFolder = file.path(rootFolder)
-  )
-
-  updateDatabaseList(
-    dataSourceName = dataSourceName,
-    datingType = datingType,
-    coordType = coordType,
-    mappingName = mappingName,
-    scriptFolder = file.path(scriptFolder)
   )
 }
 

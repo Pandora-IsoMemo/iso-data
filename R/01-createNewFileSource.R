@@ -25,21 +25,19 @@ createNewFileSource <- function(dataSourceName,
                                 sep = ";",
                                 dec = ",",
                                 scriptFolder = "R") {
+  # 1. create script for file source ----
+  scriptTemplate <-
+    file.path(getTemplateDir(), "template-file-source.R") %>%
+    readLines()
 
   dataSourceName <- setDataSourceName(dataSourceName)
-
   filePath <- addFilePath(fileName = fileName,
                           locationType = locationType,
                           remotePath = remotePath)
-
   fileImport <- addFileImport(fileType = tools::file_ext(fileName),
                               sheetNumber = sheetNumber,
                               sep = sep,
                               dec = dec)
-
-  scriptTemplate <-
-    file.path(getTemplateDir(), "template-file-source.R") %>%
-    readLines()
 
   dbScript <- tmpl(
     paste0(scriptTemplate, collapse = "\n"),
@@ -49,11 +47,13 @@ createNewFileSource <- function(dataSourceName,
     fileImport = fileImport
   ) %>%
     as.character()
+
   logging("Creating new file: %s",
           file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
   writeLines(dbScript,
              con = file.path(scriptFolder, paste0("02-", mappingName, "_", dataSourceName, ".R")))
 
+  # 2. update list of databases ----
   updateDatabaseList(
     dataSourceName = dataSourceName,
     datingType = datingType,
