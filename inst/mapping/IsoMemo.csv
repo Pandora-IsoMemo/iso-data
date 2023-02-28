@@ -1,4 +1,4 @@
-shiny;fieldType;category;14CSeaTest;IsoMemo;LiVES;IntChron;IsoArcH;CIMA
+shiny;fieldType;category;14CSea;IsoMemo;LiVES;IntChron;IsoArcH;CIMA
 id;character;Sample description;Lab..no.;Sample ID;ID;labcode;idIndividual;Entry.ID
 description;character;Sample description;;Sample description;;;;description
 d13C;numeric;Isotopic proxies;13C;delta 13C/12C coll;13C;d13C;d13C;IRMS.\u03b413C.Collagen

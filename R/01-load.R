@@ -106,7 +106,7 @@ defaultVars <- function(mappingName){
     stop("Mapping not found! Please add the mapping file to inst/mapping/ and update defaultVars().")
   }
 
-  fieldMappingVars <- c(
+  isoMemo_vars <- c(
     "id",
     "description",
     "d13C",
@@ -126,9 +126,10 @@ defaultVars <- function(mappingName){
 
   # optionally define other mapping specific defaultVars, maybe by removing non-default variables
   #   from getMappingTable(mappingName)$shiny ?
-  # currently we have only one mapping
+  # currently we have only one mapping, the new name is "IsoMemo"
   switch(mappingName,
-          "Field_Mapping" = fieldMappingVars,
-         fieldMappingVars
+         "Field_Mapping" = isoMemo_vars,
+         "IsoMemo" = isoMemo_vars,
+         isoMemo_vars
   )
 }

@@ -7,7 +7,7 @@
 getMappingTable(mappingName)
 }
 \arguments{
-\item{mappingName}{(character) name of the mapping without file extension, e.g. "Field_Mapping".
+\item{mappingName}{(character) name of the mapping without file extension, e.g. "IsoMemo".
 The mapping (a .csv file) must be available under "inst/mapping/".}
 }
 \description{

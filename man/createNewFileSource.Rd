@@ -31,7 +31,7 @@ as a column name in the mapping file.}
 "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
 "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")}
 
-\item{mappingName}{(character) name of the mapping without file extension, e.g. "Field_Mapping".
+\item{mappingName}{(character) name of the mapping without file extension, e.g. "IsoMemo".
 The mapping (a .csv file) must be available under "inst/mapping/".}
 
 \item{locationType}{type of location, any of "local" or "remote".
