@@ -31,6 +31,11 @@ dbnames <- function() {
   unlist(lapply(databases(), `[[`, 'name'))
 }
 
+mappingNames <- function() {
+  unlist(lapply(databases(), `[[`, 'mapping')) %>%
+    unique()
+}
+
 singleSource <- function(name, datingType, coordType, mapping, ...) {
   out <- list(
     name = name,
