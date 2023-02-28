@@ -17,6 +17,7 @@ updateOrCreateTableMPI <- function(dat, prefix, table, mode) {
   browser()
   if (prefix == "Field_Mapping") {
     # update the old table without prefix (here a prefix was not used yet)
+    # and all tables already exist on the server
     sendDataMPI(dat, table = table, mode = mode)
   } else {
     # check if table exists

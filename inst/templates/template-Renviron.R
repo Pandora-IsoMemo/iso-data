@@ -1,5 +1,5 @@
 # This file contains the format of the environment variables that are mentioned in the template:
-# inst/templates/template-db-source.R
+# inst/templates/template-extractFromDB.R
 #
 # The given variables will not be stored on gitHub but need to be specified in Jenkins
 # Never upload this files with credentials to GitHub!

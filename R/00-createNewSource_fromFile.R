@@ -32,7 +32,7 @@ createNewFileSource <- function(dataSourceName,
 
   # 2. create script for file source ----
   scriptTemplate <-
-    file.path(getTemplateDir(), "template-file-source.R") %>%
+    file.path(getTemplateDir(), "template-extractFromFile.R") %>%
     readLines()
 
   filePath <- addFilePath(fileName = fileName,

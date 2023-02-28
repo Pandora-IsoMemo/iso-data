@@ -32,7 +32,7 @@ createNewDBSource <- function(dataSourceName,
 
   # 2. create script for database source ----
   scriptTemplate <-
-    file.path(getTemplateDir(), "template-db-source.R") %>%
+    file.path(getTemplateDir(), "template-extractFromDB.R") %>%
     readLines()
 
   dbScript <-
