@@ -10,13 +10,11 @@ load.default <- function(x, ...) {
   extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
   if (nrow(df) > 0){
-    #updateOrCreateTableMPI(dat = data, prefix = mapping, table = "data", mode = "insert")
-
     # check if table exists
     tableExists <- sendQueryMPI(dataTableExistsQry(mappingId = mapping))
     if (tableExists == 1) {
       # update if exists:
-      sendQueryMPI(deleteOldRowsFromDataQry(mapping, db));
+      sendQueryMPI(deleteOldRowsFromDataQry(mapping, source = db));
       sendDataMPI(data, table = paste0(c(mapping, "data"), collapse = "_"), mode = "insert")
     } else {
       # create if not exists:
@@ -25,9 +23,9 @@ load.default <- function(x, ...) {
     }
 
     # only update the tables:
-    sendQueryMPI(deleteOldRowsQry(mapping, "extraCharacter", db));
-    sendQueryMPI(deleteOldRowsQry(mapping, "extraNumeric", db));
-    sendQueryMPI(deleteOldRowsQry(mapping, "warning", db));
+    sendQueryMPI(deleteOldRowsQry("extraCharacter", mappingId = mapping, source = db));
+    sendQueryMPI(deleteOldRowsQry("extraNumeric", mappingId = mapping, source = db));
+    sendQueryMPI(deleteOldRowsQry("warning", mappingId = mapping, source = db));
 
     sendDataMPI(extraCharacter, table = "extraCharacter", mode = "insert")
     sendDataMPI(extraNumeric, table = "extraNumeric", mode = "insert")
