@@ -1,9 +1,16 @@
-test_that("deleteOldDataQry", {
-  testMapping <- "Field_Mapping"
+test_that("deleteOldRowsQry", {
+  testMapping <- "IsoMemo"
   for (db in dbnames()) {
     expect_equal(
-      deleteOldDataQry(testMapping, table = "data", source = db) %>% as.character(),
-      paste0("DELETE FROM `data` WHERE `source` = '", db, "';")
+      deleteOldRowsFromDataQry(testMapping, source = db) %>% as.character(),
+      paste0("DELETE FROM `IsoMemo_data` WHERE `source` = '", db, "';")
+    )
+  }
+
+  for (db in dbnames()) {
+    expect_equal(
+      deleteOldRowsQry(testMapping, table = "extraCharacter", source = db) %>% as.character(),
+      paste0("DELETE FROM `extraCharacter` WHERE `mappingId` = 'IsoMemo' AND `source` = '", db, "';")
     )
   }
 })

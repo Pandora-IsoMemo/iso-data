@@ -11,10 +11,13 @@ etlMapping <- function(){
   for (mappingName in mappingNames()) {
     mappingTable <- getMappingTable(mappingName = mappingName)
 
-    mapping <- mappingTable %>%
+    mappingTable <- mappingTable %>%
       select(shiny, fieldType, category)
 
-    updateOrCreateTableMPI(dat = mapping, prefix = mappingName, table = "mapping", mode = "truncate")
+    mappingTable <- cbind(mappingId = mappingName, mappingTable)
+
+    sendQueryMPI(deleteOldRowsQry(table = "mapping", mappingId = mappingName, source = db));
+    sendDataMPI(mappingTable, table = "mapping", mode = "insert")
   }
   ## mappingSource <- mappingTable %>%
   ##   select(-fieldType, -category) %>%

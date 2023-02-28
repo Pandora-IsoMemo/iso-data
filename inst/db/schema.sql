@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS `data` (
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle mpiIso.extraCharacter
 CREATE TABLE IF NOT EXISTS `extraCharacter` (
+  `mappingId` varchar(50) NOT NULL,
   `source` varchar(50) NOT NULL,
   `id` varchar(100) NOT NULL,
   `variable` varchar(100) NOT NULL,
@@ -49,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `extraCharacter` (
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle mpiIso.extraNumeric
 CREATE TABLE IF NOT EXISTS `extraNumeric` (
+  `mappingId` varchar(50) NOT NULL,
   `source` varchar(50) NOT NULL,
   `id` varchar(100) NOT NULL,
   `variable` varchar(100) NOT NULL,
@@ -59,6 +61,7 @@ CREATE TABLE IF NOT EXISTS `extraNumeric` (
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle mpiIso.mapping
 CREATE TABLE IF NOT EXISTS `mapping` (
+  `mappingId` varchar(50) NOT NULL,
   `shiny` varchar(50) NOT NULL,
   `fieldType` varchar(50) DEFAULT NULL,
   `category` varchar(50) DEFAULT NULL,
@@ -68,6 +71,7 @@ CREATE TABLE IF NOT EXISTS `mapping` (
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle mpiIso.updated
 CREATE TABLE IF NOT EXISTS `updated` (
+  `mappingId` varchar(50) NOT NULL,
   `source` varchar(50) NOT NULL,
   `timestamp` datetime NOT NULL,
   `rows` int(10) DEFAULT NULL,
@@ -77,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `updated` (
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle mpiIso.warning
 CREATE TABLE IF NOT EXISTS `warning` (
+  `mappingId` varchar(50) NOT NULL,
   `source` varchar(50) NOT NULL,
   `id` varchar(50) NOT NULL,
   `warning` varchar(255) NOT NULL,
