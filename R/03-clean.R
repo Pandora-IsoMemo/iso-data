@@ -13,6 +13,7 @@ cleanUp <- function(mappingNames = mappingNames()){
 }
 
 cleanUpDataQry <- function(mappingId, sources = dbnames()){
+  # delete data from removed sources
   sources <- dbtools::sqlParan(sources, function(x) dbtools::sqlEsc(x, with = "'"))
   dbtools::Query(
     "DELETE FROM `{{ mappingId }}_data` where `source` not in {{ sources }};",
@@ -22,6 +23,7 @@ cleanUpDataQry <- function(mappingId, sources = dbnames()){
 }
 
 cleanUpQry <- function(mappingId, table, sources = dbnames()){
+  # delete data from removed sources
   sources <- dbtools::sqlParan(sources, function(x) dbtools::sqlEsc(x, with = "'"))
   dbtools::Query(
     "DELETE FROM {{ table }} where `mappingId` = '{{ mappingId }}' AND `source` not in {{ sources }};",
