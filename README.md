@@ -3,12 +3,23 @@
 ## Infrastructure
 ![Infrastructure](https://user-images.githubusercontent.com/16759098/216335554-864c2d9b-0200-48f5-b6b7-975f66b1fe74.png)
 
+## Content
+
+This ReadMe contains instructions on how to:
+
+- [Add a New Data Source](#add-a-new-data-source)
+- [Modify an Existing Data Source](#modify-an-existing-data-source)
+- [Test the ETL process of the Data Sources](#test-the-etl-process-of-the-data-sources)
+- [Test the Code](#test-the-code)
+- [Deployment](#deployment)
+- [Access to Data](#access-to-data)
+
 ## Add a New Data Source
 
-There are two ways to define a new data source:
+There are two ways to add a new data source depending on where data is retrieved from:
   
-1. data source retrieved from a **mySql database**
-2. data source retrieved from a **local or remote file**
+1. data source retrieved from a **mySql database** -> execute function `createNewDBSource()`
+2. data source retrieved from a **local or remote file** -> execute function `createNewFileSource()`
 
 Executing one of the functions
 
@@ -17,10 +28,9 @@ Executing one of the functions
 
 will automatically:
 
-1. create a new file `R/02-<datasource>.R`,
-2. define a new function `extract.<datasource>` in the new file `R/02-<datasource>.R`,
-3. add a new entry in `R/00-databases.R`,
-4. (only for mySql databases) create/update the `.Renviron` file that contains database credentials.
+1. create a new file `R/02-<datasource>.R` that contains the function to extract the data: `extract.<datasource>()`,
+2. add a new entry for the source into the file `R/00-databases.R`,
+3. (only for mySql databases) create/update the `.Renviron` file that contains database credentials.
 
 The Files `R/02-<datasource>.R` for different data sources may contain individual and extensive data
 preparations that can be adjusted manually. For details compare e.g. `R/02-LiVES.R`, and read the 
@@ -28,14 +38,15 @@ section [Modify An Existing Data Source](#modify-an-existing-data-source).
 
 ### Specify the type of data
 
-For both data sources, **database** and **file**, three mandatory parameters must be specified:
+For both ways to add data sources (from **database** or from **file**), four mandatory parameters must be specified:
 
-- `dataSourceName`: (character) name of the new data source, e.g. "14CSea", "CIMA", "IntChron", "LiVES"
-- `datingType`: (character) dating type, e.g. "radiocarbon" or "expert"
+- `dataSourceName`: (character) name of the new data source, something like "xyDBname", "14CSea", "CIMA", "IntChron", "LiVES". The name of the source must be contained exactly as a column name in the mapping file.
+- `datingType`: (character) dating type for the database, e.g. "radiocarbon" or "expert"
 - `coordType`: (character) coordinate type of latitude and longitude columns, one of
   - "decimal degrees", e.g. `40.446` or `79.982`,
   - "degrees decimal minutes", e.g. `40° 26.767' N` or `79° 58.933' W`,
   - "degrees minutes seconds", e.g. `40° 26' 46'' N` or `79° 58' 56'' W`
+- `mappingName`: (character) name of the mapping without file extension, e.g. "IsoMemo". The mapping (a .csv file) must be available under "inst/mapping/".
 
 ### Specify the data source
 
@@ -50,6 +61,7 @@ development and for testing the database connection.
 createNewDBSource(dataSourceName = <datasource>,
                   datingType = <datingType>,
                   coordType = <coordType>,
+                  mappingName = <mappingName>,
                   dbName = <dbName>,
                   dbUser = <dbUser>,
                   dbPassword = <dbPassword>,
@@ -70,25 +82,31 @@ Please set `<location> = "local"` in the first case, and `<location> = "remote"`
 Please, provide the `<filename>` with extension (only `*.csv` or `*.xlsx` are supported), e.g. 
 `"data.csv"`, `"14SEA_Full_Dataset_2017-01-29.xlsx"`
 
-Optionally for `.xlsx` files, a `<sheetNumber>` as integer can be specified.
+Optionally, the following can be specified
+
+- for `.xlsx` files, a `<sheetNumber>` as integer value
+- for `.csv` files, `<sep>` for field separator character, and `<dec>` for the character used for decimal points
  
 ```r
 createNewFileSource(dataSourceName = <datasource>,
                     datingType = <datingType>,
                     coordType = <coordType>,
+                    mappingName = <mappingName>,
                     fileName = <filename>,
                     locationType = <location>,
                     remotePath = <remotePath>,
-                    sheetNumber = <sheetNumber>)
+                    sheetNumber = 1,
+                    sep = ";",
+                    dec = ",")
 ```
 
 ## Modify an Existing Data Source
-Data extraction for all data sources are defined in the files `R/02-<datasource>.R`. Within the function `extract.<datasource>.R` you can retrieve data, modify values as you like. You only need to ensure these points:
+Data extraction for all data sources are defined in the files `R/02-<datasource>.R`. Within the function `extract.<datasource>()` you can retrieve data, modify values as you like. You only need to ensure these points:
 
-- the function name needs to be `extract.<datasource>`. `<datasource>` needs to match the entry `name` in the file `R/00-databases.R`
+- (_done automatically_) the function name needs to be `extract.<datasource>`. `<datasource>` needs to match the entry `name` in the file `R/00-databases.R`
 - the function needs to have a single argument `x`. `x` holds all configuration from the entry in `R/00-databases.R`
 - the retrieved data needs to be a single data.frame. Assign this to the list element `x$dat` and return `x`
-- only variables in the data frame which are part of `inst/mapping/Field_Mapping.csv` will be processed
+- only variables in the data frame which are part of the mapping `<mappingId>` that must be available under `inst/mapping/<mappingId>.csv` and that is specified in `R/00-databases.R` will be processed.
 
 A minimal example of the extract function looks like this
 
@@ -102,7 +120,7 @@ extract.testdb <- function(x) {
 }
 ```
 
-## Test Data Sources
+## Test the ETL process of the Data Sources
 
 Run the following commands in R to install the package locally and run the extract function.
 
@@ -128,7 +146,7 @@ res <- etlTest(databases()[n])
 
 Results will be in the object res[[1]]$dat
 
-## Test
+## Test the Code
 
 Test your code by running
 
