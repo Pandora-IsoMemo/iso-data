@@ -10,22 +10,24 @@ load.default <- function(x, ...) {
   extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
   if (nrow(df) > 0){
-    # check if table exists
-    tableExists <- sendQueryMPI(dataTableExistsQry(mappingId = mapping))
+    # check if table "{{ mapping }}_data" exists
+    dataTbl <- paste0(mapping, "_data")
+    tableExists <- sendQueryMPI(tableExistsQry(dataTbl))
     if (tableExists == 1) {
-      # update if exists:
-      sendQueryMPI(deleteOldRowsFromDataQry(mapping, source = db));
-      sendDataMPI(data, table = paste0(c(mapping, "data"), collapse = "_"), mode = "insert")
+      # update table:
+      sendQueryMPI(deleteOldDataQry(dataTbl, source = db));
+      sendDataMPI(data, table = dataTbl, mode = "insert")
     } else {
-      # create if not exists:
-      # if not create one -> which column specs are required?
-      # create table query ...
+      # create table:
+      sendQueryMPI(createTableQry(data, table = dataTbl))
+      # update table:
+      sendDataMPI(data, table = dataTbl, mode = "insert")
     }
 
-    # only update the tables:
-    sendQueryMPI(deleteOldRowsQry("extraCharacter", mappingId = mapping, source = db));
-    sendQueryMPI(deleteOldRowsQry("extraNumeric", mappingId = mapping, source = db));
-    sendQueryMPI(deleteOldRowsQry("warning", mappingId = mapping, source = db));
+    # only update the tables "extraCharacter", "extraNumeric", "warning":
+    sendQueryMPI(deleteOldDataQry("extraCharacter", mappingId = mapping, source = db))
+    sendQueryMPI(deleteOldDataQry("extraNumeric", mappingId = mapping, source = db))
+    sendQueryMPI(deleteOldDataQry("warning", mappingId = mapping, source = db))
 
     sendDataMPI(extraCharacter, table = "extraCharacter", mode = "insert")
     sendDataMPI(extraNumeric, table = "extraNumeric", mode = "insert")
@@ -34,40 +36,90 @@ load.default <- function(x, ...) {
   x
 }
 
-dataTableExistsQry <- function(mappingId) {
+#' Table exists query
+#'
+#' Gives a query to check if a table exists
+#'
+#' @param table (character) name of the table
+tableExistsQry <- function(table) {
   dbtools::Query(
-    "IF OBJECT_ID ('{{ mappingId }}_data', 'U') IS NOT NULL SELECT 1 AS res ELSE SELECT 0 AS res;",
-    mappingId = mappingId
+    "IF OBJECT_ID ('{{ table }}', 'U') IS NOT NULL SELECT 1 AS res ELSE SELECT 0 AS res;",
+    table = table
     )
 }
 
-deleteOldRowsFromDataQry <- function(mappingId, source){
+#' Delete Old Data Query
+#'
+#' Gives a query to delete old data from a table for a specific source (and mapping if given)
+#'
+#' @param table (character) name of the table
+#' @param source (character) name of the source
+#' @param mappingId (character) name of the mapping
+deleteOldDataQry <- function(table, source, mappingId = NULL){
+  if (is.null(mappingId)) {
+    dbtools::Query(
+      "DELETE FROM `{{ table }}` WHERE `source` = '{{ source }}';",
+      table = table,
+      source = source
+    )
+  } else {
+    dbtools::Query(
+      "DELETE FROM `{{ table }}` WHERE `mappingId` = '{{ mappingId }}' AND `source` = '{{ source }}';",
+      table  = table,
+      mappingId = mappingId,
+      source = source
+    )
+  }
+}
+
+#' Create Table Query
+#'
+#' Gives a query to create a new table taking into account the column types of given data
+#'
+#' @param dat (data.frame) data to create the table for
+#' @param table (character) name of the new table
+createTableQry <- function(dat, table) {
+  defaultTypes <- getDefaultDataTypes(dat)
+
+  tableCols <-  sapply(names(defaultTypes), function(x) dbtools::sqlEsc(x, with = "'"))
+  colDefs <- paste(tableCols, defaultTypes) %>%
+    paste0(collapse = ", ")
+
   dbtools::Query(
-    "DELETE FROM `{{ mappingId }}_data` WHERE `source` = '{{ source }}';",
-    mappingId = mappingId,
-    source = source
+    "CREATE TABLE IF NOT EXISTS `{{ table }}` ({{ colDefs }}, PRIMARY KEY (`source`,`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
+    table = table,
+    colDefs = colDefs
   )
 }
 
-deleteOldRowsQry <- function(table, mappingId, source){
-  dbtools::Query(
-    "DELETE FROM `{{ table }}` WHERE `mappingId` = '{{ mappingId }}' AND `source` = '{{ source }}';",
-    table  = table,
-    mappingId = mappingId,
-    source = source
-  )
+#' Get Default Data Types
+#'
+#' Get the datatypes for the default columns
+#'
+#' @param dat (data.frame) data
+getDefaultDataTypes <- function(dat) {
+  colTypes <- sapply(dat, typeof)
+
+  validType <- colTypes %in% c("character", "double")
+  if (any(!validType)) {
+    stop(paste("CREATE TABLE failed. No rule found for data type: ",
+               paste0(validType[!validType], collapse = ", ")))
+  }
+
+  # rules to setup data type:
+  colTypes[colTypes %in% c("character")] <- "varchar(50) NOT NULL"
+  colTypes[colTypes %in% c("double")] <- "decimal(12,6) DEFAULT NULL"
+
+  colTypes
 }
 
 getDefaultData <- function(df, db, mapping){
   vars <- defaultVars(mappingName = mapping)
 
   df %>%
-    select_if(names(df) %in% vars) %>%
-    mutate(source = db)
-}
+    select_if(names(df) %in% vars)
 
-getDefaultDataTypes <- function() {
- # ...
+  cbind(source = db, df)
 }
 
 getExtra <- function(df, db, mapping, type = "character"){
@@ -101,6 +153,11 @@ getExtra <- function(df, db, mapping, type = "character"){
 }
 
 
+#' Default Vars
+#'
+#' Variables that are stored in the table "{{ mappingName }}_data" on the server
+#'
+#' @inheritParams updateDatabaseList
 defaultVars <- function(mappingName){
   if (!(paste0(mappingName, ".csv") %in% dir(system.file('mapping', package = 'MpiIsoData')))) {
     stop("Mapping not found! Please add the mapping file to inst/mapping/ and update defaultVars().")
@@ -131,5 +188,15 @@ defaultVars <- function(mappingName){
          "Field_Mapping" = isoMemo_vars,
          "IsoMemo" = isoMemo_vars,
          isoMemo_vars
+  )
+}
+
+#' Extra Vars
+#'
+#' Variables for which there is no column in the table "{{ mappingName }}_data" on the server
+extraVars <- function() {
+  c("measure", "databaseReference", "databaseDOI", "databaseDOIAuto",
+    "compilationReference", "compilationDOI", "compilationDOIAuto",
+    "originalDataReference", "originalDataDOI", "originalDataDOIAuto"
   )
 }

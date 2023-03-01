@@ -4,25 +4,25 @@ databases <- function() {
       name = '14CSea',
       datingType = 'radiocarbon',
       coordType = 'decimal degrees',
-      mapping = 'Field_Mapping'
+      mapping = 'IsoMemo'
     ),
     singleSource (
       name = 'LiVES',
       datingType = 'radiocarbon',
       coordType = NA,
-      mapping = 'Field_Mapping'
+      mapping = 'IsoMemo'
     ),
     singleSource (
       name = 'IntChron',
       datingType = 'radiocarbon',
       coordType = 'decimal degrees',
-      mapping = 'Field_Mapping'
+      mapping = 'IsoMemo'
     ),
     singleSource (
       name = 'CIMA',
       datingType = 'radiocarbon',
       coordType = 'decimal degrees',
-      mapping = 'Field_Mapping'
+      mapping = 'IsoMemo'
     )
   )
 }
