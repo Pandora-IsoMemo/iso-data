@@ -14,18 +14,15 @@ testthat::test_that("Function createNewDBSource()", {
     tableName = "myTable",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
-    mappingName = "Field_Mapping",
+    mappingName = "myMapping",
     scriptFolder = testthat::test_path(),
     rootFolder = testthat::test_path(),
     isTest = TRUE
   )
 
+  # test extract script
   testScript <-
-    readLines(testthat::test_path("02-Field_Mapping_myDBname.R")) %>%
-    cleanUpScript()
-
-  testRenviron <-
-    readLines(testthat::test_path(".Renviron")) %>%
+    readLines(testthat::test_path("02-myMapping_myDBname.R")) %>%
     cleanUpScript()
 
   expectedScript <-
@@ -50,8 +47,13 @@ testthat::test_that("Function createNewDBSource()", {
       "  dbtools::sendQuery(creds_myDBname(), query)",
       "}"
     )
-  # readLines(testthat::test_path("examples", "02-template-db.R")) %>%
-  # cleanUpScript()
+
+  testthat::expect_equal(testScript, expectedScript)
+
+  # test Renviron
+  testRenviron <-
+    readLines(testthat::test_path(".Renviron")) %>%
+    cleanUpScript()
 
   expectedRenviron <-
     c(
@@ -62,11 +64,17 @@ testthat::test_that("Function createNewDBSource()", {
       "MYDBNAME_PORT=567"
     )
 
-  testthat::expect_equal(testScript, expectedScript)
   testthat::expect_equal(testRenviron, expectedRenviron)
 
+  # test databases list, runs only locally
+  # source(testthat::test_path("00-databases.R"))
+  # testthat::expect_equal(mappingNames(), c("IsoMemo", "myMapping"))
+  # testthat::expect_equal(dbnames(), c("14CSea", "LiVES", "IntChron", "CIMA", "myDBname"))
+  # testthat::expect_equal(dbnames(mappingId = "myMapping"), c("myDBname"))
+  # rm(list = ls(envir = .GlobalEnv), envir = .GlobalEnv)
+
   # clean up
-  unlink(testthat::test_path("02-Field_Mapping_myDBname.R"))
+  unlink(testthat::test_path("02-myMapping_myDBname.R"))
   unlink(testthat::test_path(".Renviron"))
   unlink(testthat::test_path("00-databases.R"))
 })

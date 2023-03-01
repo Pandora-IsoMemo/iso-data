@@ -50,6 +50,14 @@ testthat::test_that("Function createNewFileSource() for 02-CIMA.R file", {
 
   testthat::expect_equal(testScript, expectedScript)
 
+
+  # Test databases list, runs only locally
+  # source(testthat::test_path("00-databases.R"))
+  # testthat::expect_equal(mappingNames(), c("IsoMemo", "Field_Mapping"))
+  # testthat::expect_equal(dbnames(), c("14CSea", "LiVES", "IntChron", "CIMA", "CIMA2"))
+  # testthat::expect_equal(dbnames(mappingId = "Field_Mapping"), c("CIMA2"))
+  # rm(list = ls(envir = .GlobalEnv), envir = .GlobalEnv)
+
   # clean up
   unlink(testthat::test_path("02-Field_Mapping_CIMA2.R"))
   unlink(testthat::test_path("00-databases.R"))
@@ -92,6 +100,13 @@ testthat::test_that("Function createNewFileSource() for remote xlsx file", {
 
   testthat::expect_equal(testScript, expectedScript)
 
+  # Test databases list, runs only locally
+  # source(testthat::test_path("00-databases.R"))
+  # testthat::expect_equal(mappingNames(), c("IsoMemo", "Field_Mapping"))
+  # testthat::expect_equal(dbnames(), c("14CSea", "LiVES", "IntChron", "CIMA", "dbname"))
+  # testthat::expect_equal(dbnames(mappingId = "Field_Mapping"), c("dbname"))
+  # rm(list = ls(envir = .GlobalEnv), envir = .GlobalEnv)
+
   # clean up
   unlink(testthat::test_path("02-Field_Mapping_dbname.R"))
   unlink(testthat::test_path("00-databases.R"))
@@ -131,6 +146,13 @@ testthat::test_that("Function createNewFileSource() for local csv file", {
     )
 
   testthat::expect_equal(testScript, expectedScript)
+
+  # Test databases list, runs only locally
+  # source(testthat::test_path("00-databases.R"))
+  # testthat::expect_equal(dbnames(), c("14CSea", "LiVES", "IntChron", "CIMA", "dbname"))
+  # testthat::expect_equal(mappingNames(), c("IsoMemo", "Field_Mapping"))
+  # testthat::expect_equal(dbnames(mappingId = "Field_Mapping"), c("dbname"))
+  # rm(list = ls(envir = .GlobalEnv), envir = .GlobalEnv)
 
   # clean up
   unlink(testthat::test_path("02-Field_Mapping_dbname.R"))

@@ -16,7 +16,8 @@ testthat::test_that("Function updateDatabaseList()", {
     readLines(testthat::test_path("00-databases.R"))
 
   expectedScript <-
-    c("databases <- function() {",
+    c(
+      "databases <- function() {",
       "  list(",
       "    singleSource (",
       "      name = '14CSea',",
@@ -51,24 +52,33 @@ testthat::test_that("Function updateDatabaseList()", {
       "  )",
       "}",
       "",
-      "dbnames <- function() {",
-      "  unlist(lapply(databases(), `[[`, 'name'))",
+      "dbnames <- function(mappingId = NULL) {",
+      "  if (is.null(mappingId)) {",
+      "    unlist(lapply(databases(), `[[`, 'name'))",
+      "  } else {",
+      "    isMapping <-",
+      "      sapply(databases(), function(source)",
+      "        source[[\"mapping\"]] == mappingId)",
+      "    dbOfMapping <- databases()[isMapping]",
+      "    unlist(lapply(dbOfMapping, `[[`, 'name'))",
+      "  }",
       "}",
       "mappingNames <- function() {",
       "  unlist(lapply(databases(), `[[`, 'mapping')) %>%",
       "    unique()",
       "}",
-      "singleSource <- function(name, datingType, coordType, mapping, ...) {",
-      "  out <- list(",
-      "    name = name,",
-      "    datingType = datingType,",
-      "    coordType = coordType,",
-      "    mapping = mapping,",
-      "    ...",
+      "singleSource <-",
+      "  function(name, datingType, coordType, mapping, ...) {",
+      "    out <- list(",
+      "      name = name,",
+      "      datingType = datingType,",
+      "      coordType = coordType,",
+      "      mapping = mapping,",
+      "      ...",
       "    )",
-      "  class(out) <- c(name, 'list')",
-      "  out",
-      "}"
+      "    class(out) <- c(name, 'list')",
+      "    out",
+      "  }"
     )
 
   testthat::expect_equal(testScript, expectedScript)
