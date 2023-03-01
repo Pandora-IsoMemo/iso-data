@@ -36,7 +36,7 @@ The Files `R/02-<datasource>.R` for different data sources may contain individua
 preparations that can be adjusted manually. For details compare e.g. `R/02-LiVES.R`, and read the 
 section [Modify An Existing Data Source](#modify-an-existing-data-source).
 
-### Specify the type of data
+### Specify the type of data and the data mapping
 
 For both ways to add data sources (from **database** or from **file**), four mandatory parameters must be specified:
 

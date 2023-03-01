@@ -1,5 +1,14 @@
 # MpiIsoData
 
+## Version 23.03.1
+
+### New features
+
+- option to add a new mapping and new sources was added to the functions `createNewDBSource()` and `createNewDBSource()`
+
+### Updates
+- update of the README.md with the description on how to add new sources and a new mapping
+
 ## Version 22.06.1
 
 ### New features
