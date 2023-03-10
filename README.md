@@ -9,9 +9,7 @@ This ReadMe contains instructions on how to:
 
 - [Add a New Data Source](#add-a-new-data-source)
 - [Modify an Existing Data Source](#modify-an-existing-data-source)
-- [Test the ETL process of the Data Sources](#test-the-etl-process-of-the-data-sources)
-- [Test the Code](#test-the-code)
-- [Deployment](#deployment)
+- [ETL process of the Data Sources](#etl-process-of-the-data-sources)
 - [Access to Data](#access-to-data)
 
 ## Add a New Data Source
@@ -120,7 +118,9 @@ extract.testdb <- function(x) {
 }
 ```
 
-## Test the ETL process of the Data Sources
+## ETL process of the Data Sources
+
+### Test the ETL process
 
 Run the following commands in R to install the package locally and run the extract function.
 
@@ -146,7 +146,7 @@ res <- etlTest(databases()[n])
 
 Results will be in the object res[[1]]$dat
 
-## Test the Code
+### Test the Code
 
 Test your code by running
 
@@ -154,7 +154,7 @@ Test your code by running
 devtools::check()
 ```
 
-## Deployment
+### Deployment
 
 Code from the main branch will be automatically deployed to the dev system on the MPI server (given successful `devtools::check()`) and will be on the beta version of the API and App
 
