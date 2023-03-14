@@ -56,5 +56,5 @@ report.default <- function(x, ...) {
     nrow = nrow(x$dat),
     stringsAsFactors = FALSE
   )
-  invisible(x$sendReport(updated, "updated"))
+  invisible(x$sendReport(updated, table = "updated", mode = "insert"))
 }
