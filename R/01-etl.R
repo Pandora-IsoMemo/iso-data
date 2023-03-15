@@ -55,7 +55,7 @@ report.default <- function(x, ...) {
     timestamp = as.character(Sys.time()),
     # hard-coded: currently mappingIds exist already on the DB but not yet on the beta branch
     mappingId = "IsoMemo",
-    nrow = nrow(x$dat),
+    rows = nrow(x$dat),
     stringsAsFactors = FALSE
   )
   invisible(x$sendReport(updated, table = "updated", mode = "insert"))
