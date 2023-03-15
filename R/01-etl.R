@@ -52,7 +52,7 @@ report.default <- function(x, ...) {
   logDebug("Entering default 'report' for '%s'", x$name)
   updated <- data.frame(
     tableName = x$name,
-    completed = as.character(Sys.time()),
+    timestamp = as.character(Sys.time()),
     # hard-coded: currently mappingIds exist already on the DB but not yet on the beta branch
     mappingId = "IsoMemo",
     nrow = nrow(x$dat),
