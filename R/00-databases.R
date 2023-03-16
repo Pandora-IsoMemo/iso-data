@@ -32,6 +32,7 @@ singleSource <- function(name, datingType, coordType, ...) {
     name = name,
     datingType = datingType,
     coordType = coordType,
+    sendReport = sendDataMPI,
     ...
   )
   class(out) <- c(name, "list")
