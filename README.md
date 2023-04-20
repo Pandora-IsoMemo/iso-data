@@ -156,15 +156,16 @@ devtools::check()
 
 ### Deployment
 
-Code from the main branch will be automatically deployed to the dev system on the MPI server (given successful `devtools::check()`) and will be on the beta version of the API and App
+Code from the main branch will be automatically deployed to the production system on the MPI server (given successful `devtools::check()`) and will be on the main version of the API and App.
 
-Code from the depl branch will be deployed to the production sytems (API and App)
+Respectively, code from the beta branch will be automatically deployed to the beta version of the API and App.
 
 ## Access to Data
 
 data is returned in JSON format
 
-- IsoData: https://isomemodb.com/testapi/v1/iso-data
+- IsoData: https://isomemodb.com/api/v1/iso-data
+- IsoData (beta): https://isomemodb.com/testapi/v1/iso-data
 
 You can use the following parameters:
 
@@ -178,7 +179,9 @@ https://isomemodb.com/api/v1/iso-data?dbsource=LiVES&category=Location&field=sit
 
 Helper endpoints
 
-- Databases: https://isomemodb.com/testapi/v1/dbsources
-- Mapping: https://isomemodb.com/testapi/v1/mapping
+- Databases: https://isomemodb.com/api/v1/dbsources
+- Databases (beta): https://isomemodb.com/testapi/v1/dbsources
+- Mapping: https://isomemodb.com/api/v1/mapping
+- Mapping (beta): https://isomemodb.com/testapi/v1/mapping
 
 For the production api use /api instead of /testapi

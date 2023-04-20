@@ -51,10 +51,12 @@ extract.default <- function(x, ...) {
 report.default <- function(x, ...) {
   logDebug("Entering default 'report' for '%s'", x$name)
   updated <- data.frame(
-    tableName = paste0(x$mapping, "_", x$name),
-    completed = as.character(Sys.time()),
-    nrow = nrow(x$dat),
+    source = x$name,
+    timestamp = as.character(Sys.time()),
+    # hard-coded: currently mappingIds exist already on the DB but not yet on the beta branch etl
+    mappingId = "IsoMemo",
+    rows = nrow(x$dat),
     stringsAsFactors = FALSE
   )
-  invisible(x$sendReport(updated, "updated"))
+  invisible(x$sendReport(updated, table = "updated", mode = "insert"))
 }
