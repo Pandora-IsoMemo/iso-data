@@ -53,7 +53,7 @@ report.default <- function(x, ...) {
   updated <- data.frame(
     source = x$name,
     timestamp = as.character(Sys.time()),
-    # hard-coded: currently mappingIds exist already on the DB but not yet on the beta branch
+    # hard-coded: currently mappingIds exist already on the DB but not yet on the beta branch etl
     mappingId = "IsoMemo",
     rows = nrow(x$dat),
     stringsAsFactors = FALSE
