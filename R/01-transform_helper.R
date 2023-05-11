@@ -5,7 +5,7 @@ mapFields <- function(isoData, mapping, dataBase){
   names(isoData) <- stri_escape_unicode(names(isoData))
 
   fields <- mapping %>%
-    select(shiny, db = dataBase)
+    select(.data$shiny, db = dataBase)
 
   fieldsRename <- fields %>%
     filter(!is.na(.data$db), nchar(.data$db) > 0)
