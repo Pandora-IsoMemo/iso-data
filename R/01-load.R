@@ -12,7 +12,7 @@ load.default <- function(x, ...) {
   if (nrow(df) > 0){
     dataTblName <- paste0(mapping, "_data")
     colDefs <- getColDefs(dat = data, table = dataTblName)
-    logging("Send:   %s", dataTblName)
+    logging("Send:   %s, %s, %s", dataTblName, db, colDefs)
     sendQueryMPI("mappingId_data", tableName = dataTblName, dbSource = db, colDefs = colDefs)
 
     # not re-create but only update the tables "extraCharacter", "extraNumeric", "warning":
