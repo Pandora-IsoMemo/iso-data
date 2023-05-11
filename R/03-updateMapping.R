@@ -8,13 +8,20 @@ utils::globalVariables(c("shiny", "fieldType", "category"))
 #'
 #' @export
 etlMapping <- function(){
-  mappingTable <- getMappingTable()
+  for (mappingName in mappingNames()) {
+    mappingTable <- getMappingTable(mappingName = mappingName)
 
-  mapping <- mappingTable %>%
-    select(shiny, fieldType, category)
+    mappingTable <- mappingTable %>%
+      select(shiny, fieldType, category)
 
-  sendDataMPI(mapping, table = "mapping", mode = "truncate")
+    mappingTable <- cbind(mappingId = mappingName, mappingTable)
 
+    sendQueryMPI(
+      dbtools::Query("DELETE FROM `mapping` WHERE `mappingId` = '{{ mappingId }}';",
+                     mappingId = mappingName)
+    )
+    sendDataMPI(mappingTable, table = "mapping", mode = "insert")
+  }
   ## mappingSource <- mappingTable %>%
   ##   select(-fieldType, -category) %>%
   ##   gather("source", "field", -"shiny") %>%

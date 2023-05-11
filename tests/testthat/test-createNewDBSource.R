@@ -14,57 +14,67 @@ testthat::test_that("Function createNewDBSource()", {
     tableName = "myTable",
     datingType = "radiocarbon",
     coordType = "decimal degrees",
+    mappingName = "myMapping",
     scriptFolder = testthat::test_path(),
-    rootFolder = testthat::test_path()
+    rootFolder = testthat::test_path(),
+    isTest = TRUE
   )
 
+  # test extract script
   testScript <-
-    readLines(testthat::test_path("02-MYDBNAME.R")) %>%
-    cleanUpScript()
-
-  testRenviron <-
-    readLines(testthat::test_path(".Renviron")) %>%
+    readLines(testthat::test_path("02-myMapping_myDBname.R")) %>%
     cleanUpScript()
 
   expectedScript <-
     c(
-      "extract.MYDBNAME <- function(x) {",
-      "  isoData <- getMYDBNAME()",
+      "extract.myDBname <- function(x) {",
+      "  isoData <- get_myDBname()",
       "  x$dat <- isoData",
       "  x",
       "}",
-      "credsMYDBNAME <- function() {",
+      "creds_myDBname <- function() {",
       "  Credentials(",
       "    drv = RMySQL::MySQL,",
-      "    user = Sys.getenv(\"MYDBNAME_USER\"),",
-      "    password = Sys.getenv(\"MYDBNAME_PASSWORD\"),",
-      "    dbname = Sys.getenv(\"MYDBNAME_NAME\"),",
-      "    host = Sys.getenv(\"MYDBNAME_HOST\"),",
-      "    port = as.numeric(Sys.getenv(\"MYDBNAME_PORT\"))",
+      "    user = Sys.getenv('MYDBNAME_USER'),",
+      "    password = Sys.getenv('MYDBNAME_PASSWORD'),",
+      "    dbname = Sys.getenv('MYDBNAME_NAME'),",
+      "    host = Sys.getenv('MYDBNAME_HOST'),",
+      "    port = as.numeric(Sys.getenv('MYDBNAME_PORT'))",
       "  )",
       "}",
-      "getMYDBNAME <- function() {",
-      "  query <- \"select * from myTable;\"",
-      "  dbtools::sendQuery(credsMYDBNAME(), query)",
+      "get_myDBname <- function() {",
+      "  query <- 'select * from myTable;'",
+      "  dbtools::sendQuery(creds_myDBname(), query)",
       "}"
-    )
-  # readLines(testthat::test_path("examples", "02-template-db.R")) %>%
-  # cleanUpScript()
-
-  expectedRenviron <-
-    c(
-      "MYDBNAME_DBNAME=\"myDB\"",
-      "MYDBNAME_USER=\"myUser\"",
-      "MYDBNAME_PASSWORD=\"myPw\"",
-      "MYDBNAME_HOST=\"abc-dbxy.fgj.com\"",
-      "MYDBNAME_PORT=567"
     )
 
   testthat::expect_equal(testScript, expectedScript)
+
+  # test Renviron
+  testRenviron <-
+    readLines(testthat::test_path(".Renviron")) %>%
+    cleanUpScript()
+
+  expectedRenviron <-
+    c(
+      "MYDBNAME_DBNAME='myDB'",
+      "MYDBNAME_USER='myUser'",
+      "MYDBNAME_PASSWORD='myPw'",
+      "MYDBNAME_HOST='abc-dbxy.fgj.com'",
+      "MYDBNAME_PORT=567"
+    )
+
   testthat::expect_equal(testRenviron, expectedRenviron)
 
+  # test databases list, runs only locally
+  # source(testthat::test_path("00-databases.R"))
+  # testthat::expect_equal(mappingNames(), c("IsoMemo", "myMapping"))
+  # testthat::expect_equal(dbnames(), c("14CSea", "LiVES", "IntChron", "CIMA", "myDBname"))
+  # testthat::expect_equal(dbnames(mappingId = "myMapping"), c("myDBname"))
+  # rm(list = ls(envir = .GlobalEnv), envir = .GlobalEnv)
+
   # clean up
-  unlink(testthat::test_path("02-MYDBNAME.R"))
+  unlink(testthat::test_path("02-myMapping_myDBname.R"))
   unlink(testthat::test_path(".Renviron"))
   unlink(testthat::test_path("00-databases.R"))
 })
@@ -72,7 +82,7 @@ testthat::test_that("Function createNewDBSource()", {
 
 testthat::test_that("Function setupRenviron()", {
   setupRenviron(
-    dataSourceName = formatDBName("gh-67*"),
+    dataSourceName = formatDataSourceName("gh-67*", toUpper = TRUE),
     dbName = "myDB",
     dbUser = "myUser",
     dbPassword = "myPw",
@@ -87,17 +97,17 @@ testthat::test_that("Function setupRenviron()", {
 
   expectedScript <-
     c(
-      "GH_67_DBNAME=\"myDB\"",
-      "GH_67_USER=\"myUser\"",
-      "GH_67_PASSWORD=\"myPw\"",
-      "GH_67_HOST=\"abc-dbxy.fgj.com\"",
+      "GH_67_DBNAME='myDB'",
+      "GH_67_USER='myUser'",
+      "GH_67_PASSWORD='myPw'",
+      "GH_67_HOST='abc-dbxy.fgj.com'",
       "GH_67_PORT=567"
     )
 
   testthat::expect_equal(testScript, expectedScript)
 
   setupRenviron(
-    dataSourceName = formatDBName("dbXYZ"),
+    dataSourceName = formatDataSourceName("dbXYZ", toUpper = TRUE),
     dbName = "myDB2",
     dbUser = "myUser2",
     dbPassword = "myPw2",
@@ -112,15 +122,15 @@ testthat::test_that("Function setupRenviron()", {
 
   expectedScript <-
     c(
-      "GH_67_DBNAME=\"myDB\"",
-      "GH_67_USER=\"myUser\"",
-      "GH_67_PASSWORD=\"myPw\"",
-      "GH_67_HOST=\"abc-dbxy.fgj.com\"",
+      "GH_67_DBNAME='myDB'",
+      "GH_67_USER='myUser'",
+      "GH_67_PASSWORD='myPw'",
+      "GH_67_HOST='abc-dbxy.fgj.com'",
       "GH_67_PORT=567",
-      "DBXYZ_DBNAME=\"myDB2\"",
-      "DBXYZ_USER=\"myUser2\"",
-      "DBXYZ_PASSWORD=\"myPw2\"",
-      "DBXYZ_HOST=\"mno-dbxy.stu.com\"",
+      "DBXYZ_DBNAME='myDB2'",
+      "DBXYZ_USER='myUser2'",
+      "DBXYZ_PASSWORD='myPw2'",
+      "DBXYZ_HOST='mno-dbxy.stu.com'",
       "DBXYZ_PORT=567"
     )
 
@@ -128,72 +138,4 @@ testthat::test_that("Function setupRenviron()", {
 
   # clean up
   unlink(testthat::test_path(".Renviron"))
-})
-
-
-testthat::test_that("Function updateDatabaseList()", {
-  file.copy(
-    from = file.path(testthat::test_path("examples"), "00-databases.R"),
-    to = file.path(testthat::test_path(), "00-databases.R")
-  )
-
-  updateDatabaseList(
-    dataSourceName = formatDBName("abc#123"),
-    datingType = "radiocarbonXYZ",
-    coordType = "ABC degrees",
-    scriptFolder = testthat::test_path()
-  )
-
-  testScript <-
-    readLines(testthat::test_path("00-databases.R"))
-
-  expectedScript <-
-    c(
-      "databases <- function() {",
-      "  list(",
-      "    singleSource (",
-      "      name = '14CSea',",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = \"decimal degrees\"",
-      "    ),",
-      "    singleSource (",
-      "      name = 'LiVES',",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = NA",
-      "    ),",
-      "    singleSource (",
-      "      name = 'IntChron',",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = \"decimal degrees\"",
-      "    ),",
-      "    singleSource (",
-      "      name = \"CIMA\",",
-      "      datingType = \"radiocarbon\",",
-      "      coordType = \"decimal degrees\"",
-      "        ),",
-      "        singleSource (",
-      "          name = \"ABC_123\",",
-      "          datingType = \"radiocarbonXYZ\",",
-      "          coordType = \"ABC degrees\"",
-      "    )",
-      "  )",
-      "}",
-      "",
-      "dbnames <- function() {",
-      "  unlist(lapply(databases(), `[[`, \"name\"))",
-      "}",
-      "singleSource <- function(name, datingType, coordType, ...) {",
-      "  out <- list(name = name,",
-      "              datingType = datingType,",
-      "              coordType = coordType,",
-      "              ...)",
-      "  class(out) <- c(name, \"list\")",
-      "  out",
-      "}"
-    )
-
-  testthat::expect_equal(testScript, expectedScript)
-
-  # clean up
-  unlink(testthat::test_path("00-databases.R"))
 })

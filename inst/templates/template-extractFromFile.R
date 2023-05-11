@@ -1,6 +1,7 @@
-# Set up for a data source from a file
+# Set up extract function for a file source ----
 
 extract.{{ dataSourceName }} <- function(x) {
+  logDebug("Entering extract method for '%s'", x$name)
   # DO NOT MODIFY:
   # path to file
   dataFile <- {{ filePath }}

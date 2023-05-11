@@ -2,7 +2,7 @@ context("data explorer get mapping table")
 
 testthat::test_that("function getMappingTable", {
 
-  mapping <- getMappingTable()
+  mapping <- getMappingTable(mappingName = "Field_Mapping")
   testthat::expect_is(mapping, "data.frame")
   testthat::expect_true(nrow(mapping) > 0)
   testthat::expect_true(all(c("shiny", "fieldType", "category") %in% names(mapping)))

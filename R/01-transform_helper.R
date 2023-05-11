@@ -1,7 +1,6 @@
-# To prevent R CMD check from Complaining in line
-# filter(!is.na(db), nchar(db) > 0)
-utils::globalVariables("db")
+# this script contains functions needed for the transform step of the etl
 
+# Apply the mapping table ----
 mapFields <- function(isoData, mapping, dataBase){
   names(isoData) <- stri_escape_unicode(names(isoData))
 
@@ -9,7 +8,7 @@ mapFields <- function(isoData, mapping, dataBase){
     select(shiny, db = dataBase)
 
   fieldsRename <- fields %>%
-    filter(!is.na(db), nchar(db) > 0)
+    filter(!is.na(.data$db), nchar(.data$db) > 0)
 
   # partial matches
   pMatch <- lapply(fieldsRename$db, function(x){
@@ -25,7 +24,7 @@ mapFields <- function(isoData, mapping, dataBase){
   #
 
   fieldsRename <- fieldsRename %>%
-    filter(db %in% names(isoData))
+    filter(.data$db %in% names(isoData))
 
   isoData <- isoData %>%
     dplyr::rename_at(dplyr::vars(fieldsRename$db), ~ fieldsRename$shiny)
@@ -40,16 +39,7 @@ mapFields <- function(isoData, mapping, dataBase){
   return(isoData)
 }
 
-setVariableType <- function(isoData, mapping){
-  isoData <- isoData[, mapping$shiny]
-  isoData[mapping$fieldType == "numeric"] <-
-    sapply(isoData[mapping$fieldType == "numeric"],
-           function(x) suppressWarnings(as.numeric(x)))
-  isoData[mapping$fieldType == "character"] <-
-    sapply(isoData[mapping$fieldType == "character"],
-           function(x) suppressWarnings(as.character(x)))
-  return(isoData)
-}
+# Set IDs ----
 
 handleIDs <- function(isoData){
   isoData$id <- as.character(isoData$id)
@@ -86,6 +76,45 @@ handleIDs <- function(isoData){
   isoData
 }
 
+# Prepare data ----
+
+#' Prepare Data
+#'
+#' Prepares data within the transform step of the ETL. Following updates are done:
+#' types of variables are set, latitude and longitude is converted into decimal degrees,
+#' implausible latitude and longitude values are deleted, DOIs are added.
+#'
+#' @param isoData mapped data
+#' @param mapping mapping table that was used
+#' @inheritParams createNewFileSource
+prepareData <- function(isoData, mapping, coordType){
+  logging("... set variable types ... ")
+  isoData <- setVariableType(isoData, mapping)
+
+  if (coordType %in% c("decimal degrees", "degrees decimal minutes", "degrees minutes seconds")) {
+    logging("... convert latitude and longitude into decimal degrees ... ")
+    isoData <- convertLatLong(isoData, coordType = coordType)
+    logging("... delete implausible latitude and longitude values ... ")
+    isoData <- deleteInplausibleLatLong(isoData)
+  } else if (!is.na(coordType)) {
+    warning("CoordType not valid. Conversion of latitude and longitude skipped.")
+  }
+
+  logging("... add DOIs. ")
+  isoData <- addDOIs(isoData)
+  isoData
+}
+
+setVariableType <- function(isoData, mapping){
+  isoData <- isoData[, mapping$shiny]
+  isoData[mapping$fieldType == "numeric"] <-
+    sapply(isoData[mapping$fieldType == "numeric"],
+           function(x) suppressWarnings(as.numeric(x)))
+  isoData[mapping$fieldType == "character"] <-
+    sapply(isoData[mapping$fieldType == "character"],
+           function(x) suppressWarnings(as.character(x)))
+  return(isoData)
+}
 
 deleteInplausibleLatLong <- function(isoData){
   inplausibleLong <- !is.na(isoData$longitude) & (
@@ -124,16 +153,8 @@ deleteInplausibleLatLong <- function(isoData){
 
 convertLatLong <- function(isoData, coordType,
                            latitude = "latitude", longitude = "longitude"){
-  isoData[, longitude] <- convertCoordinates(isoData[, longitude], coordType)
-  isoData[, latitude] <- convertCoordinates(isoData[, latitude], coordType)
-  isoData
-}
-
-prepareData <- function(isoData, mapping, CoordType){
-  isoData <- setVariableType(isoData, mapping)
-  isoData <- deleteInplausibleLatLong(isoData)
-  isoData <- convertLatLong(isoData, coordType = "decimal degrees")
-  isoData <- addDOIs(isoData)
+  isoData[, longitude] <- convertCoordinates(isoData[, longitude], from = coordType)
+  isoData[, latitude] <- convertCoordinates(isoData[, latitude], from = coordType)
   isoData
 }
 
@@ -177,22 +198,3 @@ addWarning <- function(isoData, id, warning){
   )
   isoData
 }
-
- paste2 <- function (..., sep = " ", collapse = NULL, recycle0 = FALSE) {
-      args <- list(...)
-
-      args <- lapply(args, function(x) {
-          x[is.na(x)] <- ""
-          x
-      })
-
-      args$sep <- sep
-      args$collapse <- collapse
-      args$recycle0 <- recycle0
-
-      trimws(do.call(paste, args))
-  }
-
-  isEmpty <- function(x) {
-    is.null(x) | is.na(x) | x == ""
-  }

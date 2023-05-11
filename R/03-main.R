@@ -6,6 +6,8 @@
 #'
 #' @export
 main <- function(sources = databases()) {
+  # sources will be a list of groups of sources ...
+  # clarify if etl for each group separately or if sources <- unlist(sources, recursive = FALSE)
   res <- lapply(sources, function(x) try(etl(x)))
   invisible(
     if (any(unlist(lapply(res, inherits, what = "try-error")))) 1
