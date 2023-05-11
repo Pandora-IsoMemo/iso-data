@@ -12,18 +12,22 @@ load.default <- function(x, ...) {
   if (nrow(df) > 0){
     # check if table "{{ mapping }}_data" exists
     dataTbl <- paste0(mapping, "_data")
+    logging("table exists qry:      %s", tableExistsQry(dataTbl))
     tableExists <- sendQueryMPI(tableExistsQry(dataTbl))
     if (tableExists == 1) {
       # update table:
+      logging("delete old qry:      %s", deleteOldDataQry(dataTbl, source = db))
       sendQueryMPI(deleteOldDataQry(dataTbl, source = db));
       sendDataMPI(data, table = dataTbl, mode = "insert")
     } else {
       # create table:
+      logging("create table qry:      %s", deleteOldDataQry(dataTbl, source = db))
       sendQueryMPI(createTableQry(data, table = dataTbl))
       # update table:
       sendDataMPI(data, table = dataTbl, mode = "insert")
     }
 
+    logging("delete old qry:      %s", deleteOldDataQry("extraCharacter", mappingId = mapping, source = db))
     # only update the tables "extraCharacter", "extraNumeric", "warning":
     sendQueryMPI(deleteOldDataQry("extraCharacter", mappingId = mapping, source = db))
     sendQueryMPI(deleteOldDataQry("extraNumeric", mappingId = mapping, source = db))
