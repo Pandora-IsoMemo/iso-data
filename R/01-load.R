@@ -10,90 +10,38 @@ load.default <- function(x, ...) {
   extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
   if (nrow(df) > 0){
-    # check if table "{{ mapping }}_data" exists
-    dataTbl <- paste0(mapping, "_data")
-    logging("table exists qry:      %s", tableExistsQry(dataTbl))
-    tableExists <- sendQueryMPI(tableExistsQry(dataTbl))
-    if (tableExists == 1) {
-      # update table:
-      logging("delete old qry:      %s", deleteOldDataQry(dataTbl, source = db))
-      sendQueryMPI(deleteOldDataQry(dataTbl, source = db));
-      sendDataMPI(data, table = dataTbl, mode = "insert")
-    } else {
-      # create table:
-      logging("create table qry:      %s", deleteOldDataQry(dataTbl, source = db))
-      sendQueryMPI(createTableQry(data, table = dataTbl))
-      # update table:
-      sendDataMPI(data, table = dataTbl, mode = "insert")
-    }
+    dataTblName <- paste0(mapping, "_data")
+    colDefs <- getColDefs(dat = data, table = dataTblName)
+    logging("Send:   %s", dataTblName)
+    sendQueryMPI("mappingId_data", tableName = dataTblName, dbSource = db, colDefs = colDefs)
 
-    logging("delete old qry:      %s", deleteOldDataQry("extraCharacter", mappingId = mapping, source = db))
-    # only update the tables "extraCharacter", "extraNumeric", "warning":
-    sendQueryMPI(deleteOldDataQry("extraCharacter", mappingId = mapping, source = db))
-    sendQueryMPI(deleteOldDataQry("extraNumeric", mappingId = mapping, source = db))
-    sendQueryMPI(deleteOldDataQry("warning", mappingId = mapping, source = db))
+    # not re-create but only update the tables "extraCharacter", "extraNumeric", "warning":
+    logging("Send:   %s", "deleteOldData")
+    sendQueryMPI("deleteOldData", tableName = "extraCharacter", mappingId = mapping, dbSource = db)
+    sendQueryMPI("deleteOldData", tableName = "extraNumeric", mappingId = mapping, dbSource = db)
+    sendQueryMPI("deleteOldData", tableName = "warning", mappingId = mapping, dbSource = db)
 
+    logging("Send:   %s", "extraCharacter")
     sendDataMPI(extraCharacter, table = "extraCharacter", mode = "insert")
+    logging("Send:   %s", "extraNumeric")
     sendDataMPI(extraNumeric, table = "extraNumeric", mode = "insert")
   }
 
   x
 }
 
-#' Table exists query
+#' Get Col Defs
 #'
-#' Gives a query to check if a table exists
+#' Get definitions of columns to create a new table
 #'
-#' @param table (character) name of the table
-tableExistsQry <- function(table) {
-  dbtools::Query(
-    "IF OBJECT_ID ('{{ table }}', 'U') IS NOT NULL SELECT 1 AS res ELSE SELECT 0 AS res;",
-    table = table
-    )
-}
-
-#' Delete Old Data Query
-#'
-#' Gives a query to delete old data from a table for a specific source (and mapping if given)
-#'
-#' @param table (character) name of the table
-#' @param source (character) name of the source
-#' @param mappingId (character) name of the mapping
-deleteOldDataQry <- function(table, source, mappingId = NULL){
-  if (is.null(mappingId)) {
-    dbtools::Query(
-      "DELETE FROM `{{ table }}` WHERE `source` = '{{ source }}';",
-      table = table,
-      source = source
-    )
-  } else {
-    dbtools::Query(
-      "DELETE FROM `{{ table }}` WHERE `mappingId` = '{{ mappingId }}' AND `source` = '{{ source }}';",
-      table  = table,
-      mappingId = mappingId,
-      source = source
-    )
-  }
-}
-
-#' Create Table Query
-#'
-#' Gives a query to create a new table taking into account the column types of given data
-#'
-#' @param dat (data.frame) data to create the table for
-#' @param table (character) name of the new table
-createTableQry <- function(dat, table) {
+#' @param dat (data.frame) data
+#' @param table (character) table name
+getColDefs <- function(dat, table) {
   defaultTypes <- getDefaultDataTypes(dat)
 
   tableCols <-  sapply(names(defaultTypes), function(x) dbtools::sqlEsc(x, with = "'"))
-  colDefs <- paste(tableCols, defaultTypes) %>%
+  paste(tableCols, defaultTypes) %>%
     paste0(collapse = ", ")
-
-  dbtools::Query(
-    "CREATE TABLE IF NOT EXISTS `{{ table }}` ({{ colDefs }}, PRIMARY KEY (`source`,`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8;",
-    table = table,
-    colDefs = colDefs
-  )
 }
 
 #' Get Default Data Types

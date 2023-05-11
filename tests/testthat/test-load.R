@@ -1,21 +1,4 @@
-test_that("deleteOldDataQry", {
-  testMapping <- "IsoMemo"
-  for (db in dbnames()) {
-    expect_equal(
-      deleteOldDataQry(paste0(testMapping, "_data"), source = db) %>% as.character(),
-      paste0("DELETE FROM `IsoMemo_data` WHERE `source` = '", db, "';")
-    )
-  }
-
-  for (db in dbnames()) {
-    expect_equal(
-      deleteOldDataQry(table = "extraCharacter", source = db, mappingId = testMapping) %>% as.character(),
-      paste0("DELETE FROM `extraCharacter` WHERE `mappingId` = 'IsoMemo' AND `source` = '", db, "';")
-    )
-  }
-})
-
-test_that("createTableQry", {
+test_that("getColDefs", {
   testData <-
     structure(
       list(
@@ -41,9 +24,8 @@ test_that("createTableQry", {
     )
 
   expect_equal(
-    createTableQry(testData, table = "IsoMemo_data") %>% as.character(),
-    paste0("CREATE TABLE IF NOT EXISTS `IsoMemo_data` (",
-           "'source' varchar(50) NOT NULL, ",
+    getColDefs(testData, table = "IsoMemo_data"),
+    paste0("'source' varchar(50) NOT NULL, ",
            "'id' varchar(50) NOT NULL, ",
            "'description' varchar(50) NOT NULL, ",
            "'d13C' decimal(12,6) DEFAULT NULL, ",
@@ -58,8 +40,6 @@ test_that("createTableQry", {
            "'datingType' varchar(50) NOT NULL, ",
            "'calibratedDate' decimal(12,6) DEFAULT NULL, ",
            "'calibratedDateLower' decimal(12,6) DEFAULT NULL, ",
-           "'calibratedDateUpper' decimal(12,6) DEFAULT NULL, ",
-           "PRIMARY KEY (`source`,`id`)",
-           ") ENGINE=InnoDB DEFAULT CHARSET=utf8;")
+           "'calibratedDateUpper' decimal(12,6) DEFAULT NULL")
   )
 })
