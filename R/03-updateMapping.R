@@ -12,7 +12,7 @@ etlMapping <- function(){
 
     mappingTable <- cbind(mappingId = mappingName, mappingTable)
 
-    sendQueryMPI("deleteOldMapping", mappingId = mappingName)
+    sendQueryMPI("deleteOldMapping", mappingId = dbtools::sqlEsc(mappingName, with = "'"))
     sendDataMPI(mappingTable, table = "mapping", mode = "insert")
   }
   ## mappingSource <- mappingTable %>%

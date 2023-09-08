@@ -1,1 +1,1 @@
-DELETE FROM `mapping` WHERE `mappingId` = `{{ mappingId }}`;
+DELETE FROM `mapping` WHERE `mappingId` = {{ mappingId }};
