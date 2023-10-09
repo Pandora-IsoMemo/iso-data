@@ -25,21 +25,6 @@ test_that("getColDefs", {
 
   expect_equal(
     getColDefs(testData, table = "IsoMemo_data"),
-    paste0("'source' varchar(50) NOT NULL, ",
-           "'id' varchar(50) NOT NULL, ",
-           "'description' varchar(50) NOT NULL, ",
-           "'d13C' decimal(12,6) DEFAULT NULL, ",
-           "'d15N' decimal(12,6) DEFAULT NULL, ",
-           "'latitude' decimal(12,6) DEFAULT NULL, ",
-           "'longitude' decimal(12,6) DEFAULT NULL, ",
-           "'site' varchar(50) NOT NULL, ",
-           "'dateMean' decimal(12,6) DEFAULT NULL, ",
-           "'dateLower' decimal(12,6) DEFAULT NULL, ",
-           "'dateUpper' decimal(12,6) DEFAULT NULL, ",
-           "'dateUncertainty' decimal(12,6) DEFAULT NULL, ",
-           "'datingType' varchar(50) NOT NULL, ",
-           "'calibratedDate' decimal(12,6) DEFAULT NULL, ",
-           "'calibratedDateLower' decimal(12,6) DEFAULT NULL, ",
-           "'calibratedDateUpper' decimal(12,6) DEFAULT NULL")
+    "`source` varchar(50) NOT NULL, `id` varchar(50) NOT NULL, `description` varchar(50) NOT NULL, `d13C` decimal(12,6) DEFAULT NULL, `d15N` decimal(12,6) DEFAULT NULL, `latitude` decimal(12,6) DEFAULT NULL, `longitude` decimal(12,6) DEFAULT NULL, `site` varchar(50) NOT NULL, `dateMean` decimal(12,6) DEFAULT NULL, `dateLower` decimal(12,6) DEFAULT NULL, `dateUpper` decimal(12,6) DEFAULT NULL, `dateUncertainty` decimal(12,6) DEFAULT NULL, `datingType` varchar(50) NOT NULL, `calibratedDate` decimal(12,6) DEFAULT NULL, `calibratedDateLower` decimal(12,6) DEFAULT NULL, `calibratedDateUpper` decimal(12,6) DEFAULT NULL"
   )
 })
