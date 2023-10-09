@@ -12,7 +12,7 @@ getIntChron <- function(){
   # updateIntChron
   # Scrapes the IntChron data from the given URL.
 
-  URL <- "http://intchron.org/doi"
+  URL <- "https://intchron.org/doi"
 
   message("IntChron data update in progress.. this may take a couple of minutes.")
 
@@ -37,7 +37,7 @@ getIntChron <- function(){
 
   readIt <- function(x, verbose = TRUE){
     if (verbose) cat("Reading ", x, "\n")
-    xml2::read_html(x)
+    x %>% trimws() %>% xml2::read_html(x)
   }
 
   if (isTest()) data <- data[sample(1:nrow(data), 5), ]
