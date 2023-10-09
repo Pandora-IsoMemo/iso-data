@@ -4,10 +4,12 @@
 \alias{cleanUp}
 \title{Clean up database}
 \usage{
-cleanUp(mappingNames = mappingNames())
+cleanUp(mappings = mappingNames(), sources = dbnames())
 }
 \arguments{
-\item{mappingNames}{mappings to be used}
+\item{mappings}{mappings to be used}
+
+\item{sources}{sources to be used}
 }
 \description{
 Clean up database
