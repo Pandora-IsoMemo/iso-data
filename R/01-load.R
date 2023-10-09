@@ -12,15 +12,29 @@ load.default <- function(x, ...) {
   if (nrow(df) > 0){
     dataTblName <- paste0(mapping, "_data")
     colDefs <- getColDefs(dat = data, table = dataTblName)
-    logging("Send:   %s, %s, %s", dataTblName, db, colDefs)
-    sendQueryMPI("mappingId_data", tableName = dataTblName, dbSource = db, colDefs = colDefs)
+    logging("Create table if not exists:   %s,   %s", dataTblName, colDefs)
+    logging("Delete old data of source:   %s", db)
+    sendQueryMPI("mappingId_data",
+                 tableName = dbtools::sqlEsc(dataTblName, with = "`"),
+                 dbSource = dbtools::sqlEsc(db, with = "'"),
+                 colDefs = colDefs)
 
     # not re-create but only update the tables "extraCharacter", "extraNumeric", "warning":
-    logging("Send:   %s", "deleteOldData")
-    sendQueryMPI("deleteOldData", tableName = "extraCharacter", mappingId = mapping, dbSource = db)
-    sendQueryMPI("deleteOldData", tableName = "extraNumeric", mappingId = mapping, dbSource = db)
-    sendQueryMPI("deleteOldData", tableName = "warning", mappingId = mapping, dbSource = db)
+    sendQueryMPI("deleteOldData",
+                 tableName = dbtools::sqlEsc("extraCharacter", with = "`"),
+                 mappingId = dbtools::sqlEsc(mapping, with = "`"),
+                 dbSource = dbtools::sqlEsc(db, with = "'"))
+    sendQueryMPI("deleteOldData",
+                 tableName = dbtools::sqlEsc("extraNumeric", with = "`"),
+                 mappingId = dbtools::sqlEsc(mapping, with = "`"),
+                 dbSource = dbtools::sqlEsc(db, with = "'"))
+    sendQueryMPI("deleteOldData",
+                 tableName = dbtools::sqlEsc("warning", with = "`"),
+                 mappingId = dbtools::sqlEsc(mapping, with = "`"),
+                 dbSource = dbtools::sqlEsc(db, with = "'"))
 
+    logging("Send:   %s", dataTblName)
+    sendDataMPI(data, table = dataTblName, mode = "insert")
     logging("Send:   %s", "extraCharacter")
     sendDataMPI(extraCharacter, table = "extraCharacter", mode = "insert")
     logging("Send:   %s", "extraNumeric")
