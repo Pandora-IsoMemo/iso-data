@@ -5,13 +5,17 @@ load.default <- function(x, ...) {
   db <- x$name
   mapping <- x$mapping
 
-  data <- getDefaultData(df, db, mapping = mapping)
+  # exclude columns of extraVars(), the information is stored in extraCharacter and extraNumeric
+  data <- getDefaultData(df, db, mapping = mapping) %>%
+    select(!extraVars())
+
   extraCharacter <- getExtra(df, db, mapping = mapping, type = "character")
   extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
   if (nrow(df) > 0){
     dataTblName <- paste0(mapping, "_data")
     colDefs <- getColDefs(dat = data, table = dataTblName)
+
     logging("Create table if not exists:   %s,   %s", dataTblName, colDefs)
     logging("Delete old data of source:   %s", db)
     sendQueryMPI("mappingId_data",
@@ -22,15 +26,15 @@ load.default <- function(x, ...) {
     # not re-create but only update the tables "extraCharacter", "extraNumeric", "warning":
     sendQueryMPI("deleteOldData",
                  tableName = dbtools::sqlEsc("extraCharacter", with = "`"),
-                 mappingId = dbtools::sqlEsc(mapping, with = "`"),
+                 mappingId = dbtools::sqlEsc(mapping, with = "'"),
                  dbSource = dbtools::sqlEsc(db, with = "'"))
     sendQueryMPI("deleteOldData",
                  tableName = dbtools::sqlEsc("extraNumeric", with = "`"),
-                 mappingId = dbtools::sqlEsc(mapping, with = "`"),
+                 mappingId = dbtools::sqlEsc(mapping, with = "'"),
                  dbSource = dbtools::sqlEsc(db, with = "'"))
     sendQueryMPI("deleteOldData",
                  tableName = dbtools::sqlEsc("warning", with = "`"),
-                 mappingId = dbtools::sqlEsc(mapping, with = "`"),
+                 mappingId = dbtools::sqlEsc(mapping, with = "'"),
                  dbSource = dbtools::sqlEsc(db, with = "'"))
 
     logging("Send:   %s", dataTblName)
@@ -53,7 +57,7 @@ load.default <- function(x, ...) {
 getColDefs <- function(dat, table) {
   defaultTypes <- getDefaultDataTypes(dat)
 
-  tableCols <-  sapply(names(defaultTypes), function(x) dbtools::sqlEsc(x, with = "'"))
+  tableCols <-  sapply(names(defaultTypes), function(x) dbtools::sqlEsc(x, with = "`"))
   paste(tableCols, defaultTypes) %>%
     paste0(collapse = ", ")
 }

@@ -51,6 +51,7 @@ singleSource <-
       datingType = datingType,
       coordType = coordType,
       mapping = mapping,
+      sendReport = sendDataMPI,
       ...
     )
     class(out) <- c(name, 'list')
