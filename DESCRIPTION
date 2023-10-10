@@ -1,7 +1,7 @@
 Package: MpiIsoData
 Type: Package
 Title: Data for MPI Iso App
-Version: 23.03.1.1
+Version: 23.03.1.2
 Author: INWT Statistics GmbH
 Maintainer: INWT Statistics GmbH <info@inwt-statistics.de>
 Description: This package provides access to databases to use in the

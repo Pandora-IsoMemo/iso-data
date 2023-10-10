@@ -1,8 +1,10 @@
 #' Clean up database
-#' 
+#'
 #' @export
 cleanUp <- function(){
   sendQueryMPI(cleanUpQry("data"))
+  # update also new table 'IsoMemo_data'
+  sendQueryMPI(cleanUpQry("IsoMemo_data"))
   sendQueryMPI(cleanUpQry("extraCharacter"))
   sendQueryMPI(cleanUpQry("extraNumeric"))
   sendQueryMPI(cleanUpQry("warning"))

@@ -1,6 +1,6 @@
 load.default <- function(x, ...) {
   logDebug("Entering 'default' lload method for '%s'", x$name)
-  
+
   df <- x$dat
   db <- x$name
 
@@ -10,11 +10,14 @@ load.default <- function(x, ...) {
 
   if (nrow(df) > 0){
     sendQueryMPI(paste0("DELETE FROM `data` WHERE `source` = '", db, "';"));
+    # update also new table 'IsoMemo_data'
+    sendQueryMPI(paste0("DELETE FROM `IsoMemo_data` WHERE `source` = '", db, "';"));
     sendQueryMPI(paste0("DELETE FROM `extraCharacter` WHERE `source` = '", db, "';"));
     sendQueryMPI(paste0("DELETE FROM `extraNumeric` WHERE `source` = '", db, "';"));
     sendQueryMPI(paste0("DELETE FROM `warning` WHERE `source` = '", db, "';"));
 
     sendDataMPI(data, table = "data", mode = "insert")
+    sendDataMPI(data, table = "IsoMemo_data", mode = "insert")
     sendDataMPI(extraCharacter, table = "extraCharacter", mode = "insert")
     sendDataMPI(extraNumeric, table = "extraNumeric", mode = "insert")
   }
@@ -32,7 +35,7 @@ getDefaultData <- function(df, db){
 
 getExtra <- function(df, db, type = "character"){
   variable <- value <- id <- NULL
-  
+
   defaultVars <- defaultVars()
   idVar <- names(df) == "id"
 
