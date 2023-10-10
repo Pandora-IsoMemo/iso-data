@@ -132,8 +132,11 @@ convertLatLong <- function(isoData, coordType,
 prepareData <- function(isoData, mapping, CoordType){
   isoData <- setVariableType(isoData, mapping)
   isoData <- deleteInplausibleLatLong(isoData)
+  logging("... Deleted implausible LatLon. Length of data: %i. ... ", nrow(isoData))
   isoData <- convertLatLong(isoData, coordType = "decimal degrees")
+  logging("... Converted LatLon. Length of data: %i. ... ", nrow(isoData))
   isoData <- addDOIs(isoData)
+  logging("... Added DOIs. Length of data: %i. ... ", nrow(isoData))
   isoData
 }
 

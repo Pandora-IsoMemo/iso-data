@@ -18,6 +18,7 @@ transform.default <- function(x, ...) {
     dat$datingType <- x$datingType
   }
 
+  logging("... Length of data from %s: %i Preparing data ... ", x$name, nrow(dat))
   dat <- prepareData(dat, mapping, x$coordType)
 
   x$dat <- dat
