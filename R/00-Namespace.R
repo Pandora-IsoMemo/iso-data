@@ -1,5 +1,6 @@
 #' @importFrom dplyr select filter tibble as_tibble select_if mutate
 #' @importFrom dbtools testConnection Credentials
+#' @importFrom httr GET timeout
 #' @importFrom magrittr "%>%"
 #' @importFrom openxlsx read.xlsx
 #' @importFrom stringi stri_escape_unicode

@@ -102,7 +102,7 @@ deleteInplausibleLatLong <- function(isoData){
     isoData$latitude == 0
   )
 
-  oldLat <- isoData$Latiude[inplausibleLat]
+  oldLat <- isoData$latitude[inplausibleLat]
   isoData$latitude[inplausibleLat] <- NA
 
   if (sum(inplausibleLong) > 0)
