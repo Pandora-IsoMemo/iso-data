@@ -27,6 +27,7 @@ transform.default <- function(x, ...) {
   #  - latitude and longitude is converted into decimal degrees
   #  - implausible latitude and longitude values are deleted
   #  - DOIs are added
+  logging("... Length of data from %s: %i Preparing data ... ", x$name, nrow(dat))
   dat <- prepareData(dat, mapping, x$coordType)
 
   x$dat <- dat
