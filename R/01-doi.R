@@ -7,7 +7,7 @@ addDOIs <- function(df) {
 }
 
 lookupReference <- function(txt) {
-    logging("Looking up %s", txt)
+    logging("Looking up %s at crossref.org", txt)
     url <- "https://api.crossref.org/works"
     res <- httr::GET(url, query = list(query.bibliographic = txt, rows = 1))
     data <- httr::content(res)
@@ -15,7 +15,7 @@ lookupReference <- function(txt) {
     doi <- try(data$message$items[[1]]$URL)
     if (inherits(doi, "try-error")) {
         doi <- NA
-        logging("No DOI found")
+        logging("Received error. No DOI found")
     } else {
         logging("Found DOI %s", doi)
     }
