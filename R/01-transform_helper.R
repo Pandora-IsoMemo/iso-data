@@ -91,13 +91,26 @@ prepareData <- function(isoData, mapping, coordType){
   logging("... set variable types ... ")
   isoData <- setVariableType(isoData, mapping)
 
+  if (is.na(coordType)) {
+    logging("... CoordType not specified. Trying 'decimal degrees' ... ")
+    tmpData <- try(convertLatLong(isoData, coordType = "decimal degrees"))
+    if (!inherits(tmpData, "try-error")) {
+      coordType <- "decimal degrees"
+    }
+  }
+
   if (coordType %in% c("decimal degrees", "degrees decimal minutes", "degrees minutes seconds")) {
     logging("... convert latitude and longitude into decimal degrees ... ")
     isoData <- convertLatLong(isoData, coordType = coordType)
     logging("... delete implausible latitude and longitude values ... ")
     isoData <- deleteInplausibleLatLong(isoData)
   } else if (!is.na(coordType)) {
+    logging("... CoordType not valid. Conversion of latitude and longitude skipped ... ")
     warning("CoordType not valid. Conversion of latitude and longitude skipped.")
+  } else {
+    # if still is.na(coordType)
+    logging("... Conversion of latitude and longitude failed and skipped ... ")
+    warning("Conversion of latitude and longitude failed and skipped.")
   }
 
   logging("... add DOIs. ")
