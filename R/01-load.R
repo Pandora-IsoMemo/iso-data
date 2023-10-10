@@ -95,8 +95,7 @@ getDefaultData <- function(df, db, mapping){
   vars <- defaultVars(mappingName = mapping)
 
   df <- df %>%
-    select_if(names(df) %in% vars) %>%
-    select(!extraVars())
+    select_if(names(df) %in% vars)
 
   cbind(source = db, df)
 }
