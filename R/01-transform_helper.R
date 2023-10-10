@@ -131,7 +131,7 @@ deleteInplausibleLatLong <- function(isoData){
     isoData$latitude == 0
   )
 
-  oldLat <- isoData$Latiude[inplausibleLat]
+  oldLat <- isoData$latitude[inplausibleLat]
   isoData$latitude[inplausibleLat] <- NA
 
   if (sum(inplausibleLong) > 0)
@@ -153,8 +153,8 @@ deleteInplausibleLatLong <- function(isoData){
 
 convertLatLong <- function(isoData, coordType,
                            latitude = "latitude", longitude = "longitude"){
-  isoData[, longitude] <- convertCoordinates(isoData[, longitude], from = coordType)
-  isoData[, latitude] <- convertCoordinates(isoData[, latitude], from = coordType)
+  isoData[[longitude]] <- convertCoordinates(isoData[[longitude]], from = coordType)
+  isoData[[latitude]] <- convertCoordinates(isoData[[latitude]], from = coordType)
   isoData
 }
 
