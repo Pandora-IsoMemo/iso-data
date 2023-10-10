@@ -6,13 +6,21 @@ load.default <- function(x, ...) {
   mapping <- x$mapping
 
   # exclude columns of extraVars(), the information is stored in extraCharacter and extraNumeric
-  data <- getDefaultData(df, db, mapping = mapping) %>%
-    select(!extraVars())
+  data <- getDefaultData(df, db, mapping = mapping)
 
   extraCharacter <- getExtra(df, db, mapping = mapping, type = "character")
   extraNumeric <- getExtra(df, db, mapping = mapping, type = "numeric")
 
   if (nrow(df) > 0){
+    if (mapping == "IsoMemo") {
+      # Keep updating the deprecated table 'data' until the CRAN package,
+      #  the API and the app are updated to use only the new table 'IsoMemo_data'!
+      # delete old data:
+      sendQueryMPI(paste0("DELETE FROM `data` WHERE `source` = '", db, "';"));
+      # send new data:
+      sendDataMPI(data, table = "data", mode = "insert")
+    }
+
     dataTblName <- paste0(mapping, "_data")
     colDefs <- getColDefs(dat = data, table = dataTblName)
 
@@ -86,8 +94,9 @@ getDefaultDataTypes <- function(dat) {
 getDefaultData <- function(df, db, mapping){
   vars <- defaultVars(mappingName = mapping)
 
-  df %>%
-    select_if(names(df) %in% vars)
+  df <- df %>%
+    select_if(names(df) %in% vars) %>%
+    select(!extraVars())
 
   cbind(source = db, df)
 }
