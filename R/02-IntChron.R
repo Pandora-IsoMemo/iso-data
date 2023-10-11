@@ -18,7 +18,7 @@ getIntChron <- function(){
 
   # 01: Get the URLs of the data sets ------------------------------------------------------
 
-  doi <- xml2::read_html(URL)
+  doi <- URL %>% GET(., timeout(30)) %>% xml2::read_html()
 
   type <- doi %>%
     rvest::html_nodes("a.more") %>%
@@ -37,7 +37,7 @@ getIntChron <- function(){
 
   readIt <- function(x, verbose = TRUE){
     if (verbose) cat("Reading ", x, "\n")
-    x %>% trimws() %>% xml2::read_html(x)
+    x %>% trimws() %>% GET(., timeout(30)) %>% xml2::read_html(x)
   }
 
   if (isTest()) data <- data[sample(1:nrow(data), 5), ]
