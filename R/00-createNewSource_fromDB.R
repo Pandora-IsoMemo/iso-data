@@ -3,25 +3,21 @@
 #' Creates a script for a new data source from a database connection and sets .Renviron variables.
 #' Only "mySql" databases are supported.
 #'
-#' @param dataSourceName (character) name of the new database source, e.g. "xyDBname"
-#' @param datingType (character) dating type for the database, e.g. "radiocarbon" or "expert"
-#' @param coordType (character) coordinate type of latitude and longitude columns; one of
-#'  "decimal degrees" (e.g. 40.446 or 79.982),
-#'  "degrees decimal minutes" ("40° 26.767' N" or "79° 58.933' W"),
-#'  "degrees minutes seconds" ("40° 26' 46'' N" or "79° 58' 56'' W")
+#' @inheritParams updateDatabaseList
 #' @param dbName (character) database name
 #' @param dbUser (character) database user
 #' @param dbPassword (character) database password
 #' @param dbHost (character) database host
 #' @param dbPort (character) database port
 #' @param tableName name of the table containing the data
-#' @param scriptFolder (character) place to store the scripts.
 #' @param rootFolder (character) root folder of the package, usually containing .Renviron,
 #' DESCRIPTION, ...
+#' @param isTest (logical) TRUE if automatic testing
 #' @export
 createNewDBSource <- function(dataSourceName,
                               datingType,
                               coordType,
+                              mappingName,
                               dbName,
                               dbUser,
                               dbPassword,
@@ -29,9 +25,68 @@ createNewDBSource <- function(dataSourceName,
                               dbPort,
                               tableName,
                               scriptFolder = "R",
-                              rootFolder = ".") {
-  # check for duplicated db names
-  if (formatDBName(dataSourceName) %in% formatDBName(dbnames()))
+                              rootFolder = ".",
+                              isTest = FALSE) {
+  # 1. check for duplicated data source names
+  checkDataSourceName(dataSourceName, isTest = isTest)
+
+  # 2. create script for database source ----
+  scriptTemplate <-
+    file.path(getTemplateDir(), "template-extractFromDB.R") %>%
+    readLines()
+
+  dbScript <-
+    tmpl(
+      paste0(scriptTemplate, collapse = "\n"),
+      dataSourceName = dataSourceName %>%
+        formatDataSourceName(),
+      dataSourceNameCreds = dataSourceName %>%
+        formatDataSourceName(toUpper = TRUE),
+      tableName = tableName
+    ) %>%
+    as.character()
+
+  scriptName <-
+    paste0("02-",
+           mappingName,
+           "_",
+           dataSourceName %>% formatDataSourceName(),
+           ".R")
+  logging("Creating new file: %s", file.path(scriptFolder, scriptName))
+  writeLines(dbScript, con = file.path(scriptFolder, scriptName))
+
+  # 3. update list of databases ----
+  updateDatabaseList(
+    dataSourceName = dataSourceName,
+    datingType = datingType,
+    coordType = coordType,
+    mappingName = mappingName,
+    scriptFolder = file.path(scriptFolder)
+  )
+
+  # 4. setup / update Renviron file ----
+  setupRenviron(
+    dataSourceName = dataSourceName %>% formatDataSourceName(toUpper = TRUE),
+    dbName = dbName,
+    dbUser = dbUser,
+    dbPassword = dbPassword,
+    dbHost = dbHost,
+    dbPort = dbPort,
+    scriptFolder = file.path(rootFolder)
+  )
+}
+
+#' Check Data Source Name
+#'
+#' @inheritParams updateDatabaseList
+#' @param isTest (logical) TRUE if testing
+checkDataSourceName <- function(dataSourceName, isTest = FALSE) {
+  if (!isTest) {
+    # load most recent database list
+    devtools::load_all(".")
+  }
+
+  if (formatDataSourceName(dataSourceName, toUpper = TRUE) %in% formatDataSourceName(dbnames(), toUpper = TRUE))
     stop(
       paste0(
         "dataSourceName = ",
@@ -41,50 +96,20 @@ createNewDBSource <- function(dataSourceName,
         "). Please provide case-insensitive unique names without special characters."
       )
     )
-
-  dataSourceName <- formatDBName(dataSourceName)
-
-  scriptTemplate <-
-    file.path(getTemplateDir(), "template-db-source.R") %>%
-    readLines()
-
-  dbScript <-
-    tmpl(
-      paste0(scriptTemplate, collapse = "\n"),
-      dataSourceName = dataSourceName,
-      tableName = tableName
-    ) %>%
-    as.character()
-
-  logging("Creating new file: %s", file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
-  writeLines(dbScript, con = file.path(scriptFolder, paste0("02-", dataSourceName, ".R")))
-
-  setupRenviron(
-    dataSourceName = dataSourceName,
-    dbName = dbName,
-    dbUser = dbUser,
-    dbPassword = dbPassword,
-    dbHost = dbHost,
-    dbPort = dbPort,
-    scriptFolder = file.path(rootFolder)
-  )
-
-  updateDatabaseList(
-    dataSourceName = dataSourceName,
-    datingType = datingType,
-    coordType = coordType,
-    scriptFolder = file.path(scriptFolder)
-  )
 }
-
 
 #' Format DB Name
 #'
-#' @param dataSourceName (character) user-provided name of the new data source
+#' @inheritParams updateDatabaseList
+#' @param toUpper (logical) TRUE transform letters to upper letters, default FALSE
 #' @return (character) name formated to upper letters and underscore for special characters
-formatDBName <- function(dataSourceName) {
-  # upper letters
-  res <- toupper(dataSourceName)
+formatDataSourceName <- function(dataSourceName, toUpper = FALSE) {
+  res <- dataSourceName
+
+  if (toUpper) {
+    # upper letters
+    res <- res %>% toupper()
+  }
   # replace special characters with underscore
   res <- gsub("[^[:alnum:]]", "_", res)
   # replace "__" with "_"
@@ -149,54 +174,4 @@ setupRenviron <-
       logging("Updating existing file: %s", filePath)
       write(rEnvironUpdate, file = filePath, append = TRUE)
     }
-  }
-
-
-#' Update Database List
-#'
-#' Updates the list of all data sources.
-#'
-#' @inheritParams createNewDBSource
-updateDatabaseList <-
-  function(dataSourceName,
-           datingType,
-           coordType,
-           scriptFolder = "R") {
-    newSource <-
-      tmpl(
-        paste0(
-          c(
-            "        ),",
-            "        singleSource (",
-            "          name = \"{{ dataSourceName }}\",",
-            "          datingType = \"{{ datingType }}\",",
-            "          coordType = \"{{ coordType }}\""
-          ),
-          collapse = "\n"
-        ),
-        dataSourceName = dataSourceName,
-        datingType = datingType,
-        coordType = coordType
-      ) %>%
-      as.character()
-
-    databaseFile <-
-      readLines(con = file.path(scriptFolder, "00-databases.R")) %>%
-      cleanUpScript()
-
-    dbBegin <- grep("databases <- ", databaseFile)
-    dbnamesBegin <- grep("dbnames <- ", databaseFile)
-
-    dbDef <- databaseFile[dbBegin:(dbnamesBegin - 1)]
-    otherDefs <- databaseFile[dbnamesBegin:length(databaseFile)]
-
-    lastRow <- length(dbDef)
-
-    dbDef <-
-      c(dbDef[1:(lastRow - 3)], newSource, dbDef[(lastRow - 2):lastRow])
-
-    logging("Updating existing file: %s",
-            file.path(scriptFolder, "00-databases.R"))
-    writeLines(c(dbDef, "", otherDefs),
-               con = file.path(scriptFolder, "00-databases.R"))
   }

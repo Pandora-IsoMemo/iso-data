@@ -7,7 +7,7 @@ addDOIs <- function(df) {
 }
 
 lookupReference <- function(txt) {
-    logging("Looking up %s", txt)
+    logging("Looking up %s at crossref.org", txt)
     url <- "https://api.crossref.org/works"
     res <- httr::GET(url, query = list(query.bibliographic = txt, rows = 1))
     data <- httr::content(res)
@@ -15,7 +15,7 @@ lookupReference <- function(txt) {
     doi <- try(data$message$items[[1]]$URL)
     if (inherits(doi, "try-error")) {
         doi <- NA
-        logging("No DOI found")
+        logging("Received error. No DOI found")
     } else {
         logging("Found DOI %s", doi)
     }
@@ -105,4 +105,23 @@ fillDOI <- function(df, refField, doiField, autoField) {
     }
 
     df
+}
+
+paste2 <- function (..., sep = " ", collapse = NULL, recycle0 = FALSE) {
+  args <- list(...)
+
+  args <- lapply(args, function(x) {
+    x[is.na(x)] <- ""
+    x
+  })
+
+  args$sep <- sep
+  args$collapse <- collapse
+  args$recycle0 <- recycle0
+
+  trimws(do.call(paste, args))
+}
+
+isEmpty <- function(x) {
+  is.null(x) | is.na(x) | x == ""
 }

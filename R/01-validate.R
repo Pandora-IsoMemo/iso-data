@@ -4,7 +4,7 @@ validate.default <- function(x, ...) {
 
   dat <- x$dat
 
-  mapping <- getMappingTable()
+  mapping <- getMappingTable(mappingName = x$mapping)
   stopifnot(all(names(dat) %in% mapping$shiny))
 
   lapply(names(dat), function(n) {

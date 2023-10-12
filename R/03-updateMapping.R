@@ -1,20 +1,20 @@
-## Prevent NOTES in R CMD CHECK because of line
-## select(shiny, fieldType, category)
-utils::globalVariables(c("shiny", "fieldType", "category"))
-
 #' Update ETL Mapping
 #'
 #' Updates mapping table in database
 #'
 #' @export
 etlMapping <- function(){
-  mappingTable <- getMappingTable()
+  for (mappingName in mappingNames()) {
+    mappingTable <- getMappingTable(mappingName = mappingName)
 
-  mapping <- mappingTable %>%
-    select(shiny, fieldType, category)
+    mappingTable <- mappingTable %>%
+      select(.data$shiny, .data$fieldType, .data$category)
 
-  sendDataMPI(mapping, table = "mapping", mode = "truncate")
+    mappingTable <- cbind(mappingId = mappingName, mappingTable)
 
+    sendQueryMPI("deleteOldMapping", mappingId = dbtools::sqlEsc(mappingName, with = "'"))
+    sendDataMPI(mappingTable, table = "mapping", mode = "insert")
+  }
   ## mappingSource <- mappingTable %>%
   ##   select(-fieldType, -category) %>%
   ##   gather("source", "field", -"shiny") %>%
