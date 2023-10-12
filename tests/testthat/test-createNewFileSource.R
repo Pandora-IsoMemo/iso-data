@@ -51,12 +51,11 @@ testthat::test_that("Function createNewFileSource() for 02-CIMA.R file", {
   testthat::expect_equal(testScript, expectedScript)
 
 
-  # Test databases list, runs only locally
-  # source(testthat::test_path("00-databases.R"))
-  # testthat::expect_equal(mappingNames(), c("IsoMemo", "IsoMemo"))
-  # testthat::expect_equal(dbnames(), c("14CSea", "LiVES", "IntChron", "CIMA", "CIMA2"))
-  # testthat::expect_equal(dbnames(mappingId = "IsoMemo"), c("CIMA2"))
-  # rm(list = ls(envir = .GlobalEnv), envir = .GlobalEnv)
+  # Test databases list
+  source(testthat::test_path("00-databases.R"))
+  testthat::expect_equal(mappingNames(), c("IsoMemo"))
+  testthat::expect_equal(dbnames(), c("14CSea", "LiVES", "IntChron", "CIMA", "CIMA2"))
+  rm(list = ls(envir = .GlobalEnv), envir = .GlobalEnv)
 
   # clean up
   unlink(testthat::test_path("02-IsoMemo_CIMA2.R"))
