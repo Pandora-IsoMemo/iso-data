@@ -29,3 +29,4 @@ Suggests:
   lintr,
   testthat
 RoxygenNote: 7.2.3
+URL: https://pandora-isomemo.github.io/iso-data/
