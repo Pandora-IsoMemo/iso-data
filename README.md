@@ -185,3 +185,4 @@ Helper endpoints
 - Mapping (beta): https://isomemodb.com/testapi/v1/mapping
 
 For the production api use /api instead of /testapi
+
