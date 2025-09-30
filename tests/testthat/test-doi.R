@@ -27,7 +27,7 @@ test_that("Single Reference", {
     res <- fillDOI(df, "ref", "doi", "auto")
 
     expect_equal(res$ref, df$ref)
-    expect_equal(res$doi, "http://dx.doi.org/10.1016/j.jasrep.2017.07.030")
+    expect_equal(res$doi, "https://doi.org/10.1016/j.jasrep.2017.07.030")
     expect_equal(res$auto, TRUE)
 })
 

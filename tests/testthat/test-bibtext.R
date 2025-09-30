@@ -1,6 +1,6 @@
 
 test_that("add_bibtex works with real API calls (manual only)", {
-  skip("Manual test only: requires internet and real API calls to CrossRef.")
+  skip("Testing add_bibtex(): Manual test only. Requires internet and real API calls to CrossRef.")
 
   test_df <- structure(list(
     id = c("Hd-21015", "Lyon-7621 SacA-22582", "UBA-18098", "Bln-607=Bln-5742", "OxA-13687"),

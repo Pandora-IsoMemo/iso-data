@@ -27,6 +27,7 @@ Imports:
   tidyr,
   xml2
 Suggests:
+  DBI,
   lintr,
   testthat
 RoxygenNote: 7.2.3
