@@ -13,7 +13,7 @@ lookupReference <- function(txt) {
     data <- httr::content(res)
 
     doi <- try(data$message$items[[1]]$URL)
-    if (inherits(doi, "try-error")) {
+    if (inherits(doi, "try-error") || is.null(doi) || length(doi) == 0) {
         doi <- NA
         logging("Received error. No DOI found")
     } else {

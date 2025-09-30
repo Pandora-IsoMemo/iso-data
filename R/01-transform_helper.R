@@ -116,6 +116,10 @@ prepareData <- function(isoData, mapping, coordType){
 
   isoData <- addDOIs(isoData)
   logging("... Added DOIs. Length of data: %i. ... ", nrow(isoData))
+
+  isoData <- add_bibtex(isoData)
+  logging("... Added BibTeX citations. ... ")
+
   isoData
 }
 

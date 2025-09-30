@@ -16,7 +16,7 @@ load.default <- function(x, ...) {
       # Keep updating the deprecated table 'data' until the CRAN package,
       #  the API and the app are updated to use only the new table 'IsoMemo_data'!
       # delete old data:
-      sendQueryMPI(paste0("DELETE FROM `data` WHERE `source` = '", db, "';"));
+      sendQueryMPI(paste0("DELETE FROM `data` WHERE `source` = '", db, "';"))
       # send new data:
       sendDataMPI(data, table = "data", mode = "insert")
     }
@@ -112,10 +112,11 @@ getExtra <- function(df, db, mapping, type = "character"){
   typeVars <- unlist(lapply(df, is.type))
 
   data <- df %>%
-    select_if( (!(names(df) %in% defaultVars) & typeVars | idVar))
+    select_if((!(names(df) %in% defaultVars) & typeVars | idVar))
 
   if (ncol(data) < 2)
     res <- tibble(
+      mappingId = character(0),
       source = character(0),
       id = character(0),
       variable = character(0),
@@ -124,10 +125,10 @@ getExtra <- function(df, db, mapping, type = "character"){
   else
     res <- data %>%
       gather(variable, value, -id) %>%
-      mutate(source = db)
+      mutate(source = db, mappingId = mapping) %>%
+      select(.data$mappingId, .data$source, .data$id, .data$variable, .data$value)
 
-  # add a new column "mappingId" to the front
-  cbind(mappingId = mapping, res)
+  return(res)
 }
 
 
