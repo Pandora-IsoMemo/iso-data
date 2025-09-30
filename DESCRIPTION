@@ -1,11 +1,11 @@
 Package: MpiIsoData
 Type: Package
-Title: Data for MPI Iso App
-Version: 23.03.2.11
+Title: Data for Pandora & IsoMemo spatiotemporal modeling App (DSSM)
+Version: 25.09.0
 Author: INWT Statistics GmbH
 Maintainer: INWT Statistics GmbH <info@inwt-statistics.de>
 Description: This package provides access to databases to use in the
-  MPI Iso App. It also ships with fallback datasets.
+  Pandora & IsoMemo spatiotemporal modeling App (DSSM). It also ships with fallback datasets.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
