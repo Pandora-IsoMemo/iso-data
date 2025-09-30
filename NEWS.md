@@ -1,3 +1,8 @@
+# MpiIsoData 25.09.0
+
+## New features
+- added new entries storing references in _bibtex_ citation style to the etl and the database (#3)
+
 # MpiIsoData 23.03.2
 
 ## New features

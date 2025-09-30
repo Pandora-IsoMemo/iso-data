@@ -24,3 +24,6 @@ compilationDOIAuto;numeric;References;compilationDOIAuto;;;;
 originalDataReference;character;References;originalDataReference;;;;
 originalDataDOI;character;References;originalDataDOI;;;;
 originalDataDOIAuto;numeric;References;originalDataDOIAuto;;;;
+databaseBibtex;character;References;;;;;
+compilationBibtex;character;References;;;;;
+originalDataBibtex;character;References;;;;;

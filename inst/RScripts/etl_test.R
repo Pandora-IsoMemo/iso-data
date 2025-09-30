@@ -1,5 +1,5 @@
 ################################################################################
-# This script updates the Iso Database from external sources
+# This script tests the update of the Iso Database from external sources
 #
 # Scheduled to run once a week
 #
@@ -16,15 +16,15 @@ Sys.info()
 # Empty workspace
 rm(list = ls(all.names = TRUE))
 
-# 01 start etl -----------------------------------------------------------------
+# 01 start etl test-------------------------------------------------------------
 
 # Load packages
-library("MpiIsoData")
+devtools::load_all(".")
 
-main()
+etlTest()
 
-etlMapping()
+#etlMapping()
 
-cleanUp()
+#cleanUp()
 
 q(save = "no", status = 0)
