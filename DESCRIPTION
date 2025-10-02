@@ -1,7 +1,7 @@
 Package: MpiIsoData
 Type: Package
 Title: Data for Pandora & IsoMemo spatiotemporal modeling App (DSSM)
-Version: 25.10.2
+Version: 25.10.3
 Author: INWT Statistics GmbH
 Maintainer: INWT Statistics GmbH <info@inwt-statistics.de>
 Description: This package provides access to databases to use in the

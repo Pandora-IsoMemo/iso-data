@@ -35,8 +35,8 @@ add_bibtex_column <- function(
     citation <- tryCatch({
       rcrossref::cr_cn(doi = doi, format = citationformat, style = citationstyle)
     }, error = function(e) {
-      warning(paste("Failed to retrieve citation for DOI:", doi))
-      log_str <- paste0(log_str, "f")
+      logging(paste("Failed to retrieve citation for DOI:", doi))
+      log_str <<- paste0(log_str, "f")
       NULL
     })
 
