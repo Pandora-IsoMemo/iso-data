@@ -1,3 +1,8 @@
+# MpiIsoData 25.10.1
+
+## Bug Fixes
+- fixed splitting of DOI url
+
 # MpiIsoData 25.10.0
 
 ## Updates

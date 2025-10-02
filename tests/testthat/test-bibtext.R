@@ -1,3 +1,43 @@
+test_that("split_doi splits DOI URLs correctly", {
+  # Standard DOI URL with http://dx.doi.org/
+  res <- split_doi("http://dx.doi.org/10.7717/peerj.3074/table-2")
+  expect_equal(res$prefix, "http://dx.doi.org/")
+  expect_equal(res$doi, "10.7717/peerj.3074/table-2")
+
+  res <- split_doi("http://dx.doi.org/10.7717/peerjcs.88/table-1")
+  expect_equal(res$prefix, "http://dx.doi.org/")
+  expect_equal(res$doi, "10.7717/peerjcs.88/table-1")
+
+  # Standard DOI URLs
+  res1 <- split_doi("https://doi.org/10.1234/abcd")
+  expect_equal(res1$prefix, "https://doi.org/")
+  expect_equal(res1$doi, "10.1234/abcd")
+
+  res2 <- split_doi("http://dx.doi.org/10.5678/efgh")
+  expect_equal(res2$prefix, "http://dx.doi.org/")
+  expect_equal(res2$doi, "10.5678/efgh")
+
+  # DOI without URL prefix
+  res3 <- split_doi("10.9999/xyz")
+  expect_equal(res3$prefix, "")
+  expect_equal(res3$doi, "10.9999/xyz")
+
+  # Empty string
+  res4 <- split_doi("")
+  expect_equal(res4$prefix, "")
+  expect_equal(res4$doi, "")
+
+  # NA input
+  res5 <- split_doi(NA_character_)
+  expect_equal(res5$prefix, NA_character_)
+  expect_equal(res5$doi, NA_character_)
+
+  # Vectorized input
+  urls <- c("https://doi.org/10.1/one", "http://dx.doi.org/10.2/two", "10.3/three")
+  res6 <- split_doi(urls)
+  expect_equal(res6$prefix, c("https://doi.org/", "http://dx.doi.org/", ""))
+  expect_equal(res6$doi, c("10.1/one", "10.2/two", "10.3/three"))
+})
 
 test_that("add_bibtex works with real API calls (manual only)", {
   skip("Testing add_bibtex(): Manual test only. Requires internet and real API calls to CrossRef.")
