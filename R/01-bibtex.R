@@ -8,6 +8,17 @@ split_doi <- function(doi_url) {
   list(prefix = prefix, doi = doi)
 }
 
+safe_call <- function(fun, ..., tries = 5, base_sleep = 0.5) {
+  last_error <- NULL
+  for (i in seq_len(tries)) {
+    out <- try(fun(...), silent = TRUE)
+    if (!inherits(out, "try-error")) return(out)
+    last_error <- out
+    Sys.sleep(base_sleep * 2^(i - 1))
+  }
+  stop(sprintf("Call failed after retries: %s", conditionMessage(last_error)))
+}
+
 # Helper to add a bibtex citation column for a given DOI column
 add_bibtex_column <- function(
   df,
@@ -25,6 +36,7 @@ add_bibtex_column <- function(
     length(unique_doi_url),
     ifelse(length(unique_doi_url) != 1, "s", "")
   )
+  last_error <- NULL
 
   # split "http://dx.doi.org/" or "https://doi.org/" prefix if present from DOI
   splitted_doi <- split_doi(unique_doi_url)
@@ -33,11 +45,10 @@ add_bibtex_column <- function(
   for (i in seq_along(unique_doi_url)) {
     doi <- splitted_doi$doi[i]
     citation <- tryCatch({
-      rcrossref::cr_cn(doi = doi, format = citationformat, style = citationstyle)
-      logging(paste("Succeeded to retrieve citation for DOI:", doi))
+      safe_call(rcrossref::cr_cn, doi = doi, format = citationformat, style = citationstyle)
     }, error = function(e) {
       msg <- conditionMessage(e)
-      logging(paste("Failed to retrieve citation for DOI:", doi, "with message:", msg))
+      last_error <<- paste("Last Bibtex error: Failed for DOI:", doi, "with message:", msg)
       NULL
     })
 
@@ -55,6 +66,7 @@ add_bibtex_column <- function(
   }
 
   logging(log_str)
+  if (!is.null(last_error)) logging(last_error)
   return(df)
 }
 
