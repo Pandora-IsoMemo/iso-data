@@ -1,3 +1,12 @@
+split_doi <- function(doi_url) {
+  prefix <- sub("^(?i)(https?://(?:dx\\.)?doi\\.org/).*", "\\1", doi_url, perl = TRUE)
+  doi    <- sub("^(?i)https?://(?:dx\\.)?doi\\.org/", "", doi_url, perl = TRUE)
+
+  # if a prefix equals the doi it means no prefix was found
+  prefix[which(prefix == doi)] <- ""
+
+  list(prefix = prefix, doi = doi)
+}
 
 # Helper to add a bibtex citation column for a given DOI column
 add_bibtex_column <- function(
@@ -18,12 +27,11 @@ add_bibtex_column <- function(
   )
 
   # split "http://dx.doi.org/" or "https://doi.org/" prefix if present from DOI
-  prefix <- sub("^(?i)(https?://(?:dx\\.)?doi\\.org/).*", "\\1", unique_doi_url, perl = TRUE)
-  dois   <- sub("^(?i)https?://(?:dx\\.)?doi\\.org/", "", unique_doi_url, perl = TRUE)
+  splitted_doi <- split_doi(unique_doi_url)
 
   df[[citation_column]] <- NA_character_
   for (i in seq_along(unique_doi_url)) {
-    doi <- dois[i]
+    doi <- splitted_doi$doi[i]
     citation <- tryCatch({
       rcrossref::cr_cn(doi = doi, format = citationformat, style = citationstyle)
     }, error = function(e) {
@@ -33,7 +41,7 @@ add_bibtex_column <- function(
     })
 
     if (!is.null(citation)) {
-      index <- !is.na(df[[doi_column]]) & df[[doi_column]] == paste0(prefix[i], doi)
+      index <- !is.na(df[[doi_column]]) & df[[doi_column]] == paste0(splitted_doi$prefix[i], doi)
       if (any(index)) {
         df[index, citation_column] <- rep(citation, sum(index))
         log_str <- paste0(log_str, ".")
