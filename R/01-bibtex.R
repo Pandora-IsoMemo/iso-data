@@ -34,9 +34,10 @@ add_bibtex_column <- function(
     doi <- splitted_doi$doi[i]
     citation <- tryCatch({
       rcrossref::cr_cn(doi = doi, format = citationformat, style = citationstyle)
+      logging(paste("Succeeded to retrieve citation for DOI:", doi))
     }, error = function(e) {
-      logging(paste("Failed to retrieve citation for DOI:", doi))
-      log_str <<- paste0(log_str, "f")
+      msg <- conditionMessage(e)
+      logging(paste("Failed to retrieve citation for DOI:", doi, "with message:", msg))
       NULL
     })
 
