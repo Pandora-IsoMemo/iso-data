@@ -20,6 +20,7 @@ rm(list = ls(all.names = TRUE))
 
 # Load packages
 library("MpiIsoData")
+logging("This is the 'MpiIsoData' ETL version %s.", packageVersion("MpiIsoData"))
 
 main()
 
