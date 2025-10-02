@@ -1,0 +1,25 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug ETL Test Script",
+            "type": "R-Debugger",
+            "request": "launch",
+            "file": "${workspaceFolder}/inst/RScripts/etl_test.R",
+            "env": {}
+        },
+        {
+            "name": "Debug ETL Script",
+            "type": "R-Debugger",
+            "request": "launch",
+            "file": "${workspaceFolder}/inst/RScripts/etl.R",
+            "env": {}
+        },
+        {
+            "name": "Debug Active R Script",
+            "type": "R-Debugger",
+            "request": "launch",
+            "env": {}
+        }   
+    ]
+}
