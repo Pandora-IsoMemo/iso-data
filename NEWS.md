@@ -1,7 +1,7 @@
 # MpiIsoData 25.10.0
 
 ## Updates
-- added more logging to reading process of _bibtex_citations (#3)
+- added more logging to reading process of _bibtex_ citations (#3)
 
 # MpiIsoData 25.09.0
 
