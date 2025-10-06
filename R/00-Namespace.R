@@ -4,7 +4,6 @@
 #' @importFrom httr GET timeout
 #' @importFrom magrittr "%>%"
 #' @importFrom openxlsx read.xlsx
-#' @importFrom rcrossref cr_cn
 #' @importFrom rlang .data
 #' @importFrom stringi stri_escape_unicode
 #' @importFrom stats na.exclude setNames
