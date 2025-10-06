@@ -1,7 +1,7 @@
 retry_get_text <- function(url, ..., tries = 5, base_sleep = 0.5) {
   last <- NULL
   for (i in seq_len(tries)) {
-    res <- try(GET(url, ua, timeout(60), ...), silent = TRUE)
+    res <- try(GET(url = url, ...), silent = TRUE)
     if (!inherits(res, "try-error") && !http_error(res)) {
       # Always parse as text; don't trust Content-Type equality
       return(content(res, as = "text", encoding = "UTF-8"))

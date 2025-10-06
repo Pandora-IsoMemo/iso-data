@@ -1,7 +1,8 @@
 #' @importFrom dbtools testConnection Credentials
 #' @importFrom devtools load_all
 #' @importFrom dplyr select filter tibble as_tibble select_if mutate
-#' @importFrom httr GET timeout
+#' @importFrom httr add_headers content GET http_error status_code timeout
+#' @importFrom jsonlite fromJSON
 #' @importFrom magrittr "%>%"
 #' @importFrom openxlsx read.xlsx
 #' @importFrom rlang .data
@@ -9,7 +10,7 @@
 #' @importFrom stats na.exclude setNames
 #' @importFrom templates tmpl
 #' @importFrom tidyr gather
-#' @importFrom utils read.csv read.csv2
+#' @importFrom utils read.csv read.csv2 URLencode
 NULL
 
 if (getRversion() >= "2.15.1")  utils::globalVariables(c("."))
