@@ -11,9 +11,14 @@ split_doi <- function(doi_url) {
 safe_call <- function(fun, ..., tries = 5, base_sleep = 0.5) {
   last_error <- NULL
   for (i in seq_len(tries)) {
-    out <- try(fun(...), silent = TRUE)
-    if (!inherits(out, "try-error")) return(out)
-    last_error <- out
+    out <- tryCatch(
+      fun(...),
+      error = function(e) {
+        last_error <<- e
+        NULL
+      }
+    )
+    if (!is.null(out)) return(out)
     Sys.sleep(base_sleep * 2^(i - 1))
   }
   stop(sprintf("Call failed after retries: %s", conditionMessage(last_error)))
