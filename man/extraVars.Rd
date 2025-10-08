@@ -7,5 +7,5 @@
 extraVars()
 }
 \description{
-Variables for which there is no column in the table "{{ mappingName }}_data" on the server
+Variables for which there is no column in the table "\{\{ mappingName \}\}_data" on the server
 }
