@@ -133,7 +133,7 @@ getExtra <- function(df, db, mapping, type = "character"){
 
 #' Default Vars
 #'
-#' Variables that are stored in the table "{{ mappingName }}_data" on the server
+#' Variables that are stored in the table "\{\{ mappingName \}\}_data" on the server
 #'
 #' @inheritParams updateDatabaseList
 defaultVars <- function(mappingName){
@@ -171,7 +171,7 @@ defaultVars <- function(mappingName){
 
 #' Extra Vars
 #'
-#' Variables for which there is no column in the table "{{ mappingName }}_data" on the server
+#' Variables for which there is no column in the table "\{\{ mappingName \}\}_data" on the server
 extraVars <- function() {
   c("measure", "databaseReference", "databaseDOI", "databaseDOIAuto",
     "compilationReference", "compilationDOI", "compilationDOIAuto",

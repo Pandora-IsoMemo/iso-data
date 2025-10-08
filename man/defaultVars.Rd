@@ -11,5 +11,5 @@ defaultVars(mappingName)
 The mapping (a .csv file) must be available under "inst/mapping/".}
 }
 \description{
-Variables that are stored in the table "{{ mappingName }}_data" on the server
+Variables that are stored in the table "\{\{ mappingName \}\}_data" on the server
 }
